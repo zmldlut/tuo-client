@@ -1,6 +1,5 @@
 package com.myapp.ui;
 
-
 import java.util.HashMap;
 
 import android.content.Intent;
