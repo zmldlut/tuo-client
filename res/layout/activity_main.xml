@@ -1,0 +1,133 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f1f1f1"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".MainActivity" >
+	
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:orientation="horizontal" >
+    
+	    <Button
+	        android:id="@+id/b_cancel"
+	        android:layout_width="48dp"
+	        android:layout_height="32dp"
+	        android:background="@drawable/small_button"
+	        android:textColor="#ffffff"
+	        android:text="取消" />
+		<LinearLayout 
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent">
+		    <LinearLayout
+		        android:layout_width="wrap_content"
+		        android:layout_height="match_parent"
+		        android:layout_weight="12"
+		        android:orientation="vertical" >
+		    </LinearLayout>
+	
+	        <Button
+	            android:id="@+id/b_switch_user"
+	            android:layout_width="wrap_content"
+	            android:layout_height="20dp"
+	            android:layout_marginRight="5dp"
+	            android:background="#f1f1f1"
+	            android:textSize="15dp"
+	            android:layout_gravity="center"
+	            android:layout_weight="1"
+	            android:textColor="@drawable/text_color"
+	            android:text="切换用户" />
+        
+        </LinearLayout>
+        
+    </LinearLayout>
+
+
+
+        <ImageView
+            android:id="@+id/m_img_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/ic_launcher" />
+
+
+
+
+
+        <AutoCompleteTextView
+            android:id="@+id/autotv_account"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="9dp"
+        	android:layout_marginLeft="9dp"
+            android:layout_gravity="center|top"
+            android:background="@drawable/shape_top"
+            android:drawableLeft="@drawable/user"
+            android:ems="10"
+            android:hint="账号" >
+
+            <requestFocus />
+        </AutoCompleteTextView>
+
+
+
+
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="9dp"
+        	android:layout_marginLeft="9dp"
+            android:background="@drawable/shape_bottom"
+            android:ems="10"
+            android:hint="密码"
+            android:drawableLeft="@drawable/password"
+            android:textColor="#000000"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/b_login"
+            android:layout_width="fill_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button"
+            android:text="登 陆"
+            android:textColor="#ffffff"
+            android:textSize="20dp" />
+	
+	    <Button
+	        android:id="@+id/b_forget_password"
+	        android:layout_width="wrap_content"
+	        android:layout_height="20dp"
+	        android:layout_gravity="right|center"
+	        android:textSize="13dp"
+	        android:layout_marginRight="5dp"
+	        android:layout_marginTop="5dp"
+	        android:textColor="@drawable/text_color"
+	        android:background="#f1f1f1"
+	        android:text="忘记密码？" />
+	
+	    <Button
+	        android:id="@+id/b_register"
+	        android:layout_width="80dp"
+	        android:layout_height="40dp"
+	        android:layout_gravity="center"
+	        android:layout_marginTop="25dp"
+	        android:background="@drawable/button"
+	        android:textSize="20dp"
+	        android:text="注册"
+	        android:textColor="#ffffff" />
+	    
+
+
+</LinearLayout>
