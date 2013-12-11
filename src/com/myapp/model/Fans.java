@@ -2,11 +2,10 @@ package com.myapp.model;
 
 import com.myapp.base.BaseModel;
 
-public class User extends BaseModel {
+public class Fans extends BaseModel {
 
 	// model columns
 	public final static String COL_ID = "id";
-	public final static String COL_SID = "sid";
 	public final static String COL_NAME = "name";
 	public final static String COL_SIGN = "sign";
 	public final static String COL_FACE = "face";
@@ -17,10 +16,8 @@ public class User extends BaseModel {
 	public final static String COL_EIOCOUNT = "eiocount";
 	public final static String COL_FANSCOUNT = "fanscount";
 	public final static String COL_SCORE = "score";
-	public final static String COL_UPTIME = "uptime";
 	
 	private String id;
-	private String sid;
 	private String name;
 	private String sign;
 	private String face;
@@ -31,10 +28,6 @@ public class User extends BaseModel {
 	private String eiocount;
 	private String fanscount;
 	private String score;
-	private String uptime;
-	
-	// default is no login
-	private boolean isLogin = false;
 	
 	public String getId() {
 		return id;
@@ -42,14 +35,6 @@ public class User extends BaseModel {
 
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	public String getSid() {
-		return sid;
-	}
-
-	public void setSid(String sid) {
-		this.sid = sid;
 	}
 
 	public String getName() {
@@ -132,33 +117,7 @@ public class User extends BaseModel {
 		this.score = score;
 	}
 
-	public String getUptime() {
-		return uptime;
-	}
-
-	public void setUptime(String uptime) {
-		this.uptime = uptime;
-	}
-
-	public boolean isLogin() {
-		return isLogin;
-	}
-
-	public void setLogin(boolean isLogin) {
-		this.isLogin = isLogin;
-	}
-	
-	// single instance for login
-	static private User user = null;
-	
-	static public User getInstance () {
-		if (User.user == null) {
-			User.user = new User();
-		}
-		return User.user;
-	}
-	
-	public User() {
+	public Fans() {
 		// TODO Auto-generated constructor stub
 	}
 
