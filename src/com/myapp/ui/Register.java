@@ -124,22 +124,22 @@ public class Register extends Activity {
 				r_user_password1 = r_password1.getText().toString();
 				r_user_password2 = r_password2.getText().toString();
 				if(r_user_password1.isEmpty() || r_user_password2.isEmpty() || r_user_account.isEmpty() ) {
-					new Builder(Register.this).setMessage("��Ϣ����Ϊ��").show();
+					new Builder(Register.this).setMessage("锟斤拷息锟斤拷锟斤拷为锟斤拷").show();
 				}else {
 					if(r_user_password1.equals(r_user_password2) ){
 						if(r_user_password1.equals(r_user_account)) {
-							new Builder(Register.this).setMessage("�˺����벻��һ��").show();
+							new Builder(Register.this).setMessage("锟剿猴拷锟斤拷锟诫不锟斤拷一锟斤拷").show();
 						}else {
 							
 							addList();
 							
-							Toast.makeText(Register.this, "ע��ɹ�", Toast.LENGTH_SHORT).show();
+							Toast.makeText(Register.this, "注锟斤拷晒锟�", Toast.LENGTH_SHORT).show();
 							intent.setClass(Register.this,MainActivity.class);
 							startActivity(intent);
 							finish();
 						}
 					}else{
-					new Builder(Register.this).setMessage("���벻һ��").show();
+					new Builder(Register.this).setMessage("锟斤拷锟诫不一锟斤拷").show();
 					}
 				}
 				break;

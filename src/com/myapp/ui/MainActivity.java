@@ -2,6 +2,7 @@ package com.myapp.ui;
 
 import java.util.HashMap;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.view.View.OnClickListener;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.myapp.R;
 import com.myapp.base.BaseAuth;
@@ -20,60 +23,87 @@ import com.myapp.base.BaseUi;
 import com.myapp.base.C;
 import com.myapp.model.User;
 
+@SuppressLint("NewApi")
 public class MainActivity extends BaseUi {
 
-	private AutoCompleteTextView account;
-	private EditText passwd;
+	private String user_account;
+	private String user_password;
+	
+	private EditText account;
+	private EditText password;
+	private Button register;
+	private Button login;
+	private TextView forget_password;
+	
+	private MyListener myListener;
 	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
 		// check if login
 		if (BaseAuth.isLogin()) {
 			this.forward(Register.class);
 		}
-	
 		setContentView(R.layout.activity_main);
 		
-		account = (AutoCompleteTextView)findViewById(R.id.autotv_account);
-		passwd = (EditText)findViewById(R.id.et_password);
-		
-		Button register = (Button)findViewById(R.id.b_register);
-		Button switch_user = (Button)findViewById(R.id.b_switch_user);
-		Button login = (Button)findViewById(R.id.b_login);
-		Button forget_password = (Button)findViewById(R.id.b_forget_password);
-		
-		ButtonListener buttonListener = new ButtonListener();
-		
-		register.setOnClickListener(buttonListener);
-		switch_user.setOnClickListener(buttonListener);
-		login.setOnClickListener(buttonListener);
-		forget_password.setOnClickListener(buttonListener);
+		this.getWidget();
+		this.setEvent();
 	}
 	
-	class ButtonListener implements OnClickListener {
+	void getWidget(){
+		this.account = (EditText)findViewById(R.id.autotv_account);
+		this.password = (EditText)findViewById(R.id.et_password);
+		this.register = (Button)findViewById(R.id.b_register);
+		this.login = (Button)findViewById(R.id.b_login);
+		this.forget_password = (TextView)findViewById(R.id.tv_forget_password);
+		
+		this.myListener = new MyListener();
+		
+		this.user_account = this.account.getText().toString();
+		this.user_password = this.password.getText().toString();
+	}
+	
+	void setEvent(){
+		this.register.setOnClickListener(myListener);
+		this.login.setOnClickListener(myListener);
+		this.forget_password.setOnClickListener(myListener);
+	}
+	
+	class MyListener implements OnClickListener {
 		public void onClick(View v) {
 			int id = v.getId();
-			Intent intent = new Intent();
 			
 			switch (id) {
-			case R.id.b_forget_password:
+			case R.id.tv_forget_password:
 				break;
-			case R.id.b_login:	
+			case R.id.b_login:
 				doTaskLogin();
+
 				break;
 			case R.id.b_register:
+				Intent intent = new Intent();
 				intent.setClass(MainActivity.this,Register.class);
 				startActivity(intent);
-				finish();
 				break;
-			case R.id.b_switch_user:
-				break;
+
 			}
 		}
 	}
+	
+	public void login() {
+//		Intent intent = new Intent();
+//		user_account = account.getText().toString();
+//		user_password = password.getText().toString();
+//		if(user_account.isEmpty() || user_password.isEmpty()) {
+//			Toast.makeText(this, "登录信息不能为空", Toast.LENGTH_SHORT).show();
+//		}else {
+//			intent.setClass(MainActivity.this,SurveyCenter.class);
+//			startActivity(intent);
+//			finish();
+//		}
+	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,10 +114,14 @@ public class MainActivity extends BaseUi {
 	
 	private void doTaskLogin() {
 		app.setLong(System.currentTimeMillis());
-		if (account.length() > 0 && passwd.length() > 0) {
+		this.user_account = this.account.getText().toString();
+		this.user_password = this.password.getText().toString();
+		if (this.user_account.isEmpty() || this.user_password.isEmpty()) {
+			Toast.makeText(this, "The account or password is Empty!", Toast.LENGTH_SHORT).show();
+		}else{
 			HashMap<String, String> urlParams = new HashMap<String, String>();
-			urlParams.put("name", account.getText().toString());
-			urlParams.put("pass", passwd.getText().toString());
+			urlParams.put("name", this.user_account);
+			urlParams.put("pass", this.user_password);
 			try {
 				this.doTaskAsync(C.task.login, C.api.login, urlParams);
 			} catch (Exception e) {
@@ -128,7 +162,7 @@ public class MainActivity extends BaseUi {
 					// start service
 //					BaseService.start(this, NoticeService.class);
 					// turn to index
-					forward(Register.class);
+					forward(SurveyCenter.class);
 				}
 				break;
 		}

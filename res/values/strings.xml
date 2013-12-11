@@ -4,7 +4,6 @@
     <string name="app_name">myapp-client</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_register">Register</string>
     <string name="title_activity_show_list">ShowList</string>
     	<!-- 全局文字 -->
 	<string name="app_version">v1.0</string>
@@ -35,4 +34,11 @@
 	<string name="blog_comment">评论</string>
 	<string name="customer_fans">粉丝</string>
 	<string name="customer_blog">微博</string>
+	<string name="title_activity_register">Register</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_guide">Guide</string>
+    <string name="title_activity_survey_center">SurveyCenter</string>
+    <string name="title_activity_user_homepage">UserHomepage</string>
+    <string name="title_activity_setting">Setting</string>
+	
 </resources>

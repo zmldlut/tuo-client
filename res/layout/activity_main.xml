@@ -3,56 +3,55 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f1f1f1"
+    android:background="@drawable/normal_background"
     android:orientation="vertical"
-    android:padding="5dp"
     tools:context=".MainActivity" >
-	
-    <LinearLayout 
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:orientation="horizontal" >
-    
-	    <Button
-	        android:id="@+id/b_cancel"
-	        android:layout_width="48dp"
-	        android:layout_height="32dp"
-	        android:background="@drawable/small_button"
-	        android:textColor="#ffffff"
-	        android:text="取消" />
-		<LinearLayout 
-		    android:layout_width="fill_parent"
-		    android:layout_height="fill_parent">
-		    <LinearLayout
-		        android:layout_width="wrap_content"
-		        android:layout_height="match_parent"
-		        android:layout_weight="12"
-		        android:orientation="vertical" >
-		    </LinearLayout>
+        android:layout_height="50dp"
+        android:background="#1E1E1E" >
+
+        <Button
+            android:id="@+id/b_register"
+            android:layout_width="48dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/small_button"
+            android:text="注册"
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center|center"
+            android:text="拖后腿"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+    </RelativeLayout>
 	
-	        <Button
-	            android:id="@+id/b_switch_user"
-	            android:layout_width="wrap_content"
-	            android:layout_height="20dp"
-	            android:layout_marginRight="5dp"
-	            android:background="#f1f1f1"
-	            android:textSize="15dp"
-	            android:layout_gravity="center"
-	            android:layout_weight="1"
-	            android:textColor="@drawable/text_color"
-	            android:text="切换用户" />
+
+
+
+
+	<LinearLayout 
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:padding="5dp"
+	    android:orientation="vertical" >
         
-        </LinearLayout>
-        
-    </LinearLayout>
-
-
-
+	    
         <ImageView
             android:id="@+id/m_img_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:src="@drawable/ic_launcher" />
@@ -104,30 +103,36 @@
             android:text="登 陆"
             android:textColor="#ffffff"
             android:textSize="20dp" />
-	
-	    <Button
-	        android:id="@+id/b_forget_password"
-	        android:layout_width="wrap_content"
-	        android:layout_height="20dp"
-	        android:layout_gravity="right|center"
-	        android:textSize="13dp"
-	        android:layout_marginRight="5dp"
-	        android:layout_marginTop="5dp"
-	        android:textColor="@drawable/text_color"
-	        android:background="#f1f1f1"
-	        android:text="忘记密码？" />
-	
-	    <Button
-	        android:id="@+id/b_register"
-	        android:layout_width="80dp"
-	        android:layout_height="40dp"
-	        android:layout_gravity="center"
-	        android:layout_marginTop="25dp"
-	        android:background="@drawable/button"
-	        android:textSize="20dp"
-	        android:text="注册"
-	        android:textColor="#ffffff" />
-	    
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="10dp" >
+
+            <TextView
+                android:id="@+id/tv_forget_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="9dp"
+                android:text="忘记密码？"
+                android:textColor="@drawable/text_color"
+                android:textSize="15dp" />
+
+            <CheckBox
+                android:id="@+id/checkBox1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="9dp"
+                android:textSize="15dp"
+                android:textColor="@drawable/text_color"
+                android:text="记住密码" />
+
+        </RelativeLayout>
+	    
+	</LinearLayout>
 
 </LinearLayout>
