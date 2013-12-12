@@ -24,14 +24,6 @@
 	            android:textSize="23sp" />
 
 	        <ImageButton
-	            android:id="@+id/show_right_button"
-	            android:layout_width="48dp"
-	            android:layout_height="fill_parent"
-	            android:layout_alignParentRight="true"
-	            android:layout_centerVertical="true"
-	            android:background="@drawable/button_toright_activity" />
-
-	        <ImageButton
 	            android:id="@+id/b_last_view"
 	            android:layout_width="48dp"
 	            android:layout_height="fill_parent"
@@ -40,56 +32,59 @@
 	            android:background="@drawable/button_toleft_activity" />
 
     	</RelativeLayout>
+    	
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+		    <RelativeLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content" >
+		
+		        <ImageView
+		            android:id="@+id/imageView1"
+		            android:layout_width="fill_parent"
+		            android:layout_height="130dp"
+		            android:layout_alignParentLeft="true"
+		            android:layout_alignParentTop="true"
+		            android:src="#1e90ff" />
+		
+		        <Button
+		            android:id="@+id/button1"
+		            android:layout_width="40dp"
+		            android:layout_height="28dp"
+		            android:layout_alignParentRight="true"
+		            android:layout_alignParentTop="true"
+		            android:layout_marginRight="5dp"
+		            android:layout_marginTop="5dp"
+		            android:background="@drawable/small_button"
+		            android:textColor="#ffffff"
+		            android:text="踩" />
+		
+		    </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="fill_parent"
-            android:layout_height="130dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:src="#1e90ff" />
+		    <com.myapp.view.RoundedImageView
+		        android:id="@+id/homepage_user"
+		        android:layout_width="80dp"
+		        android:layout_height="80dp"
+		        android:layout_alignParentLeft="true"
+		        android:layout_alignParentTop="true"
+		        android:layout_marginLeft="32dp"
+		        android:layout_marginTop="103dp"
+		        android:src="@drawable/head_default" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="104dp"
-            android:background="#000000"
-            android:src="@drawable/ic_launcher" />
+		    <TextView
+		        android:id="@+id/textView1"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignBottom="@+id/homepage_user"
+		        android:layout_marginBottom="14dp"
+		        android:layout_marginLeft="17dp"
+		        android:layout_toRightOf="@+id/homepage_user"
+		        android:text="User_name"
+		        android:textColor="#000000"
+		        android:textSize="17sp" />
 
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imageView2"
-            android:layout_marginLeft="20dp"
-            android:layout_toRightOf="@+id/imageView2"
-            android:textSize="20sp"
-            android:text="User_name" />
-
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="70dp"
-            android:layout_height="35dp"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="5dp"
-            android:layout_marginTop="5dp"
-            android:text="踩" />
-
-    </RelativeLayout>
-
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+		</RelativeLayout>
 
 </LinearLayout>
