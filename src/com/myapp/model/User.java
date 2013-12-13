@@ -8,6 +8,7 @@ public class User extends BaseModel {
 	public final static String COL_ID = "id";
 	public final static String COL_SID = "sid";
 	public final static String COL_NAME = "name";
+	public final static String COL_PASS = "pass";
 	public final static String COL_SIGN = "sign";
 	public final static String COL_FACE = "face";
 	public final static String COL_FACEURL = "faceurl";
@@ -22,6 +23,7 @@ public class User extends BaseModel {
 	private String id;
 	private String sid;
 	private String name;
+	private String pass;
 	private String sign;
 	private String face;
 	private String faceurl;
@@ -58,6 +60,14 @@ public class User extends BaseModel {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public String getPass() {
+		return pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 	public String getSign() {

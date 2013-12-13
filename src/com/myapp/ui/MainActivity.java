@@ -89,21 +89,7 @@ public class MainActivity extends BaseUi {
 
 			}
 		}
-	}
-	
-	public void login() {
-//		Intent intent = new Intent();
-//		user_account = account.getText().toString();
-//		user_password = password.getText().toString();
-//		if(user_account.isEmpty() || user_password.isEmpty()) {
-//			Toast.makeText(this, "登录信息不能为空", Toast.LENGTH_SHORT).show();
-//		}else {
-//			intent.setClass(MainActivity.this,SurveyCenter.class);
-//			startActivity(intent);
-//			finish();
-//		}
-	}
-	
+	}	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -128,6 +114,7 @@ public class MainActivity extends BaseUi {
 				e.printStackTrace();
 			}
 		}
+		
 	}
 	
 	@Override
