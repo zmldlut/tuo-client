@@ -20,4 +20,8 @@ public class MyFragmentManager {
 		fragmanager.beginTransaction().replace(R.id.fragment_layout, fm).commit();
 	}
 	
+	public static void surveyFragmentChange(FragmentManager fragmanager,Fragment fm){
+		fragmanager.beginTransaction().replace(R.id.home_fragment_layout, fm).commit();
+	}
+	
 }

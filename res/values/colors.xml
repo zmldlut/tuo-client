@@ -15,4 +15,8 @@
 	<color name="divider2">#EEEEEE</color>
 	<color name="divider3">#FFFFFF</color>
 	<color name="loading">#99000000</color>
+	
+    <color name="pull_refresh_textview">#000000</color>
+    <color name="gold">#000000</color>
+    <color name="transparent">#00000000</color>
 </resources>

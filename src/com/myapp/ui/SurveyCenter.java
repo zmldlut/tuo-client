@@ -5,13 +5,6 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.myapp.R;
-import com.myapp.manager.MyFragmentManager;
-import com.myapp.view.BidirSlidingLayout;
-import com.myapp.view.FriendsFragment;
-import com.myapp.view.HomeFragment;
-import com.myapp.view.SettingFragment;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -23,9 +16,16 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.myapp.R;
+import com.myapp.manager.MyFragmentManager;
+import com.myapp.view.BidirSlidingLayout;
+import com.myapp.view.FriendsFragment;
+import com.myapp.view.HomeFragment;
+import com.myapp.view.SettingFragment;
+import com.myapp.view.SurveyFragment;
 
 
 @SuppressLint("NewApi")
@@ -126,6 +126,8 @@ public class SurveyCenter extends Activity {
 	public void setHomeFrag() {
 		HomeFragment home_frag = new HomeFragment(SurveyCenter.this);
 		MyFragmentManager.myFragment(getFragmentManager(),home_frag);
+		SurveyFragment survey_frag = new SurveyFragment(SurveyCenter.this);
+		MyFragmentManager.surveyFragmentChange(getFragmentManager(),survey_frag);
 //		myClick();
 	}
 	

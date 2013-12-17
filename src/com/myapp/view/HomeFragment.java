@@ -39,15 +39,4 @@ public class HomeFragment extends Fragment {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 	}
-
-
-
-
-
-
-
-
-	
-
-
 }
