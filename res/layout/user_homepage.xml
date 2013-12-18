@@ -35,7 +35,7 @@
     	
         <RelativeLayout 
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content" >
 
 		    <RelativeLayout
 		        android:layout_width="match_parent"
@@ -84,7 +84,12 @@
 		        android:text="User_name"
 		        android:textColor="#000000"
 		        android:textSize="17sp" />
-
 		</RelativeLayout>
-
+		
+		<FrameLayout
+            android:id="@+id/user_fragment_layout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+        </FrameLayout>
+		
 </LinearLayout>

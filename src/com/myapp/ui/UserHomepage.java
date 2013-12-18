@@ -1,7 +1,6 @@
 package com.myapp.ui;
 
-import com.myapp.R;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -9,6 +8,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 
+import com.myapp.R;
+import com.myapp.manager.MyFragmentManager;
+import com.myapp.view.MicroBlogFragment;
+
+@SuppressLint("NewApi")
 public class UserHomepage extends Activity {
 	private ImageButton last_view;
 
@@ -23,6 +27,9 @@ public class UserHomepage extends Activity {
 				finish();
 			}
 		});
+		
+		MicroBlogFragment microBlog_frag = new MicroBlogFragment(UserHomepage.this);
+		MyFragmentManager.microBlogFragmentChange(getFragmentManager(),microBlog_frag);
 	}
 
 	@Override

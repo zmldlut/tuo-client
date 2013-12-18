@@ -1,6 +1,9 @@
 package com.myapp.view;
 
 import com.myapp.R;
+import com.myapp.manager.MyFragmentManager;
+import com.myapp.ui.SurveyCenter;
+import com.myapp.ui.UserHomepage;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -20,7 +23,9 @@ public class FriendsFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-
+		
+		MicroBlogFragment microBlog_frag = new MicroBlogFragment(context);
+		MyFragmentManager.microBlogFriendsFragmentChange(getFragmentManager(),microBlog_frag);
 	}
 	
 	@Override
@@ -35,6 +40,4 @@ public class FriendsFragment extends Fragment {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 	}
-
-
 }

@@ -24,4 +24,11 @@ public class MyFragmentManager {
 		fragmanager.beginTransaction().replace(R.id.home_fragment_layout, fm).commit();
 	}
 	
+	public static void microBlogFragmentChange(FragmentManager fragmanager,Fragment fm){
+		fragmanager.beginTransaction().replace(R.id.user_fragment_layout, fm).commit();
+	}	
+	
+	public static void microBlogFriendsFragmentChange(FragmentManager fragmanager,Fragment fm){
+		fragmanager.beginTransaction().replace(R.id.friends_fragment_layout, fm).commit();
+	}	
 }

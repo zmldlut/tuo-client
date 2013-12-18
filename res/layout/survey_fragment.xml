@@ -21,6 +21,5 @@
         android:cacheColorHint="@android:color/transparent"
         android:fadingEdgeLength="0dp" 
         android:layout_weight="1"/>
-    
 
 </LinearLayout>

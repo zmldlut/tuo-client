@@ -10,31 +10,26 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import com.myapp.R;
 import com.myapp.adapter.MyListAdapter;
-import com.myapp.adapter.SurveyViewPagerAdapter;
 import com.myapp.model.AppInfo;
 import com.myapp.view.SingleLayoutListView.OnLoadMoreListener;
 import com.myapp.view.SingleLayoutListView.OnRefreshListener;
 
 @SuppressLint({ "NewApi", "ValidFragment" })
-public class SurveyFragment extends Fragment implements OnPageChangeListener{
+public class MicroBlogFragment extends Fragment {
 
 	private Context context;
 	private View view; 
 	
-	private static final String TAG = "SingleFragment";
+	private static final String TAG = "MicroBlogFragment";
 	
 	private static final int LOAD_DATA_FINISH = 10;
 	private static final int REFRESH_DATA_FINISH = 11;
@@ -44,18 +39,6 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 	private SingleLayoutListView mListView;
 //	private ImageSwitcher imageSwitcher;
 	private int mCount = 10;
-	
-	//四张图片的数据
-	//////////////////////////////////////////////////////////
-	private ViewPager vp;
-    private SurveyViewPagerAdapter sViewAdapter;
-    private List<View> views;
-    
-    private ImageView[] dots;
-    
-    private int currentIndex;
-	//////////////////////////////////////////////////////////
-    
 	
 	private Handler mHandler = new Handler() {
 
@@ -80,37 +63,35 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 		};
 	};
 	
-	public SurveyFragment() {
+	public MicroBlogFragment() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public SurveyFragment(Context context) {
+	public MicroBlogFragment(Context context) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 	}
-	
+
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		buildAppData();
 		initView();
-		initViewPagers();
-		initDots();
 	}
-
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		view = inflater.inflate(R.layout.survey_fragment, container, false);
+		view = inflater.inflate(R.layout.list_micro_blog, container, false);
 		return view;
 	}	
 	
 	private void initView() {
 		mAdapter = new MyListAdapter(context, mList);
-		mListView = (SingleLayoutListView) view.findViewById(R.id.mListView);
+		mListView = (SingleLayoutListView) view.findViewById(R.id.muserHomeListView);
 		/////////////////////////////////////////////////////////////////////////////
 		mListView.setAdapter(mAdapter);
 
@@ -151,51 +132,6 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 		mListView.setMoveToFirstItemAfterRefresh(true);
 		mListView.setDoRefreshOnUIChanged(true);
 	}
-	 private void initViewPagers() {
-	        LayoutInflater inflater = LayoutInflater.from(context);
-
-	        views = new ArrayList<View>();
-	        // 初始化引导图片列表
-	        views.add(inflater.inflate(R.layout.one, null));
-	        views.add(inflater.inflate(R.layout.one, null));
-	        views.add(inflater.inflate(R.layout.one, null));
-	        views.add(inflater.inflate(R.layout.one, null));
-
-	        // 初始化Adapter
-	        sViewAdapter = new SurveyViewPagerAdapter(views);
-
-	        vp = (ViewPager) view.findViewById(R.id.viewpager);
-	        vp.setAdapter(sViewAdapter);
-	        // 绑定回调
-	        vp.setOnPageChangeListener(this);
-	    }
-	
-	private void initDots() {
-        LinearLayout ll = (LinearLayout) view.findViewById(R.id.ll);
-
-        dots = new ImageView[views.size()];
-
-        // 循环取得小点图片
-        for (int i = 0; i < views.size(); i++) {
-            dots[i] = (ImageView) ll.getChildAt(i);
-            dots[i].setEnabled(true);// 都设为灰色
-        }
-
-        currentIndex = 0;
-        dots[currentIndex].setEnabled(false);// 设置为白色，即选中状态
-    }
-
-    private void setCurrentDot(int position) {
-        if (position < 0 || position > views.size() - 1
-                || currentIndex == position) {
-            return;
-        }
-
-        dots[position].setEnabled(false);
-        dots[currentIndex].setEnabled(true);
-
-        currentIndex = position;
-    }
 	
 	/**
 	 * 加载数据啦~
@@ -281,23 +217,5 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 
 			mList.add(ai);
 		}
-	}
-	
-	@Override
-	public void onPageScrollStateChanged(int arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onPageScrolled(int arg0, float arg1, int arg2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onPageSelected(int arg0) {
-		// TODO Auto-generated method stub
-		setCurrentDot(arg0);
 	}
 }

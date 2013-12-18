@@ -172,6 +172,8 @@ public class SurveyCenter extends Activity {
 					bidirSldingLayout.scrollToContentFromLeftMenu();
 					HomeFragment home_frag = new HomeFragment(SurveyCenter.this);
 					MyFragmentManager.myFragment(getFragmentManager(), home_frag);
+					SurveyFragment survey_frag = new SurveyFragment(SurveyCenter.this);
+					MyFragmentManager.surveyFragmentChange(getFragmentManager(),survey_frag);
 					title.setText("调查中心");
 //					myClick();
 					break;
@@ -215,7 +217,6 @@ public class SurveyCenter extends Activity {
 					return false;
 	        	}
 	        }  
-	          
 	        return super.onKeyDown(keyCode, event);  
 	    }  
 
