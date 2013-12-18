@@ -349,7 +349,7 @@ public class BidirSlidingLayout extends RelativeLayout implements OnTouchListene
                 // 当左侧或右侧布局显示时，将绑定控件的事件屏蔽掉  
                 return true;  
             }  
-//            return false;  
+            //return false;  
         }  
         return true;  
     }  

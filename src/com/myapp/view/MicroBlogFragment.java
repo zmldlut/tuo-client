@@ -12,7 +12,9 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -114,7 +116,19 @@ public class MicroBlogFragment extends Fragment {
 				loadData(1);
 			}
 		});
-
+		/**new add
+		 * 
+		 */
+//		mListView.setOnTouchListener(new OnTouchListener() {
+//			
+//			@Override
+//			public boolean onTouch(View v, MotionEvent event) {
+//				// TODO Auto-generated method stub
+//				return true;
+//			}
+//		});
+		
+		/////////////////
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

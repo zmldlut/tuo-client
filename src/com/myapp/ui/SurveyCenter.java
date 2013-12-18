@@ -25,7 +25,6 @@ import com.myapp.view.BidirSlidingLayout;
 import com.myapp.view.FriendsFragment;
 import com.myapp.view.HomeFragment;
 import com.myapp.view.SettingFragment;
-import com.myapp.view.SurveyFragment;
 
 
 @SuppressLint("NewApi")
@@ -110,25 +109,10 @@ public class SurveyCenter extends Activity {
 		});
 	}
 
-	
-//	public void myClick() {
-//		if(!bidirSldingLayout.isLeftLayoutVisible()) {
-//			user.setEnabled(false);
-//			((View) myLinear).setEnabled(false);
-//		}
-//		if(bidirSldingLayout.isLeftLayoutVisible()){
-//			user.setEnabled(true);
-//			((View) myLinear).setEnabled(true);
-//		}
-//
-//	}
 
 	public void setHomeFrag() {
 		HomeFragment home_frag = new HomeFragment(SurveyCenter.this);
 		MyFragmentManager.myFragment(getFragmentManager(),home_frag);
-		SurveyFragment survey_frag = new SurveyFragment(SurveyCenter.this);
-		MyFragmentManager.surveyFragmentChange(getFragmentManager(),survey_frag);
-//		myClick();
 	}
 	
 	public void setClickEvent() {
@@ -172,8 +156,6 @@ public class SurveyCenter extends Activity {
 					bidirSldingLayout.scrollToContentFromLeftMenu();
 					HomeFragment home_frag = new HomeFragment(SurveyCenter.this);
 					MyFragmentManager.myFragment(getFragmentManager(), home_frag);
-					SurveyFragment survey_frag = new SurveyFragment(SurveyCenter.this);
-					MyFragmentManager.surveyFragmentChange(getFragmentManager(),survey_frag);
 					title.setText("调查中心");
 //					myClick();
 					break;

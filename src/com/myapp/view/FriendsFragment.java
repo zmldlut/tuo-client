@@ -1,10 +1,5 @@
 package com.myapp.view;
 
-import com.myapp.R;
-import com.myapp.manager.MyFragmentManager;
-import com.myapp.ui.SurveyCenter;
-import com.myapp.ui.UserHomepage;
-
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
@@ -12,6 +7,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.myapp.R;
+import com.myapp.manager.MyFragmentManager;
 
 @SuppressLint({ "ValidFragment", "NewApi" })
 public class FriendsFragment extends Fragment {

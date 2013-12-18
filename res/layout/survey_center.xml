@@ -156,7 +156,7 @@
                 android:text="消息列表"
                 android:gravity="center|center"
                 android:textColor="#ffffff"
-                android:textSize="18dp"/>
+                android:textSize="18sp"/>
   
         </LinearLayout>
         <TextView 
@@ -170,8 +170,6 @@
             android:layout_height="fill_parent" >
             
         </ListView>
-
-
     </LinearLayout>  
   
     <LinearLayout  

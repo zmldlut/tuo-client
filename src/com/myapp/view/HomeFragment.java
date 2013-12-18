@@ -1,6 +1,8 @@
 package com.myapp.view;
 
 import com.myapp.R;
+import com.myapp.manager.MyFragmentManager;
+import com.myapp.ui.SurveyCenter;
 
 import android.annotation.SuppressLint;
 import android.app.Fragment;
@@ -23,9 +25,9 @@ public class HomeFragment extends Fragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+		SurveyFragment survey_frag = new SurveyFragment(context);
+		MyFragmentManager.surveyFragmentChange(getFragmentManager(),survey_frag);
 	}
-
-
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
