@@ -151,6 +151,7 @@
             android:layout_width="fill_parent"
             android:layout_height="75dp" >
             <TextView 
+                android:id="@+id/tv_title_right"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:text="消息列表"
@@ -171,55 +172,55 @@
             
         </ListView>
     </LinearLayout>  
-  
+  	
     <LinearLayout  
-        android:id="@+id/content"  
-        android:layout_width="320dip"  
-        android:layout_height="fill_parent"  
-        android:background="#e9e9e9"
-        android:orientation="vertical" >
+     android:id="@+id/content"  
+     android:layout_width="320dip"  
+     android:layout_height="fill_parent"  
+     android:background="#e9e9e9"
+     android:orientation="vertical" >
 
-        
-        <RelativeLayout
-	        android:layout_width="match_parent"
-	        android:layout_height="50dp"
-	        android:background="#1E1E1E" >
-	
-	        <TextView
-	            android:id="@+id/tv_title"
-	            android:layout_width="wrap_content"
-	            android:layout_height="fill_parent"
-	            android:layout_alignParentTop="true"
-	            android:layout_centerHorizontal="true"
-	            android:gravity="center|center"
-	            android:text="调查中心"
-	            android:textColor="#ffffff"
-	            android:textSize="23sp" />
+     
+     <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="50dp"
+      android:background="#1E1E1E" >
 
-	        <ImageButton
-	            android:id="@+id/show_right_button"
-	            android:layout_width="48dp"
-	            android:layout_height="fill_parent"
-	            android:layout_alignParentRight="true"
-	            android:layout_centerVertical="true"
-	            android:background="@anim/showright_selector" />
+      <TextView
+          android:id="@+id/tv_title"
+          android:layout_width="wrap_content"
+          android:layout_height="fill_parent"
+          android:layout_alignParentTop="true"
+          android:layout_centerHorizontal="true"
+          android:gravity="center|center"
+          android:text="调查中心"
+          android:textColor="#ffffff"
+          android:textSize="23sp" />
 
-	        <ImageButton
-	            android:id="@+id/show_left_button"
-	            android:layout_width="48dp"
-	            android:layout_height="fill_parent"
-	            android:layout_alignParentLeft="true"
-	            android:layout_centerVertical="true"
-	            android:background="@anim/showleft_selector" />
+      <ImageButton
+          android:id="@+id/show_right_button"
+          android:layout_width="48dp"
+          android:layout_height="fill_parent"
+          android:layout_alignParentRight="true"
+          android:layout_centerVertical="true"
+          android:background="@anim/showright_selector" />
 
-    	</RelativeLayout>
+      <ImageButton
+          android:id="@+id/show_left_button"
+          android:layout_width="48dp"
+          android:layout_height="fill_parent"
+          android:layout_alignParentLeft="true"
+          android:layout_centerVertical="true"
+          android:background="@anim/showleft_selector" />
 
-        <FrameLayout
-            android:id="@+id/fragment_layout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-        </FrameLayout>
+ 	</RelativeLayout>
 
-    </LinearLayout>
-  
+     <FrameLayout
+         android:id="@+id/fragment_layout"
+         android:layout_width="fill_parent"
+         android:layout_height="fill_parent" >
+     </FrameLayout>
+
+ </LinearLayout>
+
 </com.myapp.view.BidirSlidingLayout>  

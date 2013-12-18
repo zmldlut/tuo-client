@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,11 +37,13 @@ public class SurveyCenter extends Activity {
 	
 	public BidirSlidingLayout bidirSldingLayout; 
 	
-
-	
 	private ImageView user;
 	private TextView title;
+	private TextView titleRight;
+	private ImageButton showLeftButton;
+	private ImageButton showRightButton;
 	private FrameLayout myView;
+	private LinearLayout content;
 	
 	private boolean isexit = false;   
 	private boolean hastask = false;  
@@ -58,12 +61,20 @@ public class SurveyCenter extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.survey_center);
 		
-        bidirSldingLayout = (BidirSlidingLayout) findViewById(R.id.bidir_sliding_layout);  
-        ImageButton showLeftButton = (ImageButton) findViewById(R.id.show_left_button);
-		ImageButton showRightButton = (ImageButton) findViewById(R.id.show_right_button);
+        getWidget();
+    	setEvent();
+    	setHomeFrag();
+	}
+	
+	public void getWidget(){
+		bidirSldingLayout = (BidirSlidingLayout) findViewById(R.id.bidir_sliding_layout);  
+        showLeftButton = (ImageButton) findViewById(R.id.show_left_button);
+		showRightButton = (ImageButton) findViewById(R.id.show_right_button);
 		user = (ImageView)findViewById(R.id.img_user);
 		title = (TextView)findViewById(R.id.tv_title);
+		titleRight = (TextView)findViewById(R.id.tv_title_right);
 		myView = (FrameLayout)findViewById(R.id.fragment_layout);
+		content = (LinearLayout)findViewById(R.id.content);
 		
 		myLinear = new ArrayList<View>();
 		myLinear.add((View) findViewById(R.id.s_linear_survey_center));
@@ -74,51 +85,20 @@ public class SurveyCenter extends Activity {
 		myText.add((TextView) findViewById(R.id.tv_survey_color));
 		myText.add((TextView) findViewById(R.id.tv_friends_color));
 		myText.add((TextView) findViewById(R.id.tv_setting_color));
-		
- 
-    	setClickEvent();
-    	setHomeFrag();
-    	
-    	bidirSldingLayout.setScrollEvent(myView);
-
-		
-		
-		showLeftButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (bidirSldingLayout.isLeftLayoutVisible()) {
-					bidirSldingLayout.scrollToContentFromLeftMenu();
-//					myClick();
-				} else {
-					bidirSldingLayout.initShowLeftState();
-					bidirSldingLayout.scrollToLeftMenu();
-//					myClick();
-				}
-			}
-		});
-		showRightButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (bidirSldingLayout.isRightLayoutVisible()) {
-					bidirSldingLayout.scrollToContentFromRightMenu();
-				} else {
-					bidirSldingLayout.initShowRightState();
-					bidirSldingLayout.scrollToRightMenu();
-				}
-			}
-		});
-	}
-
-
-	public void setHomeFrag() {
-		HomeFragment home_frag = new HomeFragment(SurveyCenter.this);
-		MyFragmentManager.myFragment(getFragmentManager(),home_frag);
 	}
 	
-	public void setClickEvent() {
+	public void setEvent() {
 		user.setOnClickListener(new myListener());
 		for (int i = 0; i < this.myLinear.size(); i++) 
 			myLinear.get(i).setOnClickListener(new myListener());
+		showLeftButton.setOnClickListener(new myListener());
+		showRightButton.setOnClickListener(new myListener());
+		bidirSldingLayout.setScrollEvent(content);
+	}
+	
+	public void setHomeFrag() {
+		HomeFragment home_frag = new HomeFragment(SurveyCenter.this);
+		MyFragmentManager.myFragment(getFragmentManager(),home_frag);
 	}
 	
 	class myListener implements OnClickListener {
@@ -133,17 +113,31 @@ public class SurveyCenter extends Activity {
 				break;
 			case R.id.s_linear_survey_center:
 				index = 0;
-
 				break;
 			case R.id.s_linear_friends:
 				index = 1;	
-
 				break;
 			case R.id.s_linear_setting:
 				index = 2;
-				
+				break;
+			case R.id.show_left_button:
+				if (bidirSldingLayout.isLeftLayoutVisible()) {
+					bidirSldingLayout.scrollToContentFromLeftMenu();
+				} else {
+					bidirSldingLayout.initShowLeftState();
+					bidirSldingLayout.scrollToLeftMenu();
+				}
+				break;
+			case R.id.show_right_button:
+				if (bidirSldingLayout.isRightLayoutVisible()) {
+					bidirSldingLayout.scrollToContentFromRightMenu();
+				} else {
+					bidirSldingLayout.initShowRightState();
+					bidirSldingLayout.scrollToRightMenu();
+				}
 				break;
 			}
+			
 			if (index != currentSelectIndex && index != -1) {
 
 				myText.get(currentSelectIndex).setBackgroundColor(Color.rgb(41, 41, 41));
@@ -153,53 +147,66 @@ public class SurveyCenter extends Activity {
 				currentSelectIndex = index;
 				switch(index) {
 				case 0:
-					bidirSldingLayout.scrollToContentFromLeftMenu();
-					HomeFragment home_frag = new HomeFragment(SurveyCenter.this);
-					MyFragmentManager.myFragment(getFragmentManager(), home_frag);
-					title.setText("调查中心");
-//					myClick();
+					surveyCenterClick();
 					break;
 				case 1:
-					bidirSldingLayout.scrollToContentFromLeftMenu();
-					FriendsFragment friends_frag = new FriendsFragment(SurveyCenter.this);
-					MyFragmentManager.myFragment(getFragmentManager(), friends_frag);
-					title.setText("朋友圈");
-//					myClick();
+					friendsGroupClick();
 					break;
 				case 2:
-					bidirSldingLayout.scrollToContentFromLeftMenu();
-					SettingFragment setting_frag = new SettingFragment(SurveyCenter.this);
-					MyFragmentManager.myFragment(getFragmentManager(), setting_frag);
-					title.setText("设置");
-//					myClick();
+					settingClick();
 					break;
 				}
 			}
 		}
 	}
-	   @Override  
-	    public boolean onKeyDown(int keyCode, KeyEvent event) {  
-	        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){  
-	            //DialogAPI.showExit(this);
-	        	if(bidirSldingLayout.isLeftLayoutVisible()) {
-		            if(isexit == false){  
-		                isexit = true;  
-		                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();  
-		                if(!hastask) {  
-		                    texit.schedule(task, 2000);  
-		                }  
-		            }else{  
-		                finish();  
-		                System.exit(0);  
-		            }  
-		            return false; 
-	        	}else{
-					bidirSldingLayout.initShowLeftState();
-					bidirSldingLayout.scrollToLeftMenu();
-					return false;
-	        	}
-	        }  
-	        return super.onKeyDown(keyCode, event);  
-	    }  
+	
+	public void surveyCenterClick(){
+		bidirSldingLayout.scrollToContentFromLeftMenu();
+		HomeFragment home_frag = new HomeFragment(SurveyCenter.this);
+		MyFragmentManager.myFragment(getFragmentManager(), home_frag);
+		title.setText("调查中心");
+		titleRight.setText("消息列表");
+	}
+	
+	public void friendsGroupClick(){
+		bidirSldingLayout.scrollToContentFromLeftMenu();
+		FriendsFragment friends_frag = new FriendsFragment(SurveyCenter.this);
+		MyFragmentManager.myFragment(getFragmentManager(), friends_frag);
+		title.setText("朋友圈");
+		titleRight.setText("好友列表");
+	}
+	
+	public void settingClick(){
+		bidirSldingLayout.scrollToContentFromLeftMenu();
+		SettingFragment setting_frag = new SettingFragment(SurveyCenter.this);
+		MyFragmentManager.myFragment(getFragmentManager(), setting_frag);
+		title.setText("设置");
+		titleRight.setText("带扩展列表");
+	}
+	
+	@Override  
+    public boolean onKeyDown(int keyCode, KeyEvent event) {  
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){  
+            //DialogAPI.showExit(this);
+        	if(bidirSldingLayout.isLeftLayoutVisible()) {
+	            if(isexit == false){  
+	                isexit = true;  
+	                Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();  
+	                if(!hastask) {  
+	                    texit.schedule(task, 2000);  
+	                }  
+	            }else{  
+	                finish();  
+	                System.exit(0);  
+	            }  
+	            return false; 
+        	}else{
+				bidirSldingLayout.initShowLeftState();
+				bidirSldingLayout.scrollToLeftMenu();
+				return false;
+        	}
+        }  
+        return super.onKeyDown(keyCode, event);  
+    }  
 
 }

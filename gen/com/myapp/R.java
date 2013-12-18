@@ -97,19 +97,19 @@ public final class R {
     public static final class id {
         public static final int LinearLayout1=0x7f0a0002;
         public static final int RelativeLayout1=0x7f0a000c;
-        public static final int action_settings=0x7f0a0052;
+        public static final int action_settings=0x7f0a0053;
         public static final int appInfo=0x7f0a001d;
         public static final int autotv_account=0x7f0a0006;
         public static final int b_date=0x7f0a0034;
-        public static final int b_last_view=0x7f0a004e;
+        public static final int b_last_view=0x7f0a004f;
         public static final int b_login=0x7f0a0008;
         public static final int b_register=0x7f0a0003;
         public static final int b_start=0x7f0a000d;
         public static final int b_submit=0x7f0a0038;
         public static final int bidir_sliding_layout=0x7f0a0039;
-        public static final int button1=0x7f0a004f;
+        public static final int button1=0x7f0a0050;
         public static final int checkBox1=0x7f0a000a;
-        public static final int content=0x7f0a0048;
+        public static final int content=0x7f0a0049;
         public static final int cs_main_dialog_close=0x7f0a0022;
         public static final int cs_main_dialog_text=0x7f0a0021;
         public static final int editText1=0x7f0a0036;
@@ -117,7 +117,7 @@ public final class R {
         public static final int et_password=0x7f0a0007;
         public static final int et_password1=0x7f0a002d;
         public static final int et_password2=0x7f0a002e;
-        public static final int fragment_layout=0x7f0a004c;
+        public static final int fragment_layout=0x7f0a004d;
         public static final int friends_fragment_layout=0x7f0a0010;
         public static final int friends_microBlog=0x7f0a000e;
         public static final int head_arrowImageView=0x7f0a0025;
@@ -127,7 +127,7 @@ public final class R {
         public static final int head_tipsTextView=0x7f0a0027;
         public static final int home_frag=0x7f0a0011;
         public static final int home_fragment_layout=0x7f0a001a;
-        public static final int homepage_user=0x7f0a0050;
+        public static final int homepage_user=0x7f0a0051;
         public static final int horizontalScrollView1=0x7f0a0012;
         public static final int ib_verify=0x7f0a0037;
         public static final int imageView1=0x7f0a000b;
@@ -138,7 +138,7 @@ public final class R {
         public static final int left_menu=0x7f0a003a;
         public static final int ll=0x7f0a0001;
         public static final int load_more=0x7f0a002a;
-        public static final int mListView=0x7f0a004d;
+        public static final int mListView=0x7f0a004e;
         public static final int m_img_user=0x7f0a0005;
         public static final int main_load_bar=0x7f0a0023;
         public static final int muserHomeListView=0x7f0a0020;
@@ -150,13 +150,13 @@ public final class R {
         public static final int s_linear_friends=0x7f0a0040;
         public static final int s_linear_setting=0x7f0a0043;
         public static final int s_linear_survey_center=0x7f0a003d;
-        public static final int s_lv_friends=0x7f0a0047;
+        public static final int s_lv_friends=0x7f0a0048;
         public static final int s_tv_friends=0x7f0a0042;
         public static final int s_tv_setting=0x7f0a0045;
         public static final int s_tv_survey_center=0x7f0a003f;
         public static final int s_tv_user_name=0x7f0a003c;
-        public static final int show_left_button=0x7f0a004b;
-        public static final int show_right_button=0x7f0a004a;
+        public static final int show_left_button=0x7f0a004c;
+        public static final int show_right_button=0x7f0a004b;
         public static final int textView1=0x7f0a0004;
         public static final int textView2=0x7f0a0033;
         public static final int tvName=0x7f0a001c;
@@ -168,15 +168,16 @@ public final class R {
         public static final int tv_setting_color=0x7f0a0044;
         public static final int tv_sex=0x7f0a002f;
         public static final int tv_survey_color=0x7f0a003e;
-        public static final int tv_title=0x7f0a0049;
+        public static final int tv_title=0x7f0a004a;
         public static final int tv_title_bar_finance=0x7f0a0017;
         public static final int tv_title_bar_more=0x7f0a0019;
         public static final int tv_title_bar_news=0x7f0a0014;
         public static final int tv_title_bar_play=0x7f0a0016;
         public static final int tv_title_bar_science=0x7f0a0018;
         public static final int tv_title_bar_sport=0x7f0a0015;
+        public static final int tv_title_right=0x7f0a0047;
         public static final int tv_verify=0x7f0a0035;
-        public static final int user_fragment_layout=0x7f0a0051;
+        public static final int user_fragment_layout=0x7f0a0052;
         public static final int viewpager=0x7f0a0000;
     }
     public static final class layout {
