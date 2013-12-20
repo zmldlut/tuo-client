@@ -1,0 +1,92 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#efebef"
+    tools:context=".ContactUs" >
+    
+    <RelativeLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="50dp"
+	        android:background="#1E1E1E">
+	
+	        <TextView
+	            android:id="@+id/textView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="fill_parent"
+	            android:layout_alignParentTop="true"
+	            android:layout_centerHorizontal="true"
+	            android:gravity="center|center"
+	            android:text="联系我们"
+	            android:textColor="#ffffff"
+	            android:textSize="23sp" 
+	            />
+
+	        <ImageButton
+	            android:id="@+id/ib_contactus_to_setting"
+	            android:layout_width="wrap_content"
+	            android:layout_height="fill_parent"
+	            android:layout_alignParentLeft="true"
+	            android:layout_centerVertical="true"
+	            android:src="@drawable/button_toleft_activity"
+	            android:background="#1E1E1E"/>
+
+    	</RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" 
+        android:layout_marginTop="20sp"
+        android:layout_marginLeft="20sp"
+        android:layout_marginRight="20sp">
+	        
+	    <EditText
+	        android:id="@+id/editText"
+	        android:layout_width="match_parent"
+	        android:layout_height="190dp"
+	        android:ems="10"
+	        android:textSize="21sp"
+	        android:hint="请输入您对我们的建议或意见！"
+	        android:gravity="top"  >
+
+        <requestFocus />
+    </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="20sp" >
+
+        <Button
+            android:id="@+id/btn_sub"
+            android:layout_width="160sp"
+            android:layout_height="wrap_content"
+            android:text="提    交"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:gravity="center" >
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="21sp"
+            android:text="您的意见将是我们的动力!" 
+            android:textColor="#99f95cda"/>
+
+    </LinearLayout>
+    
+    
+
+</LinearLayout>

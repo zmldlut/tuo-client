@@ -1,0 +1,62 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#efebef"
+    tools:context=".ModifyInformation" >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#1E1E1E" >
+
+        <TextView
+            android:id="@+id/tv_modify_title"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center|center"
+            android:text="修改信息"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+        <ImageButton
+            android:id="@+id/ib_modify_to_setting"
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="4dp"
+            android:background="#1E1E1E"
+            android:src="@drawable/arrow_left" />
+        
+        <Button
+            android:id="@+id/b_modify_save"
+            android:layout_width="48dp"
+            android:layout_height="32dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/small_button"
+            android:text="保存"
+            android:textColor="#ffffff" />
+
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/et_modify"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape"
+        android:layout_height="50dp"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+</LinearLayout>

@@ -4,7 +4,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <com.myapp.view.SingleLayoutListView
+    
+    <com.myapp.view.CenterLinearLayout 
+        android:id="@+id/centerLy_microBlog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+        <com.myapp.view.SingleLayoutListView
 	        android:id="@+id/muserHomeListView"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
@@ -12,4 +18,5 @@
 	        android:fadingEdgeLength="0dp" 
 	        />
 
+    </com.myapp.view.CenterLinearLayout>
 </LinearLayout>

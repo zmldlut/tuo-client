@@ -28,48 +28,48 @@ import com.myapp.R;
 
 
 /**
- * ListView涓嬫媺鍒锋柊鍜屽姞杞芥洿锟�p>
+ * ListView下拉刷新和加载更多<p>
  * 
- * <strong>鍙樻洿璇存槑:</strong>
- * <p>榛樿濡傛灉璁剧疆浜哋nRefreshListener鎺ュ彛鍜孫nLoadMoreListener鎺ュ彛锟�br>骞朵笖涓嶄负null锛屽垯鎵撳紑杩欎袱涓姛鑳戒簡锟�
- * <p>鍓╀綑涓変釜Flag锟�
- * <br>mIsAutoLoadMore(鏄惁鑷姩鍔犺浇鏇村)
- * <br>mIsMoveToFirstItemAfterRefresh(涓嬫媺鍒锋柊鍚庢槸鍚︽樉绀虹锟�锟斤拷Item)
- * <br>mIsDoRefreshOnWindowFocused(褰撹ListView锟�锟斤拷鐨勬帶浠舵樉绀哄埌灞忓箷涓婃椂锛屾槸鍚︾洿鎺ユ樉绀烘鍦ㄥ埛锟�..)
+ * <strong>变更说明:</strong>
+ * <p>默认如果设置了OnRefreshListener接口和OnLoadMoreListener接口，<br>并且不为null，则打开这两个功能了。
+ * <p>剩余三个Flag：
+ * <br>mIsAutoLoadMore(是否自动加载更多)
+ * <br>mIsMoveToFirstItemAfterRefresh(下拉刷新后是否显示第一条Item)
+ * <br>mIsDoRefreshOnWindowFocused(当该ListView所在的控件显示到屏幕上时，是否直接显示正在刷新...)
  * 
- * <p><strong>鏈夋敼杩涙剰瑙侊紝璇峰彂閫佸埌淇虹殑閭鍝垀 澶氳阿鍚勪綅灏忎紮浼翠簡锛乛_^</strong>
+ * <p><strong>有改进意见，请发送到俺的邮箱哈~ 多谢各位小伙伴了！^_^</strong>
  * 
- * @date 2013-11-11 涓嬪崍10:09:26
+ * @date 2013-11-11 下午10:09:26
  * @change JohnWatson 
  * @mail xxzhaofeng5412@gmail.com
  * @version 1.0
  */
 public class SingleLayoutListView extends ListView implements OnScrollListener,OnTouchListener {
 
-	/**  鏄剧ず鏍煎紡鍖栨棩鏈熸ā锟�  */
+	/**  显示格式化日期模板   */
 	private final static String DATE_FORMAT_STR = "yyyy年MM月dd日  HH:mm";
 	
-	/**  瀹為檯鐨刾adding鐨勮窛绂讳笌鐣岄潰涓婂亸绉昏窛绂荤殑姣斾緥   */
+	/**  实际的padding的距离与界面上偏移距离的比例   */
 	private final static int RATIO = 3;
-	//===========================浠ヤ笅4涓父閲忎负 涓嬫媺鍒锋柊鐨勭姸鎬佹爣锟�==============================
-	/**  鏉惧紑鍒锋柊   */
+	//===========================以下4个常量为 下拉刷新的状态标识===============================
+	/**  松开刷新   */
 	private final static int RELEASE_TO_REFRESH = 0;
-	/**  涓嬫媺鍒锋柊   */
+	/**  下拉刷新   */
 	private final static int PULL_TO_REFRESH = 1;
-	/**  姝ｅ湪鍒锋柊   */
+	/**  正在刷新   */
 	private final static int REFRESHING = 2;
-	/**  鍒锋柊瀹屾垚   or 锟�锟斤拷閮芥病鍋氾紝鎭㈠鍘熺姸鎬侊拷?  */
+	/**  刷新完成   or 什么都没做，恢复原状态。  */
 	private final static int DONE = 3;
-	//===========================浠ヤ笅3涓父閲忎负 鍔犺浇鏇村鐨勭姸鎬佹爣锟�==============================
-	/**  鍔犺浇锟�  */
+	//===========================以下3个常量为 加载更多的状态标识===============================
+	/**  加载中   */
 	private final static int ENDINT_LOADING = 1;
-	/**  鎵嬪姩瀹屾垚鍒锋柊   */
+	/**  手动完成刷新   */
 	private final static int ENDINT_MANUAL_LOAD_DONE = 2;
-	/**  鑷姩瀹屾垚鍒锋柊   */
+	/**  自动完成刷新   */
 	private final static int ENDINT_AUTO_LOAD_DONE = 3;
 	
 	/**
-	 * <strong>涓嬫媺鍒锋柊HeadView鐨勫疄鏃剁姸鎬乫lag</strong>
+		 * <strong>下拉刷新HeadView的实时状态flag</strong>
 	 *     
 	 * <p> 0 : RELEASE_TO_REFRESH;
 	 * <p> 1 : PULL_To_REFRESH;
@@ -79,24 +79,24 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	 */
 	private int mHeadState;
 	/**  
-	 * <strong>鍔犺浇鏇村FootView锛圗ndView锛夌殑瀹炴椂鐘讹拷?flag</strong>
+	 * <strong>加载更多FootView（EndView）的实时状态flag</strong>
 	 * 
-	 * <p> 0 : 瀹屾垚/绛夊緟鍒锋柊 ;
-	 * <p> 1 : 鍔犺浇锟� 
+	 * <p> 0 : 完成/等待刷新 ;
+	 * <p> 1 : 加载中  
 	 */
 	private int mEndState;
 	
-	// ================================= 鍔熻兘璁剧疆Flag ================================
+	// ================================= 功能设置Flag ================================
 	
-	/**  鍙互鍔犺浇鏇村锟�  */
+	/**  可以加载更多？   */
 	private boolean mCanLoadMore = false;
-	/**  鍙互涓嬫媺鍒锋柊锟�  */
+	/**  可以下拉刷新？   */
 	private boolean mCanRefresh = false;
-	/**  鍙互鑷姩鍔犺浇鏇村鍚楋紵锛堟敞鎰忥紝鍏堝垽鏂槸鍚︽湁鍔犺浇鏇村锛屽鏋滄病鏈夛紝杩欎釜flag涔熸病鏈夋剰涔夛級   */
+	/**  可以自动加载更多吗？（注意，先判断是否有加载更多，如果没有，这个flag也没有意义）   */
 	private boolean mIsAutoLoadMore = false;
-	/**  涓嬫媺鍒锋柊鍚庢槸鍚︽樉绀虹锟�锟斤拷Item    */
+	/**  下拉刷新后是否显示第一条Item    */
 	private boolean mIsMoveToFirstItemAfterRefresh = false;
-	/**  褰撹ListView锟�锟斤拷鐨勬帶浠舵樉绀哄埌灞忓箷涓婃椂锛屾槸鍚︾洿鎺ユ樉绀烘鍦ㄥ埛锟�..   */
+	/**  当该ListView所在的控件显示到屏幕上时，是否直接显示正在刷新...   */
 	private boolean mIsDoRefreshOnUIChanged = false;
 
 	public boolean isCanLoadMore() {
@@ -156,25 +156,27 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	private ProgressBar mEndLoadProgressBar;
 	private TextView mEndLoadTipsTextView;
 
-	/**  headView鍔ㄧ敾   */
+	/**  headView动画   */
 	private RotateAnimation mArrowAnim;
-	/**  headView鍙嶈浆鍔ㄧ敾   */
+	/**  headView反转动画   */
 	private RotateAnimation mArrowReverseAnim;
  
-	/** 鐢ㄤ簬淇濊瘉startY鐨勶拷?鍦ㄤ竴涓畬鏁寸殑touch浜嬩欢涓彧琚褰曚竴锟�   */
+	/** 用于保证startY的值在一个完整的touch事件中只被记录一次    */
 	private boolean mIsRecored;
 
 	private int mHeadViewWidth;
 	private int mHeadViewHeight;
 
 	private int mStartY;
+	private int mStartX;
 	private boolean mIsBack;
+	private boolean mLeftRightRoll;
 	
 	private int mFirstItemIndex;
 	private int mLastItemIndex;
 	private int mCount;
 	@SuppressWarnings("unused")
-	private boolean mEnoughCount;//瓒冲鏁伴噺鍏呮弧灞忓箷锟�
+	private boolean mEnoughCount;//足够数量充满屏幕？ 
 	
 	private OnRefreshListener mRefreshListener;
 	private OnLoadMoreListener mLoadMoreListener;
@@ -205,9 +207,9 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 
 	/**
-	 * 鍒濆鍖栨搷锟�
+	 * 初始化操作
 	 * @param pContext 
-	 * @date 2013-11-20 涓嬪崍4:10:46
+	 * @date 2013-11-20 下午4:10:46
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
@@ -224,11 +226,12 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 		setOnScrollListener(this);
 
 		initPullImageAnimation(0);
+		mLeftRightRoll = false;
 	}
 
 	/**
-	 * 娣诲姞涓嬫媺鍒锋柊鐨凥eadView 
-	 * @date 2013-11-11 涓嬪崍9:48:26
+	 * 添加下拉刷新的HeadView 
+	 * @date 2013-11-11 下午9:48:26
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
@@ -263,8 +266,8 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 	
 	/**
-	 * 娣诲姞鍔犺浇鏇村FootView
-	 * @date 2013-11-11 涓嬪崍9:52:37
+	 * 添加加载更多FootView
+	 * @date 2013-11-11 下午9:52:37
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
@@ -280,13 +283,13 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 			public void onClick(View v) {
 				if(mCanLoadMore){
 					if(mCanRefresh){
-						// 褰撳彲浠ヤ笅鎷夊埛鏂版椂锛屽鏋淔ootView娌℃湁姝ｅ湪鍔犺浇锛屽苟涓擧eadView娌℃湁姝ｅ湪鍒锋柊锛屾墠鍙互鐐瑰嚮鍔犺浇鏇村锟�
+						// 当可以下拉刷新时，如果FootView没有正在加载，并且HeadView没有正在刷新，才可以点击加载更多。
 						if(mEndState != ENDINT_LOADING && mHeadState != REFRESHING){
 							mEndState = ENDINT_LOADING;
 							onLoadMore();
 						}
 					}else if(mEndState != ENDINT_LOADING){
-						// 褰撲笉鑳戒笅鎷夊埛鏂版椂锛孎ootView涓嶆鍦ㄥ姞杞芥椂锛屾墠鍙互鐐瑰嚮鍔犺浇鏇村锟�
+						// 当不能下拉刷新时，FootView不正在加载时，才可以点击加载更多。
 						mEndState = ENDINT_LOADING;
 						onLoadMore();
 					}
@@ -304,9 +307,9 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 
 	/**
-	 * 瀹炰緥鍖栦笅鎷夊埛鏂扮殑绠ご鐨勫姩鐢绘晥锟�
-	 * @param pAnimDuration 鍔ㄧ敾杩愯鏃堕暱
-	 * @date 2013-11-20 涓婂崍11:53:22
+	 * 实例化下拉刷新的箭头的动画效果 
+	 * @param pAnimDuration 动画运行时长
+	 * @date 2013-11-20 上午11:53:22
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
@@ -368,9 +371,9 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 
 	/**
-	 * 娴嬮噺HeadView瀹介珮(娉ㄦ剰锛氭鏂规硶浠咃拷?鐢ㄤ簬LinearLayout锛岃璇伙拷?鑷繁娴嬭瘯楠岃瘉锟�
+	 * 测量HeadView宽高(注意：此方法仅适用于LinearLayout，请读者自己测试验证。)
 	 * @param pChild 
-	 * @date 2013-11-20 涓嬪崍4:12:07
+	 * @date 2013-11-20 下午4:12:07
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
@@ -395,7 +398,7 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 	
 	/**
-	 *涓轰簡鍒ゆ柇婊戝姩鍒癓istView搴曢儴锟�
+	 *为了判断滑动到ListView底部没
 	 */
 	@Override
 	public void onScroll(AbsListView pView, int pFirstVisibleItem,
@@ -413,7 +416,7 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 
 	/**
-	 *杩欎釜鏂规硶锛屽彲鑳芥湁鐐逛贡锛屽ぇ瀹跺璇诲嚑閬嶅氨鏄庣櫧浜嗭拷?
+	 *这个方法，可能有点乱，大家多读几遍就明白了。
 	 */
 	@Override
 	public void onScrollStateChanged(AbsListView pView, int pScrollState) {
@@ -452,18 +455,18 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 
 	/**
-	 * 鏀瑰彉鍔犺浇鏇村鐘讹拷?
-	 * @date 2013-11-11 涓嬪崍10:05:27
+	 * 改变加载更多状态
+	 * @date 2013-11-11 下午10:05:27
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
 	private void  changeEndViewByState() {
 		if (mCanLoadMore) {
-			//鍏佽鍔犺浇鏇村
+			//允许加载更多
 			switch (mEndState) {
-			case ENDINT_LOADING://鍒锋柊锟�
+			case ENDINT_LOADING://刷新中
 				
-				// 鍔犺浇锟�..
+				// 加载中...
 				if(mEndLoadTipsTextView.getText().equals(
 						R.string.p2refresh_doing_end_refresh)){
 					break;
@@ -472,18 +475,18 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 				mEndLoadTipsTextView.setVisibility(View.VISIBLE);
 				mEndLoadProgressBar.setVisibility(View.VISIBLE);
 				break;
-			case ENDINT_MANUAL_LOAD_DONE:// 鎵嬪姩鍒锋柊瀹屾垚
-				
-				// 鐐瑰嚮鍔犺浇
+			case ENDINT_MANUAL_LOAD_DONE:// 手动刷新完成
+						
+				// 点击加载
 				mEndLoadTipsTextView.setText(R.string.p2refresh_end_click_load_more);
 				mEndLoadTipsTextView.setVisibility(View.VISIBLE);
 				mEndLoadProgressBar.setVisibility(View.GONE);
 				
 				mEndRootView.setVisibility(View.VISIBLE);
 				break;
-			case ENDINT_AUTO_LOAD_DONE:// 鑷姩鍒锋柊瀹屾垚
+			case ENDINT_AUTO_LOAD_DONE:// 自动刷新完成
 				
-				// 锟�   锟�
+				// 更    多
 				mEndLoadTipsTextView.setText(R.string.p2refresh_end_load_more);
 				mEndLoadTipsTextView.setVisibility(View.VISIBLE);
 				mEndLoadProgressBar.setVisibility(View.GONE);
@@ -491,8 +494,8 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 				mEndRootView.setVisibility(View.VISIBLE);
 				break;
 			default:
-				// 鍘熸潵鐨勪唬鐮佹槸涓轰簡锟�褰撴墍鏈塱tem鐨勯珮搴﹀皬浜嶭istView鏈韩鐨勯珮搴︽椂锟�
-				// 瑕侀殣钘忔帀FootView锛屽ぇ瀹惰嚜宸卞幓鍘熶綔鑰呯殑浠ｇ爜鍙傦拷?锟�
+				// 原来的代码是为了： 当所有item的高度小于ListView本身的高度时，
+				// 要隐藏掉FootView，大家自己去原作者的代码参考。
 				
 //				if (enoughCount) {					
 //					endRootView.setVisibility(View.VISIBLE);
@@ -504,9 +507,9 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 		}
 	}
 	/**
-	 * *****浜旀槦娉ㄦ剰浜嬮」锟�姝ゆ柟娉曚笉閫傜敤浜嶸iewPager涓紝鍥犱负viewpager榛樿瀹炰緥鍖栫浉閭荤殑item鐨刅iew
-	 *  寤鸿锟�涓嶅祵濂楃殑鏃讹拷?锛屽彲浠ユ斁鍦ㄨ繖涓柟娉曢噷浣跨敤锛屾晥鏋滃氨鏄細杩涘叆鐣岄潰鐩存帴鍒锋柊銆傚叿浣撳埛鏂扮殑鎺у埗鏉′欢锛屼綘鑷繁鍐冲畾锟�
-	 *  鏂规硶涓猴細鐩存帴璋冪敤pull2RefreshManually();
+	 * *****五星注意事项： 此方法不适用于ViewPager中，因为viewpager默认实例化相邻的item的View
+	 *  建议： 不嵌套的时候，可以放在这个方法里使用，效果就是：进入界面直接刷新。具体刷新的控制条件，你自己决定。
+	 *  方法为：直接调用pull2RefreshManually();
 	 */
 	@Override
 	public void onWindowFocusChanged(boolean pHasWindowFocus) {
@@ -520,8 +523,8 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 	
 	/**
-	 * 褰撹ListView锟�锟斤拷鐨勬帶浠舵樉绀哄埌灞忓箷涓婃椂锛岀洿鎺ユ樉绀烘鍦ㄥ埛锟�..
-	 * @date 2013-11-23 涓嬪崍11:26:10
+	 * 当该ListView所在的控件显示到屏幕上时，直接显示正在刷新...
+	 * @date 2013-11-23 下午11:26:10
 	 * @author JohnWatson
 	 * @version 1.0
 	 */
@@ -532,32 +535,34 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 		
 		mIsRecored = false;
 		mIsBack = false;
+		
 	}
 	
 	/**
-	 *鍘熶綔鑰呯殑锛屾垜娌℃敼鍔紝璇疯鑰呰嚜琛屼紭鍖栵拷?
+	 *原作者的，我没改动，请读者自行优化。
 	 */
 	public boolean onTouchEvent(MotionEvent event) {
 		
 		if (mCanRefresh) {
 			if(mCanLoadMore && mEndState == ENDINT_LOADING){
 //				Log.i("zml",super.onTouchEvent(event)+"");
-				// 濡傛灉瀛樺湪鍔犺浇鏇村鍔熻兘锛屽苟涓斿綋鍓嶆鍦ㄥ姞杞戒腑锛岄粯璁や笉鍏佽涓嬫媺鍒锋柊锛屽繀椤诲姞杞藉畬姣曞悗涓嬫媺鍒锋柊鎵嶈兘浣跨敤锟�
+				// 如果存在加载更多功能，并且当前正在加载中，默认不允许下拉刷新，必须加载完毕后下拉刷新才能使用。
 				return super.onTouchEvent(event);
 			}
 			
 			switch (event.getAction()) {
 			
 			case MotionEvent.ACTION_DOWN:
-				
 				if (mFirstItemIndex == 0 && !mIsRecored) {
 					mIsRecored = true;
+					mStartX = (int) event.getX();
 					mStartY = (int) event.getY();
 //					MyLogger.showLogWithLineNum(5, "mFirstItemIndex == 0 && !mIsRecored mStartY = "+mStartY);
 				}else if(mFirstItemIndex == 0 && mIsRecored){
-					// 璇存槑涓婃鐨凾ouch浜嬩欢鍙墽琛屼簡Down鍔ㄤ綔锛岀劧鍚庣洿鎺ヨ鐖剁被鎷︽埅浜嗭拷?
-					// 閭ｄ箞灏辫閲嶆柊缁檓StartY璧嬶拷?鍟︼拷?
+					// 说明上次的Touch事件只执行了Down动作，然后直接被父类拦截了。
+					// 那么就要重新给mStartY赋值啦。
 //					MyLogger.showLogWithLineNum(5, "mFirstItemIndex = "+mFirstItemIndex+"__!mIsRecored = "+!mIsRecored);
+					mStartX = (int) event.getX();
 					mStartY = (int) event.getY();
 				}
 
@@ -571,12 +576,12 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 						
 					}
 					if (mHeadState == PULL_TO_REFRESH) {
-						// 鍦ㄦ澗鎵嬬殑鏃讹拷?锛屽鏋淗eadView鏄剧ず涓嬫媺鍒锋柊锛岄偅灏辨仮澶嶅師鐘讹拷?锟�
+						// 在松手的时候，如果HeadView显示下拉刷新，那就恢复原状态。
 						mHeadState = DONE;
 						changeHeadViewByState();
 					}
 					if (mHeadState == RELEASE_TO_REFRESH) {
-						// 鍦ㄦ澗鎵嬬殑鏃讹拷?锛屽鏋淗eadView鏄剧ず鏉惧紑鍒锋柊锛岄偅灏辨樉绀烘鍦ㄥ埛鏂帮拷?
+						// 在松手的时候，如果HeadView显示松开刷新，那就显示正在刷新。
 						mHeadState = REFRESHING;
 						changeHeadViewByState();
 						onRefresh();
@@ -584,47 +589,57 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 				}
 				mIsRecored = false;
 				mIsBack = false;
-				
+				if(mLeftRightRoll){
+					mLeftRightRoll = false;
+					return false;
+				}
 				break;
 
 			case MotionEvent.ACTION_MOVE:
 				
+				int _TempX = (int)event.getX();
 				int _TempY = (int)event.getY();
-
 				if (!mIsRecored && mFirstItemIndex == 0) {
 					mIsRecored = true;
 					mStartY = _TempY;
+					mStartX = _TempX;
 //					MyLogger.showLogWithLineNum(4, "!mIsRecored && mFirstItemIndex == 0 and __mStartY = "+mStartY);
+				}
+				if(mIsRecored){
+					if(Math.abs(_TempX-mStartX)>Math.abs(_TempY-mStartY)||mLeftRightRoll){
+						mLeftRightRoll = true;
+						return false;
+					}		
 				}
 
 				if (mHeadState != REFRESHING && mIsRecored) {
 
-					// 淇濊瘉鍦ㄨ缃畃adding鐨勮繃绋嬩腑锛屽綋鍓嶇殑浣嶇疆锟�锟斤拷鏄湪head锟�
-					// 鍚﹀垯濡傛灉褰撳垪琛ㄨ秴鍑哄睆骞曠殑璇濓紝褰撳湪涓婃帹鐨勬椂鍊欙紝鍒楄〃浼氬悓鏃惰繘琛屾粴锟�
-					// 鍙互鏉炬墜鍘诲埛鏂颁簡
+					// 保证在设置padding的过程中，当前的位置一直是在head，
+					// 否则如果当列表超出屏幕的话，当在上推的时候，列表会同时进行滚动
+					// 可以松手去刷新了
 					if (mHeadState == RELEASE_TO_REFRESH) {
 
 						setSelection(0);
 						
-						// 锟�锟斤拷鎺ㄤ簡锛屾帹鍒颁簡灞忓箷瓒冲鎺╃洊head鐨勭▼搴︼紝浣嗘槸杩樻病鏈夋帹鍒板叏閮ㄦ帺鐩栫殑鍦版
+						// 往上推了，推到了屏幕足够掩盖head的程度，但是还没有推到全部掩盖的地步
 						if (((_TempY - mStartY) / RATIO < mHeadViewHeight)
 								&& (_TempY - mStartY) > 0) {
 							mHeadState = PULL_TO_REFRESH;
 							changeHeadViewByState();
 						}
-						// 锟�锟斤拷瀛愭帹鍒伴《锟�
+						// 一下子推到顶了
 						else if (_TempY - mStartY <= 0) {
 							mHeadState = DONE;
 							changeHeadViewByState();
 						}
-						// 锟�锟斤拷鎷変簡锛屾垨鑰呰繕娌℃湁涓婃帹鍒板睆骞曢《閮ㄦ帺鐩杊ead鐨勫湴锟�
+						// 往下拉了，或者还没有上推到屏幕顶部掩盖head的地步
 					}
-					// 杩樻病鏈夊埌杈炬樉绀烘澗锟�锟斤拷鏂扮殑鏃讹拷?,DONE鎴栵拷?鏄疨ULL_To_REFRESH鐘讹拷?
+					// 还没有到达显示松开刷新的时候,DONE或者是PULL_To_REFRESH状态
 					if (mHeadState == PULL_TO_REFRESH) {
 
 						setSelection(0);
 
-						// 涓嬫媺鍒板彲浠ヨ繘鍏ELEASE_TO_REFRESH鐨勭姸锟�
+						// 下拉到可以进入RELEASE_TO_REFRESH的状态
 						if ((_TempY - mStartY) / RATIO >= mHeadViewHeight) {
 							mHeadState = RELEASE_TO_REFRESH;
 							mIsBack = true;
@@ -655,16 +670,18 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 								- mHeadViewHeight, 0, 0);
 					}
 				}
+			
 				break;
 			}
 		}
 //		Log.i("zml",super.onTouchEvent(event)+"");
 		return super.onTouchEvent(event);
+//		return false;
 	}
 	
 	/**
-	 * 褰揌eadView鐘讹拷?鏀瑰彉鏃讹拷?锛岃皟鐢ㄨ鏂规硶锛屼互鏇存柊鐣岄潰
-	 * @date 2013-11-20 涓嬪崍4:29:44
+	 * 当HeadView状态改变时候，调用该方法，以更新界面
+	 * @date 2013-11-20 下午4:29:44
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
@@ -679,7 +696,7 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 
 			mArrowImageView.clearAnimation();
 			mArrowImageView.startAnimation(mArrowAnim);
-			// 鏉惧紑鍒锋柊
+			// 松开刷新
 			mTipsTextView.setText(R.string.p2refresh_release_refresh);
 
 			break;
@@ -690,15 +707,15 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 			mLastUpdatedTextView.setVisibility(View.VISIBLE);
 			mArrowImageView.clearAnimation();
 			mArrowImageView.setVisibility(View.VISIBLE);
-			// 鏄敱RELEASE_To_REFRESH鐘讹拷?杞彉鏉ョ殑
+			// 是由RELEASE_To_REFRESH状态转变来的
 			if (mIsBack) {
 				mIsBack = false;
 				mArrowImageView.clearAnimation();
 				mArrowImageView.startAnimation(mArrowReverseAnim);
-				// 涓嬫媺鍒锋柊
+				// 下拉刷新
 				mTipsTextView.setText(R.string.p2refresh_pull_to_refresh);
 			} else {
-				// 涓嬫媺鍒锋柊
+				// 下拉刷新
 				mTipsTextView.setText(R.string.p2refresh_pull_to_refresh);
 			}
 			break;
@@ -716,7 +733,7 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 			mProgressBar.setVisibility(View.GONE);
 			mArrowImageView.clearAnimation();
 			mArrowImageView.setImageResource(R.drawable.arrow);
-			// 涓嬫媺鍒锋柊
+			// 下拉刷新
 			mTipsTextView.setText(R.string.p2refresh_pull_to_refresh);
 			mLastUpdatedTextView.setVisibility(View.VISIBLE);
 			
@@ -725,29 +742,29 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 
 	/**
-	 * 鏀瑰彉HeadView鍦ㄥ埛鏂扮姸鎬佷笅鐨勬樉锟�
-	 * @date 2013-11-23 涓嬪崍10:49:00
+	 * 改变HeadView在刷新状态下的显示
+	 * @date 2013-11-23 下午10:49:00
 	 * @author JohnWatson
 	 * @version 1.0
 	 */
 	private void changeHeaderViewRefreshState(){
 		mHeadRootView.setPadding(0, 0, 0, 0);
 		
-		// 鍗庣敓鐨勫缓璁細 瀹為檯涓婅繖涓殑setPadding鍙互鐢ㄥ姩鐢绘潵浠ｆ浛銆傛垜娌℃湁璇曪紝浣嗘槸鎴戣杩囷拷?鍏跺疄鏈夌殑浜轰篃鐢⊿croller鍙互瀹炵幇杩欎釜鏁堟灉锟�
-		// 鎴戞病鏃堕棿鐮旂┒浜嗭紝鍚庢湡鍐嶆墿灞曪紝杩欎釜宸ヤ綔浜ょ粰灏忎紮浼翠綘浠暒~ 濡傛灉鏀硅繘浜嗚寰楀彂鍒版垜閭鍣
-		// 鏈汉閭锟�xxzhaofeng5412@gmail.com
+		// 华生的建议： 实际上这个的setPadding可以用动画来代替。我没有试，但是我见过。其实有的人也用Scroller可以实现这个效果，
+		// 我没时间研究了，后期再扩展，这个工作交给小伙伴你们啦~ 如果改进了记得发到我邮箱噢~
+		// 本人邮箱： xxzhaofeng5412@gmail.com
 		
 		mProgressBar.setVisibility(View.VISIBLE);
 		mArrowImageView.clearAnimation();
 		mArrowImageView.setVisibility(View.GONE);
-		// 姝ｅ湪鍒锋柊...
+		// 正在刷新...
 		mTipsTextView.setText(R.string.p2refresh_doing_head_refresh);
 		mLastUpdatedTextView.setVisibility(View.VISIBLE);
 	}
 	
 	/**
-	 * 涓嬫媺鍒锋柊鐩戝惉鎺ュ彛
-	 * @date 2013-11-20 涓嬪崍4:50:51
+	 * 下拉刷新监听接口
+	 * @date 2013-11-20 下午4:50:51
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
@@ -756,8 +773,8 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 	
 	/**
-	 * 鍔犺浇鏇村鐩戝惉鎺ュ彛
-	 * @date 2013-11-20 涓嬪崍4:50:51
+	 * 加载更多监听接口
+	 * @date 2013-11-20 下午4:50:51
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
@@ -783,8 +800,8 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 	
 	/**
-	 * 姝ｅ湪涓嬫媺鍒锋柊
-	 * @date 2013-11-20 涓嬪崍4:45:47
+	 * 正在下拉刷新
+	 * @date 2013-11-20 下午4:45:47
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
@@ -795,21 +812,21 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 	
 	/**
-	 * 涓嬫媺鍒锋柊瀹屾垚
-	 * @date 2013-11-20 涓嬪崍4:44:12
+	 * 下拉刷新完成
+	 * @date 2013-11-20 下午4:44:12
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
 	public void onRefreshComplete() {
 				
 		mHeadState = DONE;
-		// 锟�锟斤拷鏇存柊: Time
+		// 最近更新: Time
 		mLastUpdatedTextView.setText(
 				getResources().getString(R.string.p2refresh_refresh_lasttime) + 
 				new SimpleDateFormat(DATE_FORMAT_STR, Locale.CHINA).format(new Date()));
 		changeHeadViewByState();
 		
-		// 涓嬫媺鍒锋柊鍚庢槸鍚︽樉绀虹锟�锟斤拷Item
+		// 下拉刷新后是否显示第一条Item
 		if (mIsMoveToFirstItemAfterRefresh) {
 			mFirstItemIndex = 0;
 			setSelection(0);
@@ -817,14 +834,14 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 
 	/**
-	 * 姝ｅ湪鍔犺浇鏇村锛孎ootView鏄剧ず 锟�鍔犺浇锟�..
-	 * @date 2013-11-20 涓嬪崍4:35:51
+	 * 正在加载更多，FootView显示 ： 加载中...
+	 * @date 2013-11-20 下午4:35:51
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
 	private void onLoadMore() {
 		if (mLoadMoreListener != null) {
-			// 鍔犺浇锟�..
+			// 加载中...
 			mEndLoadTipsTextView.setText(R.string.p2refresh_doing_end_refresh);
 			mEndLoadTipsTextView.setVisibility(View.VISIBLE);
 			mEndLoadProgressBar.setVisibility(View.VISIBLE);
@@ -834,8 +851,8 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 
 	/**
-	 * 鍔犺浇鏇村瀹屾垚 
-	 * @date 2013-11-11 涓嬪崍10:21:38
+	 * 加载更多完成 
+	 * @date 2013-11-11 下午10:21:38
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
@@ -849,14 +866,14 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	}
 	
 	/**
-	 * 涓昏鏇存柊锟�锟斤拷鍒锋柊鏃堕棿鍟︼紒
+	 * 主要更新一下刷新时间啦！
 	 * @param adapter
-	 * @date 2013-11-20 涓嬪崍5:35:51
+	 * @date 2013-11-20 下午5:35:51
 	 * @change JohnWatson
 	 * @version 1.0
 	 */
 	public void setAdapter(BaseAdapter adapter) {
-		// 锟�锟斤拷鏇存柊: Time
+		// 最近更新: Time
 		mLastUpdatedTextView.setText(
 				getResources().getString(R.string.p2refresh_refresh_lasttime) + 
 				new SimpleDateFormat(DATE_FORMAT_STR, Locale.CHINA).format(new Date()));

@@ -1,0 +1,105 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#efebef"
+    android:orientation="vertical"
+    tools:context=".Client" >
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#1E1E1E" >
+
+        <TextView
+            android:id="@+id/aaaa"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="center|center"
+            android:text="个人信息"
+            android:textColor="#ffffff"
+            android:textSize="23sp" />
+
+        <ImageButton
+            android:id="@+id/ib_client_to_setting"
+            android:layout_width="40dp"
+            android:layout_height="fill_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="4dp"
+            android:background="#1E1E1E"
+            android:src="@drawable/arrow_left" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/b_nickname"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center|left"
+        android:drawableRight="@drawable/sub_pressed"
+        android:paddingRight="10dp"
+        android:text="昵称："
+        android:background="@drawable/information_button_top" />
+
+
+    
+    <Button
+        android:id="@+id/b_sex"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center|left"
+        android:drawableRight="@drawable/sub_pressed"
+        android:paddingRight="10dp"
+        android:text="性别："
+        android:background="@drawable/information_button_medium" />
+
+    
+    <Button
+        android:id="@+id/b_area"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center|left"
+        android:drawableRight="@drawable/sub_pressed"
+        android:paddingRight="10dp"
+        android:text="地区："
+        android:background="@drawable/information_button_medium"/>
+
+
+    
+    <Button
+        android:id="@+id/b_my_sign"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center|left"
+        android:drawableRight="@drawable/sub_pressed"
+        android:paddingRight="10dp"
+        android:text="个性签名："
+        android:background="@drawable/information_button_bottom"/>
+
+    <Button
+        android:id="@+id/b_birth"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginRight="9dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center|left"
+        android:paddingRight="10dp"
+        android:drawableRight="@drawable/sub_pressed"
+        android:background="@drawable/information_button"
+        android:text="出生日期：" />
+
+</LinearLayout>

@@ -7,19 +7,20 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="18" />
+
     <application
-        android:name=".base.BaseApp"
+        android:name="com.myapp.base.BaseApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
         <activity
             android:name="com.myapp.ui.StartActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,13 +31,13 @@
         </activity>
         <activity
             android:name="com.myapp.ui.MainActivity"
-            android:label="@string/app_name" 
-            android:theme="@android:style/Theme.NoTitleBar">
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="com.myapp.ui.Register"
             android:label="@string/title_activity_register"
-			android:theme="@android:style/Theme.NoTitleBar" >
+            android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
         <activity
             android:name="com.myapp.ui.SurveyCenter"
@@ -48,14 +49,35 @@
             android:label="@string/title_activity_user_homepage"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
+        <activity
+            android:name="com.myapp.ui.Client"
+            android:label="@string/title_activity_client"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.myapp.ui.ContactUs"
+            android:label="@string/title_activity_contact_us"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.myapp.ui.About"
+            android:label="@string/title_activity_about"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.myapp.ui.ModifyInformation"
+            android:label="@string/title_activity_modify_information"
+            android:theme="@android:style/Theme.NoTitleBar" >
+        </activity>
     </application>
-	<!-- For using network -->
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-	<!-- For using notification -->
-	<uses-permission android:name="android.permission.VIBRATE" />
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- For using network -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- For using notification -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
 </manifest>

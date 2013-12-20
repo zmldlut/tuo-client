@@ -13,13 +13,19 @@
         <include layout="@layout/activity_guide"/>
     </LinearLayout>
    
-
-    <com.myapp.view.SingleLayoutListView
+    <com.myapp.view.CenterLinearLayout 
+        android:id="@+id/centerly_survey"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+        <com.myapp.view.SingleLayoutListView
         android:id="@+id/mListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:cacheColorHint="@android:color/transparent"
         android:fadingEdgeLength="0dp" 
         android:layout_weight="1"/>
+    </com.myapp.view.CenterLinearLayout>
 
 </LinearLayout>

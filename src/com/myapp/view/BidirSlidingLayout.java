@@ -265,7 +265,8 @@ public class BidirSlidingLayout extends RelativeLayout implements OnTouchListene
             yMove = event.getRawY();  
             // 手指移动时，对比按下时的坐标，计算出移动的距离。  
             int moveDistanceX = (int) (xMove - xDown);  
-            int moveDistanceY = (int) (yMove - yDown);  
+            int moveDistanceY = (int) (yMove - yDown); 
+            
             // 检查当前的滑动状态  
             checkSlideState(moveDistanceX, moveDistanceY);  
             // 根据当前滑动状态决定如何偏移内容布局  
@@ -290,7 +291,10 @@ public class BidirSlidingLayout extends RelativeLayout implements OnTouchListene
                 contentLayout.setLayoutParams(contentLayoutParams);  
             default:  
                 break;  
-            }  
+            } 
+//            if(Math.abs(moveDistanceX)>Math.abs(moveDistanceY)){
+//            	return false;
+//            }
             break;  
         case MotionEvent.ACTION_UP:  
             xUp = event.getRawX();  

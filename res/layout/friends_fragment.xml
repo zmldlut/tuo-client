@@ -20,6 +20,17 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:src="#1e90ff" />
+	        <Button
+	            android:id="@+id/b_sign"
+	            android:layout_width="40dp"
+	            android:layout_height="28dp"
+	            android:layout_alignParentRight="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginRight="5dp"
+	            android:layout_marginTop="5dp"
+	            android:background="@drawable/small_button"
+	            android:textColor="#ffffff"
+	            android:text="签到" />
 	    </RelativeLayout>
 
 	    <com.myapp.view.RoundedImageView

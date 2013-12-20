@@ -50,7 +50,7 @@
 		            android:src="#1e90ff" />
 		
 		        <Button
-		            android:id="@+id/button1"
+		            android:id="@+id/b_bad"
 		            android:layout_width="40dp"
 		            android:layout_height="28dp"
 		            android:layout_alignParentRight="true"

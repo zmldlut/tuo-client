@@ -46,31 +46,32 @@ public class CenterLinearLayout extends LinearLayout {
 	
 	@Override  
     public boolean dispatchTouchEvent(MotionEvent ev) {  
-        Log.e("jj", "dispatchTouchEvent...");  
-        // 获取手势返回值  
-        b = mGestureDetector.onTouchEvent(ev);  
-        // 松开手要执行一些操作。(关闭 or 打开)  
+//        Log.e("jj", "dispatchTouchEvent...");  
+//        // 获取手势返回值  
+//        b = mGestureDetector.onTouchEvent(ev);  
+//        // 松开手要执行一些操作。(关闭 or 打开)  
 //        if (ev.getAction() == MotionEvent.ACTION_UP) {  
 //            onScrollListener.doLoosen();  
 //        }  
         return super.dispatchTouchEvent(ev);  
     }  
   
-    @Override  
-    public boolean onInterceptTouchEvent(MotionEvent ev) {  
-        Log.e("jj", "onInterceptTouchEvent...");  
-        super.onInterceptTouchEvent(ev);  
-        return b;  
-    }  
+//    @Override  
+//    public boolean onInterceptTouchEvent(MotionEvent ev) {  
+//        Log.e("jj", "onInterceptTouchEvent...");  
+//        super.onInterceptTouchEvent(ev);  
+//        return b;  
+//    }  
     /*** 
      * 在这里我简单说明一下 
      */  
-    @Override  
-    public boolean onTouchEvent(MotionEvent event) {  
-        Log.e("jj", "onTouchEvent...");  
-        isLock = false;  
-        return super.onTouchEvent(event);  
-    }  
+//    @Override  
+//    public boolean onTouchEvent(MotionEvent event) {  
+//        Log.e("jj", "onTouchEvent...");  
+//        isLock = false;  
+////        return super.onTouchEvent(event);  
+//        return false;
+//    }  
     
     /*** 
      * 自定义手势执行 
@@ -95,15 +96,11 @@ public class CenterLinearLayout extends LinearLayout {
                 onScrollListener.doScroll(distanceX);  
   
             // 垂直大于水平  
-            if (Math.abs(distanceY) > Math.abs(distanceX)) {  
-                // Log.e("jjj", "ll...垂直...");  
+            if (Math.abs(distanceY) > Math.abs(distanceX)) {   
                 return false;  
             } else {  
-                // Log.e("jjj", "ll...水平...");  
-                // Log.e("jj", "distanceX===" + distanceX);  
                 return true;  
             }  
-  
         }  
     }  
     
