@@ -1,12 +1,10 @@
 package com.myapp.manager;
 
-import com.myapp.R;
-
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.os.Build;
+
+import com.myapp.R;
 
 
 @SuppressLint("NewApi")

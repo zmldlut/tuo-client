@@ -171,6 +171,7 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 	private int mStartX;
 	private boolean mIsBack;
 	private boolean mLeftRightRoll;
+	public static boolean onTouch = false;// 是否点击到了ListView的区域，用于自定义图层中重定向事件的传递。
 	
 	private int mFirstItemIndex;
 	private int mLastItemIndex;
@@ -555,6 +556,7 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 			case MotionEvent.ACTION_DOWN:
 				if (mFirstItemIndex == 0 && !mIsRecored) {
 					mIsRecored = true;
+					onTouch = true;
 					mStartX = (int) event.getX();
 					mStartY = (int) event.getY();
 //					MyLogger.showLogWithLineNum(5, "mFirstItemIndex == 0 && !mIsRecored mStartY = "+mStartY);
@@ -589,6 +591,7 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 				}
 				mIsRecored = false;
 				mIsBack = false;
+				onTouch = false;
 				if(mLeftRightRoll){
 					mLeftRightRoll = false;
 					return false;
@@ -674,7 +677,7 @@ public class SingleLayoutListView extends ListView implements OnScrollListener,O
 				break;
 			}
 		}
-//		Log.i("zml",super.onTouchEvent(event)+"");
+//		Log.i("MyViewFlow",super.onTouchEvent(event)+"zml");
 		return super.onTouchEvent(event);
 //		return false;
 	}

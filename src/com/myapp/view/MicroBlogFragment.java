@@ -12,9 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -22,7 +20,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.myapp.R;
 import com.myapp.adapter.MyListAdapter;
 import com.myapp.model.AppInfo;
-import com.myapp.view.CenterLinearLayout.OnScrollListener;
 import com.myapp.view.SingleLayoutListView.OnLoadMoreListener;
 import com.myapp.view.SingleLayoutListView.OnRefreshListener;
 
@@ -98,6 +95,7 @@ public class MicroBlogFragment extends Fragment {
 		mAdapter = new MyListAdapter(context, mList);
 		mListView = (SingleLayoutListView) view.findViewById(R.id.muserHomeListView);
 		centerLyMicroBlog = (CenterLinearLayout)view.findViewById(R.id.centerLy_microBlog);
+//		centerLyMicroBlog.setListView(mListView);
 		/////////////////////////////////////////////////////////////////////////////
 		mListView.setAdapter(mAdapter);
 		

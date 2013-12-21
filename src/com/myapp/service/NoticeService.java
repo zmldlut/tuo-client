@@ -3,13 +3,10 @@ package com.myapp.service;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import android.app.Notification;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.IBinder;
 
-import com.myapp.base.BaseMessage;
 import com.myapp.base.BaseService;
 import com.myapp.base.C;
 

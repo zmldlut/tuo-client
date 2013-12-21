@@ -23,13 +23,14 @@ import android.widget.Toast;
 import com.myapp.R;
 import com.myapp.manager.MyFragmentManager;
 import com.myapp.view.BidirSlidingLayout;
+import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
 import com.myapp.view.FriendsFragment;
 import com.myapp.view.HomeFragment;
 import com.myapp.view.SettingFragment;
 
 
 @SuppressLint("NewApi")
-public class SurveyCenter extends Activity {
+public class SurveyCenter extends Activity implements OnTouchListViewListener{
 	private List<View> myLinear;
 	private List<TextView> myText;
 	
@@ -207,6 +208,12 @@ public class SurveyCenter extends Activity {
         	}
         }  
         return super.onKeyDown(keyCode, event);  
-    }  
+    }
+
+	@Override
+	public void onTouchListView() {
+		// TODO Auto-generated method stub
+		bidirSldingLayout.listViewOnTouch = true;
+	}  
 
 }

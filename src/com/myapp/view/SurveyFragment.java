@@ -25,7 +25,6 @@ import com.myapp.R;
 import com.myapp.adapter.MyListAdapter;
 import com.myapp.adapter.SurveyViewPagerAdapter;
 import com.myapp.model.AppInfo;
-import com.myapp.view.CenterLinearLayout.OnScrollListener;
 import com.myapp.view.SingleLayoutListView.OnLoadMoreListener;
 import com.myapp.view.SingleLayoutListView.OnRefreshListener;
 
@@ -114,26 +113,7 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 		mAdapter = new MyListAdapter(context, mList);
 		mListView = (SingleLayoutListView) view.findViewById(R.id.mListView);
 		centerlySurvey = (CenterLinearLayout)view.findViewById(R.id.centerly_survey);
-		centerlySurvey.setOnScrollListener(new OnScrollListener() {
-			@Override
-			public void doScroll(float distanceX) {
-//				doScrolling(distanceX);
-			}
-
-			@Override
-			public void doLoosen() {
-//				RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) layout_left
-//						.getLayoutParams();
-//				Log.e("jj", "layoutParams.leftMargin="
-//						+ layoutParams.leftMargin);
-//				// Àıªÿ»•
-//				if (layoutParams.leftMargin < -window_width / 2) {
-//					new AsynMove().execute(-SPEED);
-//				} else {
-//					new AsynMove().execute(SPEED);
-//				}
-			}
-		});
+//		centerlySurvey.setListView(mListView);
 		/////////////////////////////////////////////////////////////////////////////
 		mListView.setAdapter(mAdapter);
 
