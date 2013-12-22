@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.graphics.BitmapFactory;
@@ -25,6 +26,7 @@ import com.myapp.R;
 import com.myapp.adapter.MyListAdapter;
 import com.myapp.adapter.SurveyViewPagerAdapter;
 import com.myapp.model.AppInfo;
+import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
 import com.myapp.view.SingleLayoutListView.OnLoadMoreListener;
 import com.myapp.view.SingleLayoutListView.OnRefreshListener;
 
@@ -42,7 +44,6 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 	private List<AppInfo> mList = new ArrayList<AppInfo>();
 	private MyListAdapter mAdapter;
 	private SingleLayoutListView mListView;
-	private CenterLinearLayout centerlySurvey;
 //	private ImageSwitcher imageSwitcher;
 	private int mCount = 10;
 	
@@ -55,6 +56,8 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
     private ImageView[] dots;
     
     private int currentIndex;
+    
+    private OnTouchListViewListener mOnTouchLister;
 	//////////////////////////////////////////////////////////
     
 	
@@ -81,13 +84,14 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 		};
 	};
 	
-	public SurveyFragment() {
-		// TODO Auto-generated constructor stub
-	}
-	
 	public SurveyFragment(Context context) {
 		// TODO Auto-generated constructor stub
 		this.context = context;
+		try {
+			mOnTouchLister = (OnTouchListViewListener)this.context;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(((Activity)context).toString() + "must implement OnbtnSendClickListener");//这条表示，你不在Activity里实现这个接口的话，我就要抛出异常咯。知道下一步该干嘛了吧？
+		}
 	}
 	
 	@Override
@@ -112,8 +116,6 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 	private void initView() {
 		mAdapter = new MyListAdapter(context, mList);
 		mListView = (SingleLayoutListView) view.findViewById(R.id.mListView);
-		centerlySurvey = (CenterLinearLayout)view.findViewById(R.id.centerly_survey);
-//		centerlySurvey.setListView(mListView);
 		/////////////////////////////////////////////////////////////////////////////
 		mListView.setAdapter(mAdapter);
 
@@ -295,7 +297,13 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 		// TODO Auto-generated method stub
-		
+		Log.i("zml","---------------------->>>onPageScolled>>argo=="+arg0+">>>>arg1=="+arg1+">>>>arg2=="+arg2);
+		if(arg0==0&&arg2==0&&(arg1>-0.0001&&arg1<=0.0001)){
+			mOnTouchLister.onTouchListView();
+		}else if(arg0==3&&arg2==0&&(arg1>-0.0001&&arg1<=0.0001)){
+			mOnTouchLister.onTouchListView();
+		}
+//		Log.i("zml","---------------------->>>onPageScolled>>argo=="+arg0+">>>>arg1=="+arg1+">>>>arg2=="+arg2);
 	}
 
 	@Override

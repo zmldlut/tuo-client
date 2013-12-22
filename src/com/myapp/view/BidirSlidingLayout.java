@@ -282,6 +282,7 @@ public class BidirSlidingLayout extends RelativeLayout implements OnTouchListene
 			final float dx = x - mLastMotionX;
 			final float xDiff = Math.abs(dx);
 			final float yDiff = Math.abs(y - mLastMotionY);
+			mIsBeingDragged = true;
 			if (xDiff > mTouchSlop && xDiff > yDiff) {
 				mIsBeingDragged = true;
 				mLastMotionX = x;
@@ -289,6 +290,7 @@ public class BidirSlidingLayout extends RelativeLayout implements OnTouchListene
 			break;
 		}
 //		return mIsBeingDragged;
+		Log.i(TAG, "listViewOnTouch  "+listViewOnTouch);
 		return listViewOnTouch;
 	}
 	
@@ -306,6 +308,7 @@ public class BidirSlidingLayout extends RelativeLayout implements OnTouchListene
 	                int moveDistanceY = (int) (yMove - mLastMotionY); 
 	             // 检查当前的滑动状态  
 	                checkSlideState(moveDistanceX, moveDistanceY);  
+	                Log.i(TAG, "moveDistanceX=="+moveDistanceX+">>>moveDistanceY=="+moveDistanceY);
 	                // 根据当前滑动状态决定如何偏移内容布局  
 	                switch (slideState) {  
 	                case SHOW_LEFT_MENU:  
