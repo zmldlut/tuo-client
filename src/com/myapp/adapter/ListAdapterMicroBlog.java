@@ -14,16 +14,16 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class MyListAdapter extends BaseAdapter {
+public class ListAdapterMicroBlog extends BaseAdapter {
 
 	private LayoutInflater mInflater;
 	public List<AppInfo> mList;
 	
-	public MyListAdapter() {
+	public ListAdapterMicroBlog() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public MyListAdapter(Context pContext, List<AppInfo> pList) {
+	public ListAdapterMicroBlog(Context pContext, List<AppInfo> pList) {
 		mInflater = LayoutInflater.from(pContext);
 		if (pList != null) {
 			mList = pList;

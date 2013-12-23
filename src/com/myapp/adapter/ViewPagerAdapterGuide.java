@@ -31,7 +31,7 @@ import android.widget.Button;
  * 
  * 
  */
-public class ViewPagerAdapter extends PagerAdapter {
+public class ViewPagerAdapterGuide extends PagerAdapter {
 
 	// 界面列表
 	private List<View> views;
@@ -39,7 +39,7 @@ public class ViewPagerAdapter extends PagerAdapter {
 
 	private static final String SHAREDPREFERENCES_NAME = "first_pref";
 
-	public ViewPagerAdapter(List<View> views, Activity activity) {
+	public ViewPagerAdapterGuide(List<View> views, Activity activity) {
 		this.views = views;
 		this.activity = activity;
 	}

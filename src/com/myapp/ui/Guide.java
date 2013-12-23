@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.myapp.R;
-import com.myapp.adapter.ViewPagerAdapter;
+import com.myapp.adapter.ViewPagerAdapterGuide;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 public class Guide extends Activity implements OnPageChangeListener {
 	
 	private ViewPager vp;
-    private ViewPagerAdapter vpAdapter;
+    private ViewPagerAdapterGuide vpAdapter;
     private List<View> views;
     
     private ImageView[] dots;
@@ -44,7 +44,7 @@ public class Guide extends Activity implements OnPageChangeListener {
 	        views.add(inflater.inflate(R.layout.four, null));
 
 	        // ≥ı ºªØAdapter
-	        vpAdapter = new ViewPagerAdapter(views, this);
+	        vpAdapter = new ViewPagerAdapterGuide(views, this);
 
 	        vp = (ViewPager) findViewById(R.id.viewpager);
 	        vp.setAdapter(vpAdapter);

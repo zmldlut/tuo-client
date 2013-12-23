@@ -6,11 +6,11 @@ import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class SurveyViewPagerAdapter extends PagerAdapter {
+public class ViewPagerAdapterSurveyImage extends PagerAdapter {
 
 	private List<View> mListViews;  
 	
-	public SurveyViewPagerAdapter(List<View> mListViews) {
+	public ViewPagerAdapterSurveyImage(List<View> mListViews) {
 		// TODO Auto-generated constructor stub
 		this.mListViews = mListViews; 
 	}

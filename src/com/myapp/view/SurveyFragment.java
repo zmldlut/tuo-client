@@ -23,8 +23,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.myapp.R;
-import com.myapp.adapter.MyListAdapter;
-import com.myapp.adapter.SurveyViewPagerAdapter;
+import com.myapp.adapter.ListAdapterMicroBlog;
+import com.myapp.adapter.ViewPagerAdapterSurveyImage;
 import com.myapp.model.AppInfo;
 import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
 import com.myapp.view.SingleLayoutListView.OnLoadMoreListener;
@@ -42,7 +42,7 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 	private static final int REFRESH_DATA_FINISH = 11;
 
 	private List<AppInfo> mList = new ArrayList<AppInfo>();
-	private MyListAdapter mAdapter;
+	private ListAdapterMicroBlog mAdapter;
 	private SingleLayoutListView mListView;
 //	private ImageSwitcher imageSwitcher;
 	private int mCount = 10;
@@ -50,7 +50,7 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 	//四张图片的数据
 	//////////////////////////////////////////////////////////
 	private ViewPager vp;
-    private SurveyViewPagerAdapter sViewAdapter;
+    private ViewPagerAdapterSurveyImage sViewAdapter;
     private List<View> views;
     
     private ImageView[] dots;
@@ -114,7 +114,7 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 	}	
 	
 	private void initView() {
-		mAdapter = new MyListAdapter(context, mList);
+		mAdapter = new ListAdapterMicroBlog(context, mList);
 		mListView = (SingleLayoutListView) view.findViewById(R.id.mListView);
 		/////////////////////////////////////////////////////////////////////////////
 		mListView.setAdapter(mAdapter);
@@ -167,7 +167,7 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 	        views.add(inflater.inflate(R.layout.one, null));
 
 	        // 初始化Adapter
-	        sViewAdapter = new SurveyViewPagerAdapter(views);
+	        sViewAdapter = new ViewPagerAdapterSurveyImage(views);
 
 	        vp = (ViewPager) view.findViewById(R.id.viewpager);
 	        vp.setAdapter(sViewAdapter);

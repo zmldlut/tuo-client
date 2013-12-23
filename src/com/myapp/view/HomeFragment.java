@@ -1,26 +1,21 @@
 package com.myapp.view;
 
-import com.myapp.R;
-import com.myapp.manager.MyFragmentManager;
-import com.myapp.ui.SurveyCenter;
-
 import android.annotation.SuppressLint;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+
+import com.myapp.R;
+import com.myapp.manager.MyFragmentManager;
 
 @SuppressLint({ "ValidFragment", "NewApi" })
 public class HomeFragment extends Fragment {
 	private Context context;
 	private View view; 
 	
-
-
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub

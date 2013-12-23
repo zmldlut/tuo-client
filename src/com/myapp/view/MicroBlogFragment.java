@@ -18,7 +18,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.myapp.R;
-import com.myapp.adapter.MyListAdapter;
+import com.myapp.adapter.ListAdapterMicroBlog;
 import com.myapp.model.AppInfo;
 import com.myapp.view.SingleLayoutListView.OnLoadMoreListener;
 import com.myapp.view.SingleLayoutListView.OnRefreshListener;
@@ -35,7 +35,7 @@ public class MicroBlogFragment extends Fragment {
 	private static final int REFRESH_DATA_FINISH = 11;
 
 	private List<AppInfo> mList = new ArrayList<AppInfo>();
-	private MyListAdapter mAdapter;
+	private ListAdapterMicroBlog mAdapter;
 	private SingleLayoutListView mListView;
 	private int myXml = R.layout.list_micro_blog;
 	
@@ -97,7 +97,7 @@ public class MicroBlogFragment extends Fragment {
 	}	
 	
 	private void initView() {
-		mAdapter = new MyListAdapter(context, mList);
+		mAdapter = new ListAdapterMicroBlog(context, mList);
 		mListView = (SingleLayoutListView) view.findViewById(R.id.muserHomeListView);
 		mListView.setAdapter(mAdapter);
 
