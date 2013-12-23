@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,7 +26,6 @@ import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
 import com.myapp.view.FriendsFragment;
 import com.myapp.view.HomeFragment;
 import com.myapp.view.SettingFragment;
-
 
 @SuppressLint("NewApi")
 public class SurveyCenter extends Activity implements OnTouchListViewListener{
@@ -43,7 +41,6 @@ public class SurveyCenter extends Activity implements OnTouchListViewListener{
 	private TextView titleRight;
 	private ImageButton showLeftButton;
 	private ImageButton showRightButton;
-	private FrameLayout myView;
 	private LinearLayout content;
 	
 	private boolean isexit = false;   
@@ -74,7 +71,6 @@ public class SurveyCenter extends Activity implements OnTouchListViewListener{
 		user = (ImageView)findViewById(R.id.img_user);
 		title = (TextView)findViewById(R.id.tv_title);
 		titleRight = (TextView)findViewById(R.id.tv_title_right);
-		myView = (FrameLayout)findViewById(R.id.fragment_layout);
 		content = (LinearLayout)findViewById(R.id.content);
 		
 		myLinear = new ArrayList<View>();

@@ -104,16 +104,16 @@ public final class R {
         public static final int LinearLayout1=0x7f0a0000;
         public static final int RelativeLayout1=0x7f0a0018;
         public static final int aaaa=0x7f0a000d;
-        public static final int action_settings=0x7f0a0069;
+        public static final int action_settings=0x7f0a0068;
         public static final int appInfo=0x7f0a002a;
         public static final int autotv_account=0x7f0a0008;
         public static final int b_about=0x7f0a004b;
         public static final int b_area=0x7f0a0011;
-        public static final int b_bad=0x7f0a0066;
+        public static final int b_bad=0x7f0a0065;
         public static final int b_birth=0x7f0a0013;
         public static final int b_contact=0x7f0a004c;
         public static final int b_date=0x7f0a0045;
-        public static final int b_last_view=0x7f0a0065;
+        public static final int b_last_view=0x7f0a0064;
         public static final int b_login=0x7f0a000a;
         public static final int b_logout=0x7f0a004d;
         public static final int b_modify_save=0x7f0a0034;
@@ -127,8 +127,7 @@ public final class R {
         public static final int b_user_information=0x7f0a004a;
         public static final int bidir_sliding_layout=0x7f0a004e;
         public static final int btn_sub=0x7f0a0016;
-        public static final int centerLy_microBlog=0x7f0a002d;
-        public static final int centerly_survey=0x7f0a0063;
+        public static final int centerly_survey=0x7f0a002d;
         public static final int checkBox1=0x7f0a000c;
         public static final int content=0x7f0a005e;
         public static final int cs_main_dialog_close=0x7f0a0030;
@@ -150,7 +149,7 @@ public final class R {
         public static final int head_tipsTextView=0x7f0a0039;
         public static final int home_frag=0x7f0a001e;
         public static final int home_fragment_layout=0x7f0a0027;
-        public static final int homepage_user=0x7f0a0067;
+        public static final int homepage_user=0x7f0a0066;
         public static final int horizontalScrollView1=0x7f0a001f;
         public static final int ib_about_to_setting=0x7f0a0002;
         public static final int ib_client_to_setting=0x7f0a000e;
@@ -165,7 +164,7 @@ public final class R {
         public static final int left_menu=0x7f0a004f;
         public static final int ll=0x7f0a0005;
         public static final int load_more=0x7f0a003c;
-        public static final int mListView=0x7f0a0064;
+        public static final int mListView=0x7f0a0063;
         public static final int m_img_user=0x7f0a0007;
         public static final int main_load_bar=0x7f0a0031;
         public static final int muserHomeListView=0x7f0a002e;
@@ -205,7 +204,7 @@ public final class R {
         public static final int tv_title_bar_sport=0x7f0a0022;
         public static final int tv_title_right=0x7f0a005c;
         public static final int tv_verify=0x7f0a0046;
-        public static final int user_fragment_layout=0x7f0a0068;
+        public static final int user_fragment_layout=0x7f0a0067;
         public static final int viewpager=0x7f0a0004;
     }
     public static final class layout {
@@ -221,19 +220,20 @@ public final class R {
         public static final int list_friends_item=0x7f030009;
         public static final int list_item=0x7f03000a;
         public static final int list_micro_blog=0x7f03000b;
-        public static final int main_dialog=0x7f03000c;
-        public static final int main_load=0x7f03000d;
-        public static final int modify_information=0x7f03000e;
-        public static final int one=0x7f03000f;
-        public static final int pull_to_refresh_head=0x7f030010;
-        public static final int pull_to_refresh_load_more=0x7f030011;
-        public static final int register=0x7f030012;
-        public static final int setting_fragment=0x7f030013;
-        public static final int survey_center=0x7f030014;
-        public static final int survey_fragment=0x7f030015;
-        public static final int three=0x7f030016;
-        public static final int two=0x7f030017;
-        public static final int user_homepage=0x7f030018;
+        public static final int list_micro_blog_user=0x7f03000c;
+        public static final int main_dialog=0x7f03000d;
+        public static final int main_load=0x7f03000e;
+        public static final int modify_information=0x7f03000f;
+        public static final int one=0x7f030010;
+        public static final int pull_to_refresh_head=0x7f030011;
+        public static final int pull_to_refresh_load_more=0x7f030012;
+        public static final int register=0x7f030013;
+        public static final int setting_fragment=0x7f030014;
+        public static final int survey_center=0x7f030015;
+        public static final int survey_fragment=0x7f030016;
+        public static final int three=0x7f030017;
+        public static final int two=0x7f030018;
+        public static final int user_homepage=0x7f030019;
     }
     public static final class menu {
         public static final int about=0x7f090000;

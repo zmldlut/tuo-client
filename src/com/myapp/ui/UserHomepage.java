@@ -37,7 +37,7 @@ public class UserHomepage extends Activity implements OnClickListener {
 		setClickEvent();
 		setCalendarEvent();
 		
-		MicroBlogFragment microBlog_frag = new MicroBlogFragment(UserHomepage.this);
+		MicroBlogFragment microBlog_frag = new MicroBlogFragment(UserHomepage.this, R.layout.list_micro_blog_user);
 		MyFragmentManager.microBlogFragmentChange(getFragmentManager(),microBlog_frag);
 	}
 	
@@ -83,10 +83,8 @@ public class UserHomepage extends Activity implements OnClickListener {
 		        // Ìá½»ÐÞ¸Ä
 		        editor.commit();
 			bad.setClickable(false);
-			break;
-			
+			break;	
 		}
-		
 	}
 
 	@Override

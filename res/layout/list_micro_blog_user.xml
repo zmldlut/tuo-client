@@ -3,11 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <com.myapp.view.CenterLinearLayout 
-       android:id="@+id/centerly_survey"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       >
 	    <com.myapp.view.SingleLayoutListView
 		     android:id="@+id/muserHomeListView"
 		     android:layout_width="match_parent"
@@ -15,5 +10,4 @@
 		     android:cacheColorHint="@android:color/transparent"
 		     android:fadingEdgeLength="0dp" 
 		     />
-    </com.myapp.view.CenterLinearLayout>
 </LinearLayout>

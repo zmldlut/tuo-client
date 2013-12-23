@@ -37,7 +37,7 @@ public class MicroBlogFragment extends Fragment {
 	private List<AppInfo> mList = new ArrayList<AppInfo>();
 	private MyListAdapter mAdapter;
 	private SingleLayoutListView mListView;
-	private CenterLinearLayout centerLyMicroBlog;
+	private int myXml = R.layout.list_micro_blog;
 	
 //	private ImageSwitcher imageSwitcher;
 	private int mCount = 10;
@@ -73,6 +73,11 @@ public class MicroBlogFragment extends Fragment {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 	}
+	public MicroBlogFragment(Context context, int myXml) {
+		// TODO Auto-generated constructor stub
+		this.context = context;
+		this.myXml = myXml;
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -87,50 +92,14 @@ public class MicroBlogFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		view = inflater.inflate(R.layout.list_micro_blog, container, false);
+		view = inflater.inflate(myXml, container, false);
 		return view;
 	}	
 	
 	private void initView() {
 		mAdapter = new MyListAdapter(context, mList);
 		mListView = (SingleLayoutListView) view.findViewById(R.id.muserHomeListView);
-		centerLyMicroBlog = (CenterLinearLayout)view.findViewById(R.id.centerLy_microBlog);
-//		centerLyMicroBlog.setListView(mListView);
-		/////////////////////////////////////////////////////////////////////////////
 		mListView.setAdapter(mAdapter);
-		
-		/***
-		 * 实现该接口
-		 */
-//		centerLyMicroBlog.setOnScrollListener(new OnScrollListener() {
-//			@Override
-//			public void doScroll(float distanceX) {
-////				doScrolling(distanceX);
-//			}
-//
-//			@Override
-//			public void doLoosen() {
-////				RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) layout_left
-////						.getLayoutParams();
-////				Log.e("jj", "layoutParams.leftMargin="
-////						+ layoutParams.leftMargin);
-////				// 缩回去
-////				if (layoutParams.leftMargin < -window_width / 2) {
-////					new AsynMove().execute(-SPEED);
-////				} else {
-////					new AsynMove().execute(SPEED);
-////				}
-//			}
-//		});
-		
-//		centerLyMicroBlog.setOnTouchListener(new OnTouchListener() {
-//		
-//			@Override
-//			public boolean onTouch(View v, MotionEvent event) {
-//				// TODO Auto-generated method stub
-//				return true;
-//			}
-//		});
 
 		mListView.setOnRefreshListener(new OnRefreshListener() {
 
