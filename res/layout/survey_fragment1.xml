@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+   
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2" 
+        >
+        <include layout="@layout/activity_guide"/>
+    </LinearLayout>
+
+    
+    <com.myapp.view.CenterLinearLayout 
+        android:id="@+id/centerly_survey"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        >
+        <com.myapp.view.SingleLayoutListView
+        android:id="@+id/mListView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:fadingEdgeLength="0dp" 
+        android:layout_weight="1"/>
+    </com.myapp.view.CenterLinearLayout>
+
+</LinearLayout>

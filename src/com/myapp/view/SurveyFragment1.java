@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.app.Fragment;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
@@ -31,7 +30,7 @@ import com.myapp.view.SingleLayoutListView.OnLoadMoreListener;
 import com.myapp.view.SingleLayoutListView.OnRefreshListener;
 
 @SuppressLint({ "NewApi", "ValidFragment" })
-public class SurveyFragment extends Fragment implements OnPageChangeListener{
+public class SurveyFragment1 extends Fragment implements OnPageChangeListener{
 
 	private Context context;
 	private View view; 
@@ -57,7 +56,7 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
     
     private int currentIndex;
     
-    private OnTouchListViewListener mOnTouchLister;
+    
 	//////////////////////////////////////////////////////////
     
 	
@@ -84,47 +83,60 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 		};
 	};
 	
-	public SurveyFragment(Context context) {
+	static SurveyFragment1 newInstance(String s, Context context) {
+		SurveyFragment1 newFragment = new SurveyFragment1(context);
+        Bundle bundle = new Bundle();
+        bundle.putString("hello", s);
+        newFragment.setArguments(bundle);
+        return newFragment;
+
+    }
+	
+	public SurveyFragment1(Context context) {
 		// TODO Auto-generated constructor stub
+		Log.i(TAG, TAG+"-----SurveyFragment1");
 		this.context = context;
-		try {
-			mOnTouchLister = (OnTouchListViewListener)this.context;
-		} catch (ClassCastException e) {
-			throw new ClassCastException(((Activity)context).toString() + "must implement OnbtnSendClickListener");//这条表示，你不在Activity里实现这个接口的话，我就要抛出异常咯。知道下一步该干嘛了吧？
-		}
-		Log.i("SurveyFragment","构造函数");
 	}
+	
+	@Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "TestFragment-----onCreate");
+        Bundle args = getArguments();
+//        hello = args != null ? args.getString("hello") : defaultHello;
+    }
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
+		Log.i(TAG, TAG+"-----onActivityCreated");
 		buildAppData();
 		initView();
 		initViewPagers();
 		initDots();
-	}
-	
-	public View getView() {
-		return view;
-	}
-
-	public void setView(View view) {
-		this.view = view;
 	}
 
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		Log.i(TAG, TAG+"-----onCreateView");
 		// TODO Auto-generated method stub
-		view = inflater.inflate(R.layout.survey_fragment, container, false);
+		view = inflater.inflate(R.layout.survey_fragment1, container, false);
 		return view;
+		
 	}	
+	
+	@Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG, "SurveyFragment1-----onDestroy");
+    }
 	
 	private void initView() {
 		mAdapter = new ListAdapterMicroBlog(context, mList);
-		mListView = (SingleLayoutListView) view.findViewById(R.id.mListView);
+		mListView = (SingleLayoutListView) view.findViewById(R.id.mListView1);
 		/////////////////////////////////////////////////////////////////////////////
 		mListView.setAdapter(mAdapter);
 
@@ -307,11 +319,7 @@ public class SurveyFragment extends Fragment implements OnPageChangeListener{
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 		// TODO Auto-generated method stub
 		Log.i("zml","---------------------->>>onPageScolled>>argo=="+arg0+">>>>arg1=="+arg1+">>>>arg2=="+arg2);
-		if(arg0==0&&arg2==0&&(arg1>-0.0001&&arg1<=0.0001)){
-			mOnTouchLister.onTouchListView();
-		}else if(arg0==3&&arg2==0&&(arg1>-0.0001&&arg1<=0.0001)){
-			mOnTouchLister.onTouchListView();
-		}
+
 //		Log.i("zml","---------------------->>>onPageScolled>>argo=="+arg0+">>>>arg1=="+arg1+">>>>arg2=="+arg2);
 	}
 
