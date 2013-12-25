@@ -1,9 +1,10 @@
 package com.myapp.view;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,12 +17,18 @@ public class HomeFragment extends Fragment {
 	private Context context;
 	private View view; 
 	
+	private FragmentManager fragmentManager;
+	
+	public void setFragmentManager(FragmentManager fragmentManager) {
+		this.fragmentManager = fragmentManager;
+	}
+	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		SurveyFragment survey_frag = new SurveyFragment(context);
-		MyFragmentManager.surveyFragmentChange(getFragmentManager(),survey_frag);
+		MyFragmentManager.surveyFragmentChange(fragmentManager,survey_frag);
 	}
 
 	@Override

@@ -3,11 +3,12 @@ package com.myapp.view;
 import java.util.Calendar;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,7 +30,11 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 	private int day_now;
 	private Button sign;
 	
-
+	private FragmentManager fragmentManager;
+	
+	public void setFragmentManager(FragmentManager fragmentManager) {
+		this.fragmentManager = fragmentManager;
+	}
 
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -37,13 +42,11 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 		super.onActivityCreated(savedInstanceState);
 		
 		MicroBlogFragment microBlog_frag = new MicroBlogFragment(context);
-		MyFragmentManager.microBlogFriendsFragmentChange(getFragmentManager(),microBlog_frag);
+		MyFragmentManager.microBlogFriendsFragmentChange(fragmentManager, microBlog_frag);
 		
 		getWidgetId();
 		setClickEvent();
 		setCalendarEvent();
-		
-	
 	}
 	
 	public void setCalendarEvent() {

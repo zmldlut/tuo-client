@@ -3,7 +3,6 @@ package com.myapp.ui;
 import java.util.Calendar;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -15,11 +14,12 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.myapp.R;
+import com.myapp.base.BaseUi;
 import com.myapp.manager.MyFragmentManager;
 import com.myapp.view.MicroBlogFragment;
 
 @SuppressLint("NewApi")
-public class UserHomepage extends Activity implements OnClickListener {
+public class UserHomepage extends BaseUi implements OnClickListener {
 	private ImageButton last_view;
 	private Button bad;
 	
@@ -28,7 +28,7 @@ public class UserHomepage extends Activity implements OnClickListener {
 	private int day_now;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_homepage);
 		
@@ -38,9 +38,10 @@ public class UserHomepage extends Activity implements OnClickListener {
 		setCalendarEvent();
 		
 		MicroBlogFragment microBlog_frag = new MicroBlogFragment(UserHomepage.this, R.layout.list_micro_blog_user);
-		MyFragmentManager.microBlogFragmentChange(getFragmentManager(),microBlog_frag);
+		MyFragmentManager.microBlogFragmentChange(getSupportFragmentManager(),microBlog_frag);
 	}
 	
+
 	public void setCalendarEvent() {
 		SharedPreferences preferences = getSharedPreferences(
 	            SHAREDPREFERENCES_NAME, MODE_PRIVATE);

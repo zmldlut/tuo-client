@@ -1,8 +1,8 @@
 package com.myapp.manager;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 import com.myapp.R;
 
@@ -14,7 +14,7 @@ public class MyFragmentManager {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void myChangeFragment(android.support.v4.app.FragmentManager fragmanager,android.support.v4.app.Fragment fm){
+	public static void myChangeFragment(FragmentManager fragmanager,Fragment fm){
 		fragmanager.beginTransaction().replace(R.id.fragment_layout, fm).commit();
 	}
 

@@ -24,7 +24,9 @@ import com.myapp.base.BaseUi;
 import com.myapp.manager.MyFragmentManager;
 import com.myapp.view.BidirSlidingLayout;
 import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
+import com.myapp.view.FriendsFragment;
 import com.myapp.view.HomeFragment1;
+import com.myapp.view.SettingFragment;
 
 @SuppressLint("NewApi")
 public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
@@ -192,27 +194,30 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 	}
 	
 	public void surveyCenterClick(){
-//		bidirSldingLayout.scrollToContentFromLeftMenu();
-//		HomeFragment home_frag = new HomeFragment(SurveyCenter.this);
-//		MyFragmentManager.myFragment(getFragmentManager(), home_frag);
-//		title.setText("调查中心");
-//		titleRight.setText("消息列表");
+		bidirSldingLayout.scrollToContentFromLeftMenu();
+		HomeFragment1 home_frag = new HomeFragment1(SurveyCenter.this);
+		home_frag.setFragmentManager(getSupportFragmentManager());
+		MyFragmentManager.myChangeFragment(getSupportFragmentManager(), home_frag);
+		titleCenter.setText("调查中心");
+		titleRight.setText("消息列表");
 	}
 	
 	public void friendsGroupClick(){
-//		bidirSldingLayout.scrollToContentFromLeftMenu();
-//		FriendsFragment friends_frag = new FriendsFragment(SurveyCenter.this);
-//		MyFragmentManager.myFragment(getFragmentManager(), friends_frag);
-//		title.setText("朋友圈");
-//		titleRight.setText("好友列表");
+		bidirSldingLayout.scrollToContentFromLeftMenu();
+		FriendsFragment friends_frag = new FriendsFragment(SurveyCenter.this);
+		friends_frag.setFragmentManager(getSupportFragmentManager());
+		MyFragmentManager.myChangeFragment(getSupportFragmentManager(), friends_frag);
+		titleCenter.setText("朋友圈");
+		titleRight.setText("好友列表");
 	}
 	
 	public void settingClick(){
-//		bidirSldingLayout.scrollToContentFromLeftMenu();
-//		SettingFragment setting_frag = new SettingFragment(SurveyCenter.this);
-//		MyFragmentManager.myFragment(getFragmentManager(), setting_frag);
-//		title.setText("设置");
-//		titleRight.setText("带扩展列表");
+		bidirSldingLayout.scrollToContentFromLeftMenu();
+		SettingFragment setting_frag = new SettingFragment(SurveyCenter.this);
+		setting_frag.setFragmentManager(getSupportFragmentManager());
+		MyFragmentManager.myChangeFragment(getSupportFragmentManager(), setting_frag);
+		titleCenter.setText("设置");
+		titleRight.setText("带扩展列表");
 	}
 	
 	@Override  
