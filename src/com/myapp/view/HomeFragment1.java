@@ -28,7 +28,10 @@ import android.widget.TextView;
 
 import com.myapp.R;
 import com.myapp.adapter.FragmentPagerAdapterSurvey;
-import com.myapp.adapter.ViewPagerAdapterSurvey;
+import com.myapp.base.BaseMessage;
+import com.myapp.base.C;
+import com.myapp.model.Classify;
+import com.myapp.util.TaskAsyncUtil;
 import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
 
 @SuppressLint({ "ValidFragment", "NewApi" })
@@ -36,42 +39,50 @@ public class HomeFragment1 extends Fragment implements OnClickListener{
 	private Context context;
 	private View view; 
 	
+	private FragmentManager fragmentManager;
+	private OnTouchListViewListener mOnTouchLister;
 
 	private ViewPager viewPager;
-	private List<View> listPageViews;
 	private ArrayList<Fragment> fragmentsList;
 	private List<TextView> tvTitles;
-	private final int height = 70;
-	private int H_width;
+	
 	private HorizontalScrollView horizontalScrollView;
 	private LinearLayout linearLayout;
 	
-	private FragmentManager fragmentManager;
+	private TaskAsyncUtil taskAsyncUtil;
 	
-//	private OnTouchListViewListener mOnTouchLister;
-
+	private final int height = 70;
+	private int H_width;
+	
+	private ArrayList<Classify> classifyList = new ArrayList<Classify>();
+	private int length = 0;
 	private String title[] = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "tem" };
 	
-	private OnTouchListViewListener mOnTouchLister;
 	
 	public void setFragmentManager(FragmentManager fragmentManager) {
 		this.fragmentManager = fragmentManager;
+	}
+	
+	public HomeFragment1(Context context) {
+		// TODO Auto-generated constructor stub
+		this.context = context;
+		try {
+			mOnTouchLister = (OnTouchListViewListener)this.context;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(((Activity)context).toString() + "must implement OnbtnSendClickListener");//这条表示，你不在Activity里实现这个接口的话，我就要抛出异常咯。知道下一步该干嘛了吧？
+		}
 	}
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-//		SurveyFragment survey_frag = new SurveyFragment(context);
-//		MyFragmentManager.surveyFragmentChange(getFragmentManager(),survey_frag);
-		linearLayout = (LinearLayout) view.findViewById(R.id.ll_main);
-		viewPager = (ViewPager) view.findViewById(R.id.pager);
-		horizontalScrollView = (HorizontalScrollView) view.findViewById(R.id.horizontalScrollView);
-		InItTitle1();
-		setSelector(0);
-		InItView();
+
+		getWidget();
+		initTask();
+		doTaskGetClassify();
+		
 		InitViewPager();
-//		viewPager.setAdapter(new ViewPagerAdapterSurvey(listPageViews));
 		viewPager.setAdapter(new FragmentPagerAdapterSurvey(fragmentManager,fragmentsList));
 		viewPager.clearAnimation();
 		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
@@ -95,6 +106,7 @@ public class HomeFragment1 extends Fragment implements OnClickListener{
 			}
 		});
 	}
+
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,18 +115,47 @@ public class HomeFragment1 extends Fragment implements OnClickListener{
 		view = inflater.inflate(R.layout.home_fragment1, container, false);
 		return view;
 	}	
+	
+	public void getWidget(){
+		linearLayout = (LinearLayout) view.findViewById(R.id.ll_main);
+		viewPager = (ViewPager) view.findViewById(R.id.pager);
+		horizontalScrollView = (HorizontalScrollView) view.findViewById(R.id.horizontalScrollView);
+	}
+	
+	
+	public void doTaskGetClassify() {
 
-	public HomeFragment1(Context context) {
-		// TODO Auto-generated constructor stub
-		this.context = context;
 		try {
-			mOnTouchLister = (OnTouchListViewListener)this.context;
-		} catch (ClassCastException e) {
-			throw new ClassCastException(((Activity)context).toString() + "must implement OnbtnSendClickListener");//这条表示，你不在Activity里实现这个接口的话，我就要抛出异常咯。知道下一步该干嘛了吧？
+			taskAsyncUtil.doTaskAsync(C.task.classifyList, C.api.classifyList);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 	
-	 private void InitViewPager() {
+	public void initTask(){
+		taskAsyncUtil = new TaskAsyncUtil(context){
+			@Override
+			public void onTaskComplete(int taskId, BaseMessage message){
+				
+				switch (taskId) {
+				case C.task.classifyList:
+					try {
+						classifyList = (ArrayList<Classify>) message.getResultList("Classify");
+						length = classifyList.size();
+						InItTitle();
+						setSelector(0);
+					} catch (Exception e) {
+						e.printStackTrace();
+						toast(e.getMessage());
+					}
+					break;
+				}
+			}
+		};
+	}
+	
+	
+	private void InitViewPager() {
 		 fragmentsList = new ArrayList<Fragment>();
 		 
 		 Fragment activityfragment = SurveyFragment1.newInstance("Hello Activity.",context);
@@ -128,55 +169,16 @@ public class HomeFragment1 extends Fragment implements OnClickListener{
 		 fragmentsList.add(chatFragment);
 	 }
 	
-	
-	/***
-	 * init view
-	 */
-	public void InItView() {
-		listPageViews = new ArrayList<View>();
-//		SurveyFragment survey_frag = new SurveyFragment(context);
-		View view01 = new TextView(context);
-		view01.setBackgroundColor(Color.BLUE);
-		View view02 = new TextView(context);
-		view02.setBackgroundColor(Color.RED);
-		View view03 = new TextView(context);
-		view03.setBackgroundColor(Color.YELLOW);
-		View view04 = new TextView(context);
-		view04.setBackgroundColor(Color.BLUE);
-		View view05 = new TextView(context);
-		view05.setBackgroundColor(Color.RED);
-		View view06 = new TextView(context);
-		view06.setBackgroundColor(Color.YELLOW);
-		View view07 = new TextView(context);
-		view07.setBackgroundColor(Color.BLUE);
-		View view08 = new TextView(context);
-		view08.setBackgroundColor(Color.RED);
-		View view09 = new TextView(context);
-		view09.setBackgroundColor(Color.BLUE);
-		View view10 = new TextView(context);
-		view10.setBackgroundColor(Color.RED);
-
-		listPageViews.add(view01);
-		listPageViews.add(view02);
-		listPageViews.add(view03);
-		listPageViews.add(view04);
-		listPageViews.add(view05);
-		listPageViews.add(view06);
-		listPageViews.add(view07);
-		listPageViews.add(view08);
-		listPageViews.add(view09);
-		listPageViews.add(view10);
-	}
-	
 	/***
 	 * init title
 	 */
-	public void InItTitle1() {
+	public void InItTitle() {
 		tvTitles = new ArrayList<TextView>();
 		H_width = ((Activity)context).getWindowManager().getDefaultDisplay().getWidth() / 4;
-		for (int i = 0; i < title.length; i++) {
+		
+		for (int i = 0; i < length; i++) {
 			TextView textView = new TextView(context);
-			textView.setText(title[i]);
+			textView.setText(classifyList.get(i).getName());
 			textView.setTextSize(17);
 			textView.setTextColor(Color.BLACK);
 			textView.setWidth(H_width);
@@ -195,7 +197,7 @@ public class HomeFragment1 extends Fragment implements OnClickListener{
 			view.setLayoutParams(layoutParams);
 			view.setBackgroundColor(Color.GRAY);
 			linearLayout.addView(textView);
-			if (i != title.length - 1) {
+			if (i != length - 1) {
 				linearLayout.addView(view);
 			}
 			Log.e("aa", "linearLayout_width=" + linearLayout.getWidth());
@@ -214,7 +216,7 @@ public class HomeFragment1 extends Fragment implements OnClickListener{
 	 */
 	@SuppressWarnings("deprecation")
 	public void setSelector(int id) {
-		for (int i = 0; i < title.length; i++) {
+		for (int i = 0; i < length; i++) {
 			if (id == i) {
 				Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.grouplist_item_bg_normal);
 				tvTitles.get(id).setBackgroundDrawable(new BitmapDrawable(bitmap));

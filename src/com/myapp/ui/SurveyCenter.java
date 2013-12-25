@@ -6,11 +6,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,30 +19,45 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myapp.R;
+import com.myapp.base.BaseAuth;
+import com.myapp.base.BaseUi;
 import com.myapp.manager.MyFragmentManager;
 import com.myapp.view.BidirSlidingLayout;
 import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
-import com.myapp.view.FriendsFragment;
-import com.myapp.view.HomeFragment;
 import com.myapp.view.HomeFragment1;
-import com.myapp.view.SettingFragment;
 
 @SuppressLint("NewApi")
-public class SurveyCenter extends FragmentActivity implements OnTouchListViewListener{
+public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
+	
+	///
+	///左侧控件
+	///
+	private ImageView userImage;
+	private TextView userName;
+	
+	//左侧菜单控件 ，例如：拖后腿、朋友圈、设置
 	private List<View> myLinear;
+	//左侧菜单控件 ，例如：拖后腿、朋友圈、设置的左侧点击后特效
 	private List<TextView> myText;
 	
-	private int currentSelectIndex = 0;
-	
-	public BidirSlidingLayout bidirSldingLayout; 
-	
-	private ImageView user;
-	private TextView title;
-	private TextView titleRight;
+	///
+	///中间控件
+	///
 	private ImageButton showLeftButton;
 	private ImageButton showRightButton;
 	private LinearLayout content;
+	private TextView titleCenter;
 	
+	///
+	///右侧控件
+	///
+	private TextView titleRight;
+	
+	//////////////////////////////////////////////////////////////////////////////////////
+	
+	private int currentSelectIndex = 0;
+
+	public BidirSlidingLayout bidirSldingLayout;
 	private boolean isexit = false;   
 	private boolean hastask = false;  
 	Timer texit = new Timer();  
@@ -57,23 +70,21 @@ public class SurveyCenter extends FragmentActivity implements OnTouchListViewLis
 	
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.survey_center);
 		
         getWidget();
     	setEvent();
     	setHomeFrag();
+    	initView();
 	}
 	
 	public void getWidget(){
-		bidirSldingLayout = (BidirSlidingLayout) findViewById(R.id.bidir_sliding_layout);  
-        showLeftButton = (ImageButton) findViewById(R.id.show_left_button);
-		showRightButton = (ImageButton) findViewById(R.id.show_right_button);
-		user = (ImageView)findViewById(R.id.img_user);
-		title = (TextView)findViewById(R.id.tv_title);
-		titleRight = (TextView)findViewById(R.id.tv_title_right);
-		content = (LinearLayout)findViewById(R.id.content);
+
+		///左侧控件
+		userImage = (ImageView)findViewById(R.id.img_user);
+		userName = (TextView)findViewById(R.id.s_tv_user_name);
 		
 		myLinear = new ArrayList<View>();
 		myLinear.add((View) findViewById(R.id.s_linear_survey_center));
@@ -84,10 +95,21 @@ public class SurveyCenter extends FragmentActivity implements OnTouchListViewLis
 		myText.add((TextView) findViewById(R.id.tv_survey_color));
 		myText.add((TextView) findViewById(R.id.tv_friends_color));
 		myText.add((TextView) findViewById(R.id.tv_setting_color));
+		
+		///中间控件
+		showLeftButton = (ImageButton) findViewById(R.id.show_left_button);
+		showRightButton = (ImageButton) findViewById(R.id.show_right_button);
+		
+		titleCenter = (TextView)findViewById(R.id.tv_title);
+		content = (LinearLayout)findViewById(R.id.content);
+		
+		///右侧控件
+		bidirSldingLayout = (BidirSlidingLayout) findViewById(R.id.bidir_sliding_layout);  
+		titleRight = (TextView)findViewById(R.id.tv_title_right);
 	}
 	
 	public void setEvent() {
-		user.setOnClickListener(new myListener());
+		userImage.setOnClickListener(new myListener());
 		for (int i = 0; i < this.myLinear.size(); i++) 
 			myLinear.get(i).setOnClickListener(new myListener());
 		showLeftButton.setOnClickListener(new myListener());
@@ -101,6 +123,13 @@ public class SurveyCenter extends FragmentActivity implements OnTouchListViewLis
 		HomeFragment1 home_frag = new HomeFragment1(SurveyCenter.this);
 		home_frag.setFragmentManager(getSupportFragmentManager());
 		MyFragmentManager.myChangeFragment(getSupportFragmentManager(),home_frag);
+	}
+	
+	public void initView(){
+		String name = BaseAuth.getUser().getName(); 
+		userName.setText(name);
+		titleCenter.setText("调查中心");
+		titleRight.setText("消息列表");
 	}
 	
 	class myListener implements OnClickListener {

@@ -2,12 +2,12 @@ package com.myapp.base;
 
 import java.util.HashMap;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Message;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +19,7 @@ import com.myapp.R;
 import com.myapp.util.AppCache;
 import com.myapp.util.AppUtil;
 
-public class BaseUi extends Activity {
+public class BaseUi extends FragmentActivity {
 	
 	protected BaseApp app;
 	protected BaseHandler handler;

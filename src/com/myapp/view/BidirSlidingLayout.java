@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewConfiguration;
 import android.view.WindowManager;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 public class BidirSlidingLayout extends RelativeLayout implements OnTouchListener {  
@@ -290,8 +289,12 @@ public class BidirSlidingLayout extends RelativeLayout implements OnTouchListene
 			break;
 		}
 //		return mIsBeingDragged;
-		Log.i(TAG, "listViewOnTouch  "+listViewOnTouch);
+//		Log.i(TAG, "listViewOnTouch  "+listViewOnTouch);
+//		if((isLeftMenuVisible || isRightMenuVisible) && mIsBeingDragged){
+//			return true&&listViewOnTouch;
+//		}
 		return listViewOnTouch;
+
 	}
 	
 	@Override
