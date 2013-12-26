@@ -61,9 +61,9 @@ public class BaseMessage {
 	public ArrayList<? extends BaseModel> getResultList (String modelName) throws Exception {
 		ArrayList<? extends BaseModel> modelList = this.resultList.get(modelName);
 		// catch null exception
-		if (modelList == null || modelList.size() == 0) {
-			throw new Exception("Message data list is empty");
-		}
+//		if (modelList == null || modelList.size() == 0) {
+//			throw new Exception("Message data list is empty");
+//		}
 		return modelList;
 	}
 	

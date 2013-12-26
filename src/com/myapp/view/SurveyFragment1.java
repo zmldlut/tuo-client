@@ -1,15 +1,13 @@
 package com.myapp.view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.Log;
@@ -24,16 +22,22 @@ import android.widget.LinearLayout;
 import com.myapp.R;
 import com.myapp.adapter.ListAdapterMicroBlog;
 import com.myapp.adapter.ViewPagerAdapterSurveyImage;
+import com.myapp.base.BaseFragment;
+import com.myapp.base.BaseMessage;
+import com.myapp.base.C;
 import com.myapp.model.AppInfo;
-import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
+import com.myapp.model.Classify;
+import com.myapp.model.Eio;
 import com.myapp.view.SingleLayoutListView.OnLoadMoreListener;
 import com.myapp.view.SingleLayoutListView.OnRefreshListener;
 
 @SuppressLint({ "NewApi", "ValidFragment" })
-public class SurveyFragment1 extends Fragment implements OnPageChangeListener{
+public class SurveyFragment1 extends BaseFragment implements OnPageChangeListener{
 
 	private Context context;
 	private View view; 
+	private Classify classify = new Classify();
+	private List<Eio> eioList = new ArrayList<Eio>();
 	
 	private static final String TAG = "SingleFragment";
 	
@@ -43,8 +47,8 @@ public class SurveyFragment1 extends Fragment implements OnPageChangeListener{
 	private List<AppInfo> mList = new ArrayList<AppInfo>();
 	private ListAdapterMicroBlog mAdapter;
 	private SingleLayoutListView mListView;
-//	private ImageSwitcher imageSwitcher;
-	private int mCount = 10;
+
+	private int currentPage = 1;
 	
 	//四张图片的数据
 	//////////////////////////////////////////////////////////
@@ -55,55 +59,30 @@ public class SurveyFragment1 extends Fragment implements OnPageChangeListener{
     private ImageView[] dots;
     
     private int currentIndex;
+    private int currentState;
     
-    
-	//////////////////////////////////////////////////////////
-    
-	
-	private Handler mHandler = new Handler() {
-
-		@SuppressWarnings("unchecked")
-		public void handleMessage(android.os.Message msg) {
-			switch (msg.what) {
-			case REFRESH_DATA_FINISH:
-				if (mAdapter != null) {
-					mAdapter.mList = (ArrayList<AppInfo>) msg.obj;
-					mAdapter.notifyDataSetChanged();
-				}
-				mListView.onRefreshComplete(); // 下拉刷新完成
-				break;
-			case LOAD_DATA_FINISH:
-				if (mAdapter != null) {
-					mAdapter.mList.addAll((ArrayList<AppInfo>) msg.obj);
-					mAdapter.notifyDataSetChanged();
-				}
-				mListView.onLoadMoreComplete(); // 加载更多完成
-				break;
-			}
-		};
-	};
-	
-	static SurveyFragment1 newInstance(String s, Context context) {
-		SurveyFragment1 newFragment = new SurveyFragment1(context);
-        Bundle bundle = new Bundle();
-        bundle.putString("hello", s);
-        newFragment.setArguments(bundle);
+ 
+	static SurveyFragment1 newInstance(Classify classify, Context context) {
+		SurveyFragment1 newFragment = new SurveyFragment1(context, classify);
         return newFragment;
-
     }
 	
-	public SurveyFragment1(Context context) {
+	public SurveyFragment1(Context context, Classify classify) {
 		// TODO Auto-generated constructor stub
+		super(context);
 		Log.i(TAG, TAG+"-----SurveyFragment1");
+		
 		this.context = context;
+		this.classify.setIcon(classify.getIcon());
+		this.classify.setId(classify.getId());
+		this.classify.setName(classify.getName());
+		this.classify.setUptime(classify.getUptime());
 	}
+	
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d(TAG, "TestFragment-----onCreate");
-        Bundle args = getArguments();
-//        hello = args != null ? args.getString("hello") : defaultHello;
     }
 	
 	@Override
@@ -111,10 +90,8 @@ public class SurveyFragment1 extends Fragment implements OnPageChangeListener{
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
 		Log.i(TAG, TAG+"-----onActivityCreated");
-		buildAppData();
-		initView();
-		initViewPagers();
-		initDots();
+
+		doTaskGetEioList(currentPage++);
 	}
 
 
@@ -134,6 +111,31 @@ public class SurveyFragment1 extends Fragment implements OnPageChangeListener{
         Log.d(TAG, "SurveyFragment1-----onDestroy");
     }
 	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public void onTaskComplete(int taskId, BaseMessage message){
+		switch (taskId) {
+		case C.task.eioList:
+			try {
+				eioList.clear();
+				eioList = (ArrayList<Eio>) message.getResultList("Eio");
+				if(eioList.size()==0||eioList==null){
+					currentPage--;
+				}
+				buildAppData(eioList);
+				initView();
+				initViewPagers();
+				initDots();
+				doTaskFinish();
+			} catch (Exception e) {
+				e.printStackTrace();
+				toast(e.getMessage());
+			}
+			break;
+		}
+	}
+	
 	private void initView() {
 		mAdapter = new ListAdapterMicroBlog(context, mList);
 		mListView = (SingleLayoutListView) view.findViewById(R.id.mListView1);
@@ -146,7 +148,12 @@ public class SurveyFragment1 extends Fragment implements OnPageChangeListener{
 			public void onRefresh() {
 				// TODO 下拉刷新
 				Log.e(TAG, "onRefresh");
-				loadData(0);
+				currentPage = 0;
+
+				eioList.clear();
+				mList.clear();
+				doTaskGetEioList(currentPage++);
+				currentState = REFRESH_DATA_FINISH;
 			}
 		});
 
@@ -156,9 +163,11 @@ public class SurveyFragment1 extends Fragment implements OnPageChangeListener{
 			public void onLoadMore() {
 				// TODO 加载更多
 				Log.e(TAG, "onLoad");
-				loadData(1);
+				doTaskGetEioList(currentPage++);
+				currentState = LOAD_DATA_FINISH;
 			}
 		});
+		
 
 		mListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -219,92 +228,49 @@ public class SurveyFragment1 extends Fragment implements OnPageChangeListener{
 
         dots[position].setEnabled(false);
         dots[currentIndex].setEnabled(true);
-
         currentIndex = position;
     }
 	
-	/**
-	 * 加载数据啦~
-	 * @param type 
-	 * @date 2013-12-13 上午10:14:08
-	 * @author JohnWatson
-	 * @version 1.0
-	 */
-	public void loadData(final int type) {
-		new Thread() {
-			@Override
-			public void run() {
-				List<AppInfo> _List = null;
-				switch (type) {
-				case 0:
-					mCount = 10;
+	public void doTaskGetEioList(int pageId) {
 
-					_List = new ArrayList<AppInfo>();
-					for (int i = 1; i <= mCount; i++) {
-						AppInfo ai = new AppInfo();
-
-						ai.setAppIcon(BitmapFactory.decodeResource(
-								getResources(), R.drawable.ic_launcher));
-						ai.setAppName("应用Demo_" + i);
-						ai.setAppVer("版本: " + (i % 10 + 1) + "." + (i % 8 + 2)
-								+ "." + (i % 6 + 3));
-						ai.setAppSize("大小: " + i * 10 + "MB");
-
-						_List.add(ai);
-					}
-					break;
-
-				case 1:
-					_List = new ArrayList<AppInfo>();
-					int _Index = mCount + 10;
-
-					for (int i = mCount + 1; i <= _Index; i++) {
-						AppInfo ai = new AppInfo();
-
-						ai.setAppIcon(BitmapFactory.decodeResource(
-								getResources(), R.drawable.ic_launcher));
-						ai.setAppName("应用Demo_" + i);
-						ai.setAppVer("版本: " + (i % 10 + 1) + "." + (i % 8 + 2)
-								+ "." + (i % 6 + 3));
-						ai.setAppSize("大小: " + i * 10 + "MB");
-
-						_List.add(ai);
-					}
-					mCount = _Index;
-					break;
-				}
-
-				try {
-					Thread.sleep(2000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				if (type == 0) { // 下拉刷新
-				// Collections.reverse(mList); //逆序
-					Message _Msg = mHandler.obtainMessage(REFRESH_DATA_FINISH,
-							_List);
-					mHandler.sendMessage(_Msg);
-				} else if (type == 1) {
-					Message _Msg = mHandler.obtainMessage(LOAD_DATA_FINISH,
-							_List);
-					mHandler.sendMessage(_Msg);
-				}
-			}
-		}.start();
+		HashMap<String, String> urlParams = new HashMap<String, String>();
+		urlParams.put("classifyId", this.classify.getId());
+		urlParams.put("pageId", ""+pageId);
+		
+		try {
+			this.doTaskAsync(C.task.eioList, C.api.eioList, urlParams);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
-
-	private void buildAppData() {
-		for (int i = 1; i <= 10; i++) {
+	
+	public void doTaskFinish(){
+		switch(currentState){
+		case REFRESH_DATA_FINISH:
+			if (mAdapter != null) {
+				mAdapter.mList = mList;
+				mAdapter.notifyDataSetChanged();
+			}
+			mListView.onRefreshComplete(); // 下拉刷新完成
+			break;
+		case LOAD_DATA_FINISH:
+			if (mAdapter != null) {
+				mAdapter.mList = mList;
+				mAdapter.notifyDataSetChanged();
+			}
+			mListView.onLoadMoreComplete(); // 加载更多完成
+			break;
+		}
+	}
+	
+	private void buildAppData(List<Eio> eioList) {
+		for (int i = 0; i < eioList.size(); i++) {
 			AppInfo ai = new AppInfo();
-
 			ai.setAppIcon(BitmapFactory.decodeResource(getResources(),
-					R.drawable.ic_launcher));
-			ai.setAppName("应用Demo_" + i);
-			ai.setAppVer("版本: " + (i % 10 + 1) + "." + (i % 8 + 2) + "."
-					+ (i % 6 + 3));
-			ai.setAppSize("大小: " + i * 10 + "MB");
-
+					R.drawable.eio_icon));
+			ai.setAppName(eioList.get(i).getTitle());
+			ai.setAppVer(eioList.get(i).getAuthor());
+			ai.setAppSize(eioList.get(i).getPublishtime());
 			mList.add(ai);
 		}
 	}
@@ -318,9 +284,7 @@ public class SurveyFragment1 extends Fragment implements OnPageChangeListener{
 	@Override
 	public void onPageScrolled(int arg0, float arg1, int arg2) {
 		// TODO Auto-generated method stub
-		Log.i("zml","---------------------->>>onPageScolled>>argo=="+arg0+">>>>arg1=="+arg1+">>>>arg2=="+arg2);
-
-//		Log.i("zml","---------------------->>>onPageScolled>>argo=="+arg0+">>>>arg1=="+arg1+">>>>arg2=="+arg2);
+		
 	}
 
 	@Override

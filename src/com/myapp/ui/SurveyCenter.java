@@ -25,6 +25,7 @@ import com.myapp.manager.MyFragmentManager;
 import com.myapp.view.BidirSlidingLayout;
 import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
 import com.myapp.view.FriendsFragment;
+import com.myapp.view.HomeFragment;
 import com.myapp.view.HomeFragment1;
 import com.myapp.view.SettingFragment;
 
@@ -121,7 +122,8 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 	
 	public void setHomeFrag() {
 //		HomeFragment home_frag = new HomeFragment(SurveyCenter.this);
-//		MyFragmentManager.myFragment(getFragmentManager(),home_frag);
+//		home_frag.setFragmentManager(getSupportFragmentManager());
+//		MyFragmentManager.myChangeFragment(getSupportFragmentManager(),home_frag);
 		HomeFragment1 home_frag = new HomeFragment1(SurveyCenter.this);
 		home_frag.setFragmentManager(getSupportFragmentManager());
 		MyFragmentManager.myChangeFragment(getSupportFragmentManager(),home_frag);

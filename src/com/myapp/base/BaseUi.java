@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SimpleAdapter.ViewBinder;
 import android.widget.Toast;
 
@@ -137,14 +138,18 @@ public class BaseUi extends FragmentActivity {
 	}
 	
 	public void showLoadBar () {
-		this.findViewById(R.id.main_load_bar).setVisibility(View.VISIBLE);
-		this.findViewById(R.id.main_load_bar).bringToFront();
+		LayoutInflater inflater = getLayoutInflater();
+		View layout = inflater.inflate(R.layout.main_load, null);
+		layout.findViewById(R.id.main_load_bar).setVisibility(View.VISIBLE);
+		layout.findViewById(R.id.main_load_bar).bringToFront();
 		showLoadBar = true;
 	}
 	
 	public void hideLoadBar () {
 		if (showLoadBar) {
-			this.findViewById(R.id.main_load_bar).setVisibility(View.GONE);
+			LayoutInflater inflater = getLayoutInflater();
+			View layout = inflater.inflate(R.layout.main_load, null);
+			layout.findViewById(R.id.main_load_bar).setVisibility(View.GONE);
 			showLoadBar = false;
 		}
 	}

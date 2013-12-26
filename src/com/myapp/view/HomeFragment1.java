@@ -28,14 +28,14 @@ import android.widget.TextView;
 
 import com.myapp.R;
 import com.myapp.adapter.FragmentPagerAdapterSurvey;
+import com.myapp.base.BaseFragment;
 import com.myapp.base.BaseMessage;
 import com.myapp.base.C;
 import com.myapp.model.Classify;
-import com.myapp.util.TaskAsyncUtil;
 import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
 
 @SuppressLint({ "ValidFragment", "NewApi" })
-public class HomeFragment1 extends Fragment implements OnClickListener{
+public class HomeFragment1 extends BaseFragment implements OnClickListener{
 	private Context context;
 	private View view; 
 	
@@ -49,22 +49,19 @@ public class HomeFragment1 extends Fragment implements OnClickListener{
 	private HorizontalScrollView horizontalScrollView;
 	private LinearLayout linearLayout;
 	
-	private TaskAsyncUtil taskAsyncUtil;
-	
 	private final int height = 70;
 	private int H_width;
 	
 	private ArrayList<Classify> classifyList = new ArrayList<Classify>();
 	private int length = 0;
-	private String title[] = { "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "tem" };
-	
-	
+
 	public void setFragmentManager(FragmentManager fragmentManager) {
 		this.fragmentManager = fragmentManager;
 	}
 	
 	public HomeFragment1(Context context) {
 		// TODO Auto-generated constructor stub
+		super(context);
 		this.context = context;
 		try {
 			mOnTouchLister = (OnTouchListViewListener)this.context;
@@ -79,35 +76,9 @@ public class HomeFragment1 extends Fragment implements OnClickListener{
 		super.onActivityCreated(savedInstanceState);
 
 		getWidget();
-		initTask();
 		doTaskGetClassify();
-		
-		InitViewPager();
-		viewPager.setAdapter(new FragmentPagerAdapterSurvey(fragmentManager,fragmentsList));
-		viewPager.clearAnimation();
-		viewPager.setOnPageChangeListener(new OnPageChangeListener() {
-
-			@Override
-			public void onPageSelected(int arg0) {
-				setSelector(arg0);
-			}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				if(arg0==0&&arg2==0&&(arg1>-0.0001&&arg1<=0.0001)){
-					mOnTouchLister.onTouchListView();
-				}else if(arg0==viewPager.getChildCount() && arg2==0 && (arg1>-0.0001 && arg1<=0.0001)){
-					mOnTouchLister.onTouchListView();
-				}
-			}
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-
-			}
-		});
 	}
 
-	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -116,63 +87,76 @@ public class HomeFragment1 extends Fragment implements OnClickListener{
 		return view;
 	}	
 	
+	@Override
+	public void onTaskComplete(int taskId, BaseMessage message){
+		switch (taskId) {
+		case C.task.classifyList:
+			try {
+				classifyList = (ArrayList<Classify>) message.getResultList("Classify");
+				length = classifyList.size();
+				initTitle();
+				setSelector(0);
+				initViewPager();
+			} catch (Exception e) {
+				e.printStackTrace();
+				toast(e.getMessage());
+			}
+			break;
+		}
+	}
+	
 	public void getWidget(){
 		linearLayout = (LinearLayout) view.findViewById(R.id.ll_main);
 		viewPager = (ViewPager) view.findViewById(R.id.pager);
 		horizontalScrollView = (HorizontalScrollView) view.findViewById(R.id.horizontalScrollView);
 	}
 	
-	
 	public void doTaskGetClassify() {
 
 		try {
-			taskAsyncUtil.doTaskAsync(C.task.classifyList, C.api.classifyList);
+			this.doTaskAsync(C.task.classifyList, C.api.classifyList);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public void initTask(){
-		taskAsyncUtil = new TaskAsyncUtil(context){
-			@Override
-			public void onTaskComplete(int taskId, BaseMessage message){
-				
-				switch (taskId) {
-				case C.task.classifyList:
-					try {
-						classifyList = (ArrayList<Classify>) message.getResultList("Classify");
-						length = classifyList.size();
-						InItTitle();
-						setSelector(0);
-					} catch (Exception e) {
-						e.printStackTrace();
-						toast(e.getMessage());
-					}
-					break;
-				}
-			}
-		};
-	}
-	
-	
-	private void InitViewPager() {
+	private void initViewPager() {
 		 fragmentsList = new ArrayList<Fragment>();
+		 for (int i = 0; i < length; i++){
+			 Fragment surveyFragment = SurveyFragment1.newInstance(classifyList.get(i),context); 
+			 fragmentsList.add(surveyFragment);
+		 }
 		 
-		 Fragment activityfragment = SurveyFragment1.newInstance("Hello Activity.",context);
-		 Fragment groupFragment = SurveyFragment1.newInstance("Hello Group.",context);
-		 Fragment friendsFragment=SurveyFragment1.newInstance("Hello Friends.",context);
-		 Fragment chatFragment=SurveyFragment1.newInstance("Hello Chat.",context);
+		 viewPager.setAdapter(new FragmentPagerAdapterSurvey(fragmentManager,fragmentsList));
+		 
+		 viewPager.clearAnimation();
+		 viewPager.setOnPageChangeListener(new OnPageChangeListener() {
 
-		 fragmentsList.add(activityfragment);
-		 fragmentsList.add(groupFragment);
-		 fragmentsList.add(friendsFragment);
-		 fragmentsList.add(chatFragment);
+			 @Override
+			 public void onPageSelected(int arg0) {
+				 setSelector(arg0);
+			 }
+
+			 @Override
+			 public void onPageScrolled(int arg0, float arg1, int arg2) {
+				 if(arg0==0&&arg2==0&&(arg1>-0.0001&&arg1<=0.0001)){
+					 mOnTouchLister.onTouchListView();
+				 }else if(arg0==viewPager.getChildCount() && arg2==0 && (arg1>-0.0001 && arg1<=0.0001)){
+					 mOnTouchLister.onTouchListView();
+				 }
+			 }
+			 
+			 @Override
+			 public void onPageScrollStateChanged(int arg0) {
+
+			 }
+		 });
 	 }
 	
 	/***
 	 * init title
 	 */
-	public void InItTitle() {
+	public void initTitle() {
 		tvTitles = new ArrayList<TextView>();
 		H_width = ((Activity)context).getWindowManager().getDefaultDisplay().getWidth() / 4;
 		
