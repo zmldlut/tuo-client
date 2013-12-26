@@ -2,7 +2,7 @@ package com.myapp.model;
 
 import com.myapp.base.BaseModel;
 
-public class MicroBlog extends BaseModel {
+public class Microblog extends BaseModel {
 
 	public final static String COL_ID = "id";
 	public final static String COL_USERID = "userid";
@@ -56,7 +56,7 @@ public class MicroBlog extends BaseModel {
 		this.uptime = uptime;
 	}
 	
-	public MicroBlog() {
+	public Microblog() {
 		// TODO Auto-generated constructor stub
 	}
 

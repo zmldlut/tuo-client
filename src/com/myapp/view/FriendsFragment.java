@@ -14,9 +14,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myapp.R;
+import com.myapp.base.BaseAuth;
 import com.myapp.manager.MyFragmentManager;
 
 @SuppressLint({ "ValidFragment", "NewApi" })
@@ -24,13 +26,17 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 
 	private Context context;
 	private View view;
+	private FragmentManager fragmentManager;
+	
+	private Button sign;
+	private TextView userName;
 	
 	private int day;
 	private static final String SHAREDPREFERENCES_NAME = "mySign";
 	private int day_now;
-	private Button sign;
+	private static final int FRIENDS_MICROBLOG =1;
 	
-	private FragmentManager fragmentManager;
+	
 	
 	public void setFragmentManager(FragmentManager fragmentManager) {
 		this.fragmentManager = fragmentManager;
@@ -40,13 +46,11 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-		
-		MicroBlogFragment microBlog_frag = new MicroBlogFragment(context);
-		MyFragmentManager.microBlogFriendsFragmentChange(fragmentManager, microBlog_frag);
-		
 		getWidgetId();
 		setClickEvent();
 		setCalendarEvent();
+		MicroBlogFragment microBlog_frag = new MicroBlogFragment(context, R.layout.list_micro_blog, FRIENDS_MICROBLOG);
+		MyFragmentManager.microBlogFriendsFragmentChange(fragmentManager, microBlog_frag);
 	}
 	
 	public void setCalendarEvent() {
@@ -64,8 +68,8 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 	public void getWidgetId() {
 		
 		sign = (Button)view.findViewById(R.id.b_sign);
-		
-		
+		userName = (TextView)view.findViewById(R.id.tv_friends_userName);
+		userName.setText(BaseAuth.getUser().getName());
 	}
 	public void setClickEvent() {
 		sign.setOnClickListener(this);
@@ -88,10 +92,8 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 		        // Ìá½»ÐÞ¸Ä
 		        editor.commit();
 			sign.setClickable(false);
-			break;
-			
+			break;	
 		}
-		
 	}
 	
 	@Override

@@ -108,7 +108,7 @@ public final class R {
         public static final int LinearLayout1=0x7f0a0000;
         public static final int RelativeLayout1=0x7f0a0018;
         public static final int aaaa=0x7f0a000d;
-        public static final int action_settings=0x7f0a006d;
+        public static final int action_settings=0x7f0a006e;
         public static final int appInfo=0x7f0a002e;
         public static final int autotv_account=0x7f0a0008;
         public static final int b_about=0x7f0a004f;
@@ -212,8 +212,9 @@ public final class R {
         public static final int tv_title_bar_science=0x7f0a0025;
         public static final int tv_title_bar_sport=0x7f0a0022;
         public static final int tv_title_right=0x7f0a0060;
+        public static final int tv_user_home_userName=0x7f0a006c;
         public static final int tv_verify=0x7f0a004a;
-        public static final int user_fragment_layout=0x7f0a006c;
+        public static final int user_fragment_layout=0x7f0a006d;
         public static final int viewpager=0x7f0a0004;
     }
     public static final class layout {

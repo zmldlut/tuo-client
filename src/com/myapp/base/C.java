@@ -23,6 +23,8 @@ public final class C {
 		public static final String register			= "/index/register";
 		public static final String classifyList     = "/eio/classifyList";
 		public static final String eioList     		= "/eio/eioList";
+		public static final String userBlogList     = "/microblog/userBlogList";
+		public static final String blogList     	= "/microblog/blogList";
 		
 		public static final String notice			= "/notify/notice";
 	}
@@ -34,6 +36,8 @@ public final class C {
 		public static final int register            = 1004;
 		public static final int classifyList        = 1005;
 		public static final int eioList        		= 1006;
+		public static final int userBlogList		= 1007;
+		public static final int blogList 			= 1008;
 		
 		public static final int notice				= 1015;
 	}

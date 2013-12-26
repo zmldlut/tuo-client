@@ -148,7 +148,7 @@ public class SurveyFragment1 extends BaseFragment implements OnPageChangeListene
 			public void onRefresh() {
 				// TODO ÏÂÀ­Ë¢ÐÂ
 				Log.e(TAG, "onRefresh");
-				currentPage = 0;
+				currentPage = 1;
 
 				eioList.clear();
 				mList.clear();
