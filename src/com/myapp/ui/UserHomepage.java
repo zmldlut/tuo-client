@@ -82,7 +82,7 @@ public class UserHomepage extends BaseUi implements OnClickListener {
 		case R.id.b_bad:
 			SharedPreferences preferences = getSharedPreferences(
 		            SHAREDPREFERENCES_NAME, MODE_PRIVATE);
-			Toast.makeText(getApplicationContext(), "ƒ„∫›∫›µÿ≤»¡ÀTa£°", Toast.LENGTH_SHORT).show();
+			toast("ƒ„∫›∫›µÿ≤»¡ÀTa£°");
 			Calendar c = Calendar.getInstance();
 			int temp = c.get(Calendar.DAY_OF_MONTH);
 			Editor editor = preferences.edit();
@@ -101,5 +101,4 @@ public class UserHomepage extends BaseUi implements OnClickListener {
 		getMenuInflater().inflate(R.menu.user_homepage, menu);
 		return true;
 	}
-
 }

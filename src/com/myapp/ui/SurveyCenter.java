@@ -7,6 +7,7 @@ import java.util.TimerTask;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -15,17 +16,24 @@ import android.view.View.OnClickListener;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.myapp.R;
+import com.myapp.adapter.ListAdapterRight;
 import com.myapp.base.BaseAuth;
+import com.myapp.base.BaseMessage;
 import com.myapp.base.BaseUi;
+import com.myapp.base.C;
 import com.myapp.manager.MyFragmentManager;
+import com.myapp.model.Fans;
+import com.myapp.model.ListRightInfo;
+import com.myapp.model.Notice;
+import com.myapp.model.User;
 import com.myapp.view.BidirSlidingLayout;
 import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
 import com.myapp.view.FriendsFragment;
-import com.myapp.view.HomeFragment;
 import com.myapp.view.HomeFragment1;
 import com.myapp.view.SettingFragment;
 
@@ -55,6 +63,13 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 	///右侧控件
 	///
 	private TextView titleRight;
+	private ListView listViewRight;
+	private ListAdapterRight listAdapterNotice;
+	private ListAdapterRight listAdapterFriends;
+	private List<ListRightInfo> listNoticeInfo = new ArrayList<ListRightInfo>();
+	private List<ListRightInfo> listFriendsInfo = new ArrayList<ListRightInfo>();
+	private List<Notice> listNotice = new ArrayList<Notice>();
+	private List<Fans> listFriends = new ArrayList<Fans>();
 	
 	//////////////////////////////////////////////////////////////////////////////////////
 	
@@ -76,11 +91,73 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.survey_center);
-		
         getWidget();
     	setEvent();
     	setHomeFrag();
-    	initView();
+    	
+    	doTaskGetRightList();
+	}
+	
+	@Override
+	public void onTaskComplete(int taskId, BaseMessage message){
+		switch (taskId) {
+		case C.task.fansList:
+			try {
+				listFriends.clear();
+				listFriends = (ArrayList<Fans>) message.getResultList("Fans");
+				buildAppData1(listFriends);
+			} catch (Exception e) {
+				e.printStackTrace();
+				toast(e.getMessage());
+			}
+			break;
+		case C.task.noticeList:
+			try {
+				listNotice.clear();
+				listNotice = (ArrayList<Notice>) message.getResultList("Notice");
+				buildAppData(listNotice);
+			} catch (Exception e) {
+				e.printStackTrace();
+				toast(e.getMessage());
+			}
+			break;
+		}
+		initView();
+	}
+	
+	public void doTaskGetRightList(){
+		try {
+			this.doTaskAsync(C.task.noticeList, C.api.noticeList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			this.doTaskAsync(C.task.fansList, C.api.fansList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void buildAppData(List<Notice> list_notice){
+		for (int i = 0; i < list_notice.size(); i++) {
+			ListRightInfo ai = new ListRightInfo();
+			ai.setListRightIcon(BitmapFactory.decodeResource(getResources(),
+					R.drawable.eio_icon));
+			ai.setListRightName(list_notice.get(i).getFromname());
+			ai.setListRightContent(list_notice.get(i).getContent());
+			listNoticeInfo.add(ai);
+		}
+	}
+	
+	public void buildAppData1(List<Fans> list_friends){
+		for (int i = 0; i < list_friends.size(); i++) {
+			ListRightInfo ai = new ListRightInfo();
+			ai.setListRightIcon(BitmapFactory.decodeResource(getResources(),
+					R.drawable.eio_icon));
+			ai.setListRightName(list_friends.get(i).getName());
+			ai.setListRightContent(list_friends.get(i).getScore());
+			listFriendsInfo.add(ai);
+		}
 	}
 	
 	public void getWidget(){
@@ -109,6 +186,7 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 		///右侧控件
 		bidirSldingLayout = (BidirSlidingLayout) findViewById(R.id.bidir_sliding_layout);  
 		titleRight = (TextView)findViewById(R.id.tv_title_right);
+		listViewRight = (ListView)findViewById(R.id.s_lv_right);
 	}
 	
 	public void setEvent() {
@@ -134,6 +212,9 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 		userName.setText(name);
 		titleCenter.setText("调查中心");
 		titleRight.setText("消息列表");
+		listAdapterNotice = new ListAdapterRight(SurveyCenter.this, listNoticeInfo);
+		listAdapterFriends = new ListAdapterRight(SurveyCenter.this, listFriendsInfo);
+		listViewRight.setAdapter(listAdapterNotice);
 	}
 	
 	class myListener implements OnClickListener {
@@ -202,6 +283,8 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 		MyFragmentManager.myChangeFragment(getSupportFragmentManager(), home_frag);
 		titleCenter.setText("调查中心");
 		titleRight.setText("消息列表");
+		listViewRight.setAdapter(listAdapterNotice);
+		listAdapterNotice.notifyDataSetChanged(); 
 	}
 	
 	public void friendsGroupClick(){
@@ -211,6 +294,8 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 		MyFragmentManager.myChangeFragment(getSupportFragmentManager(), friends_frag);
 		titleCenter.setText("朋友圈");
 		titleRight.setText("好友列表");
+		listViewRight.setAdapter(listAdapterFriends);
+		listAdapterFriends.notifyDataSetChanged(); 
 	}
 	
 	public void settingClick(){
@@ -220,6 +305,7 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 		MyFragmentManager.myChangeFragment(getSupportFragmentManager(), setting_frag);
 		titleCenter.setText("设置");
 		titleRight.setText("带扩展列表");
+		listViewRight.setAdapter(null);
 	}
 	
 	@Override  

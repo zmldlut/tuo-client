@@ -6,7 +6,14 @@ public class ListRightInfo {
 
 	private Bitmap listRightIcon;
 	private String listRightName;
+	private String listRightContent;
 	
+	public String getListRightContent() {
+		return listRightContent;
+	}
+	public void setListRightContent(String listRightContent) {
+		this.listRightContent = listRightContent;
+	}
 	public Bitmap getListRightIcon() {
 		return listRightIcon;
 	}

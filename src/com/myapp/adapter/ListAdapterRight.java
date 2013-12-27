@@ -35,6 +35,7 @@ public class ListAdapterRight extends BaseAdapter {
 	private static class ViewItemHolder {
 		private ImageView mImage;
 		private TextView mName;
+		private TextView mContent;
 	}
 
 	@Override
@@ -66,9 +67,9 @@ public class ListAdapterRight extends BaseAdapter {
 			convertView = mInflater.inflate(R.layout.list_friends_item, null);
 
 			holder = new ViewItemHolder();
-			holder.mImage = (ImageView) convertView
-					.findViewById(R.id.ivIcon);
+			holder.mImage = (ImageView) convertView.findViewById(R.id.ivIcon);
 			holder.mName = (TextView) convertView.findViewById(R.id.tvName);
+			holder.mContent = (TextView) convertView.findViewById(R.id.tvContent);
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewItemHolder) convertView.getTag();
@@ -77,7 +78,7 @@ public class ListAdapterRight extends BaseAdapter {
 		ListRightInfo ai = mList.get(position);
 		holder.mImage.setImageBitmap(ai.getListRightIcon());
 		holder.mName.setText(ai.getListRightName());
-
+		holder.mContent.setText(ai.getListRightContent());
 		return convertView;
 	}
 
