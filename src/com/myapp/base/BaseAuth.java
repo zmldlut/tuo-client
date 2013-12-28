@@ -19,12 +19,17 @@ public class BaseAuth {
 	}
 	
 	static public void setUser (User mc) {
-		User customer = User.getInstance();
-		customer.setId(mc.getId());
-		customer.setSid(mc.getSid());
-		customer.setName(mc.getName());
-		customer.setSign(mc.getSign());
-		customer.setFace(mc.getFace());
+		User user = User.getInstance();
+		user.setId(mc.getId());
+		user.setSid(mc.getSid());
+		user.setName(mc.getName());
+		user.setSign(mc.getSign());
+		user.setFace(mc.getFace());
+		user.setSex(mc.getSex());
+		user.setLocation(mc.getLocation());
+		user.setBirthday(mc.getBirthday());
+		user.setPass(mc.getPass());
+		user.setScore(mc.getScore());
 	}
 	
 	static public User getUser () {
