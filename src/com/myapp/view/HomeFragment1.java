@@ -87,6 +87,7 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 		return view;
 	}	
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onTaskComplete(int taskId, BaseMessage message){
 		switch (taskId) {
@@ -156,6 +157,7 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 	/***
 	 * init title
 	 */
+	@SuppressWarnings("deprecation")
 	public void initTitle() {
 		tvTitles = new ArrayList<TextView>();
 		H_width = ((Activity)context).getWindowManager().getDefaultDisplay().getWidth() / 4;

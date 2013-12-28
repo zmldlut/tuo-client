@@ -17,7 +17,6 @@ import com.myapp.R;
 import com.myapp.ui.About;
 import com.myapp.ui.Client;
 import com.myapp.ui.ContactUs;
-import com.myapp.ui.MainActivity;
 
 
 @SuppressLint({ "ValidFragment", "NewApi" })
@@ -66,12 +65,12 @@ public class SettingFragment extends Fragment implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.b_logout:
-			intent.setClass(getActivity(), MainActivity.class);
-			startActivity(intent);
+			
 			getActivity().finish();
 			break;
 		}
 	}
+	
 	public void getWidgetId(){
 		contact = (Button)view.findViewById(R.id.b_contact);
 		user_information = (Button)view.findViewById(R.id.b_user_information);

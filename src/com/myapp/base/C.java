@@ -28,6 +28,7 @@ public final class C {
 		public static final String noticeList		= "/notify/noticeList";
 		public static final String fansList			= "/friends/fansList";
 		public static final String updateUserInfo 	= "/index/update";
+		public static final String feedBack 		= "/feedback/add";
 		
 		public static final String notice			= "/notify/notice";
 	}
@@ -44,6 +45,7 @@ public final class C {
 		public static final int noticeList 			= 1009;
 		public static final int fansList 			= 1010;
 		public static final int updateUserInfo		= 1011;
+		public static final int feedBack			= 1012;
 		
 		public static final int notice				= 1015;
 	}

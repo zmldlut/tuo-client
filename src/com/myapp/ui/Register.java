@@ -9,9 +9,7 @@ import java.util.Map;
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -25,7 +23,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 import com.myapp.R;
-import com.myapp.base.BaseAuth;
 import com.myapp.base.BaseMessage;
 import com.myapp.base.BaseUi;
 import com.myapp.base.C;
@@ -41,8 +38,8 @@ public class Register extends BaseUi {
 	private RadioGroup radioGroup;
 	private RadioButton rdb_boy;
 	private RadioButton rdb_gril;
-	private Button btn_date;
-	private EditText edit_verify;
+//	private Button btn_date;
+//	private EditText edit_verify;
 	
 	private ImageButton r_cancel;
 	private Button r_date;
@@ -116,7 +113,6 @@ public class Register extends BaseUi {
 		
 		public void onClick(View v) {
 			int id = v.getId();
-			Intent intent = new Intent();
 			switch (id) {
 			case R.id.b_date:
 				operateDate();

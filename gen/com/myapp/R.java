@@ -136,8 +136,8 @@ public final class R {
         public static final int content=0x7f0a0063;
         public static final int cs_main_dialog_close=0x7f0a0035;
         public static final int cs_main_dialog_text=0x7f0a0034;
-        public static final int editText=0x7f0a0015;
         public static final int editText1=0x7f0a004c;
+        public static final int editText_feedback=0x7f0a0015;
         public static final int et_account=0x7f0a0043;
         public static final int et_modify=0x7f0a003a;
         public static final int et_password=0x7f0a0009;

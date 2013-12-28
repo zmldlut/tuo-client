@@ -66,33 +66,4 @@ public class NoticeService extends BaseService {
 			}
 		});
 	}
-	
-//	@Override
-//	public void onTaskComplete (int taskId, BaseMessage message) {
-//		try {
-//			Notice notice = (Notice) message.getResult("Notice");
-//			showNotification(notice.getMessage());
-//		} catch (Exception e) {
-////			e.printStackTrace();
-//		}
-//	}
-//	
-//	private void showNotification(String text) {
-//		try {
-//			Notification n = new Notification();
-//			n.flags |= Notification.FLAG_SHOW_LIGHTS;
-//	      	n.flags |= Notification.FLAG_AUTO_CANCEL;
-//	        n.defaults = Notification.DEFAULT_ALL;
-//			n.icon = com.app.demos.R.drawable.icon;
-//			n.when = System.currentTimeMillis();
-//			// Simply open the parent activity
-//			PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, UiBlogs.class), 0);
-//			// Change the name of the notification here
-//			n.setLatestEventInfo(this, "demos Notice", text, pi);
-//			// show notification
-//			notiManager.notify(ID, n);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
 }

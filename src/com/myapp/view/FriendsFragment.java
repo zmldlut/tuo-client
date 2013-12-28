@@ -53,6 +53,7 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 		MyFragmentManager.microBlogFriendsFragmentChange(fragmentManager, microBlog_frag);
 	}
 	
+	@SuppressWarnings("static-access")
 	public void setCalendarEvent() {
 		SharedPreferences preferences = context.getSharedPreferences(
 	            SHAREDPREFERENCES_NAME, context.MODE_PRIVATE);
@@ -75,6 +76,7 @@ public class FriendsFragment extends Fragment implements OnClickListener {
 		sign.setOnClickListener(this);
 	}
 	
+	@SuppressWarnings("static-access")
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub

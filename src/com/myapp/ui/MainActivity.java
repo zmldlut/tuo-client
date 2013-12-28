@@ -42,7 +42,7 @@ public class MainActivity extends BaseUi {
 		super.onCreate(savedInstanceState);
 		// check if login
 		if (BaseAuth.isLogin()) {
-			this.forward(Register.class);
+			this.forward(SurveyCenter.class);
 		}
 		setContentView(R.layout.activity_main);
 		

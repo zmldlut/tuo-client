@@ -1,7 +1,6 @@
 package com.myapp.ui;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -24,7 +23,6 @@ public class About extends Activity implements OnClickListener {
 	
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent();
 		switch(v.getId()){
 		case R.id.ib_about_to_setting:
 			myReturn.setImageResource(R.drawable.arrow_left_pressed);

@@ -1,14 +1,14 @@
 package com.myapp.ui;
 
-import com.myapp.R;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.Menu;
+
+import com.myapp.R;
 
 public class StartActivity extends Activity {
 	boolean isFirstIn;
@@ -18,7 +18,8 @@ public class StartActivity extends Activity {
     private static final long SPLASH_DELAY_MILLIS = 3000;
     private static final String SHAREDPREFERENCES_NAME = "first_pref";
 
-    private Handler mHandler = new Handler() {
+    @SuppressLint("HandlerLeak")
+	private Handler mHandler = new Handler() {
 
         @Override
         public void handleMessage(Message msg) {
@@ -44,7 +45,6 @@ public class StartActivity extends Activity {
 		setContentView(R.layout.activity_start);
 		
 		init();
-//		setEvent();
 	}
 
 	private void init() {
@@ -58,16 +58,4 @@ public class StartActivity extends Activity {
             mHandler.sendEmptyMessageDelayed(GO_GUIDE, SPLASH_DELAY_MILLIS);
         }
 	}
-	
-//	public void setEvent() {
-//		intent = new Intent();
-//		Timer timer = new Timer();
-//		TimerTask task = new TimerTask() {
-//			public void run() {
-//				startActivity(intent);
-//				finish();
-//			}
-//		};
-//		timer.schedule(task, 1000*3);
-//	}
 }

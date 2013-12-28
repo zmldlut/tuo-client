@@ -44,7 +44,7 @@
         android:layout_marginRight="20sp">
 	        
 	    <EditText
-	        android:id="@+id/editText"
+	        android:id="@+id/editText_feedback"
 	        android:layout_width="match_parent"
 	        android:layout_height="190dp"
 	        android:ems="10"

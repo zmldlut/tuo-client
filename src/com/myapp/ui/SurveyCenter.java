@@ -30,7 +30,6 @@ import com.myapp.manager.MyFragmentManager;
 import com.myapp.model.Fans;
 import com.myapp.model.ListRightInfo;
 import com.myapp.model.Notice;
-import com.myapp.model.User;
 import com.myapp.view.BidirSlidingLayout;
 import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
 import com.myapp.view.FriendsFragment;
@@ -98,6 +97,7 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
     	doTaskGetRightList();
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public void onTaskComplete(int taskId, BaseMessage message){
 		switch (taskId) {
@@ -333,6 +333,7 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
         return super.onKeyDown(keyCode, event);  
     }
 
+	@SuppressWarnings("static-access")
 	@Override
 	public void onTouchListView() {
 		// TODO Auto-generated method stub

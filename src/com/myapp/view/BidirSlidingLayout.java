@@ -140,7 +140,8 @@ public class BidirSlidingLayout extends RelativeLayout implements OnTouchListene
      */  
     private VelocityTracker mVelocityTracker;  
     
-    private static boolean mIsAlreadySetViewState = true;
+    @SuppressWarnings("unused")
+	private static boolean mIsAlreadySetViewState = true;
     private boolean mIsBeingDragged;
 	private float mLastMotionX;
 	private float mLastMotionY;
@@ -155,7 +156,8 @@ public class BidirSlidingLayout extends RelativeLayout implements OnTouchListene
      * @param context 
      * @param attrs 
      */  
-    public BidirSlidingLayout(Context context, AttributeSet attrs) {  
+    @SuppressWarnings("deprecation")
+	public BidirSlidingLayout(Context context, AttributeSet attrs) {  
         super(context, attrs);  
         
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);  

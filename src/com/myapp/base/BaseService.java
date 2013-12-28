@@ -32,6 +32,7 @@ public class BaseService extends Service {
 		super.onCreate();
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public void onStart(Intent intent, int startId) {
 		super.onStart(intent, startId);
