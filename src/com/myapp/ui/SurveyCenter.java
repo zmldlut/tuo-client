@@ -75,6 +75,8 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 	private List<Fans> listFriends = new ArrayList<Fans>();
 	
 	//////////////////////////////////////////////////////////////////////////////////////
+
+	
 	
 	private int currentSelectIndex = 0;
 
@@ -101,7 +103,7 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
         getWidget();
     	setEvent();
     	setHomeFrag();
-    	
+//    	surveyCenterClick();
     	doTaskGetRightList();
 	}
 	
@@ -240,6 +242,7 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 //		home_frag.setFragmentManager(getSupportFragmentManager());
 //		MyFragmentManager.myChangeFragment(getSupportFragmentManager(),home_frag);
 		HomeFragment1 home_frag = new HomeFragment1(SurveyCenter.this);
+
 		home_frag.setFragmentManager(getSupportFragmentManager());
 		MyFragmentManager.myChangeFragment(getSupportFragmentManager(),home_frag);
 	}
@@ -323,14 +326,15 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 	}
 	
 	public void surveyCenterClick(){
-		bidirSldingLayout.scrollToContentFromLeftMenu();
 		HomeFragment1 home_frag = new HomeFragment1(SurveyCenter.this);
+		
 		home_frag.setFragmentManager(getSupportFragmentManager());
 		MyFragmentManager.myChangeFragment(getSupportFragmentManager(), home_frag);
-		titleCenter.setText("调查中心");
+		titleCenter.setText("调查中心"); 
 		titleRight.setText("消息列表");
 		listViewRight.setAdapter(listAdapterNotice);
 		listAdapterNotice.notifyDataSetChanged(); 
+		bidirSldingLayout.scrollToContentFromLeftMenu();
 	}
 	
 	public void friendsGroupClick(){
@@ -346,6 +350,7 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 	
 	public void settingClick(){
 		bidirSldingLayout.scrollToContentFromLeftMenu();
+
 		SettingFragment setting_frag = new SettingFragment(SurveyCenter.this);
 		setting_frag.setFragmentManager(getSupportFragmentManager());
 		MyFragmentManager.myChangeFragment(getSupportFragmentManager(), setting_frag);

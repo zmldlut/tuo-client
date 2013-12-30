@@ -39,7 +39,7 @@ public class SurveyFragment1 extends BaseFragment implements OnPageChangeListene
 	private Classify classify = new Classify();
 	private List<Eio> eioList = new ArrayList<Eio>();
 	
-	private static final String TAG = "SingleFragment";
+	private static final String TAG = "SurveyFragment1";
 	
 	private static final int LOAD_DATA_FINISH = 10;
 	private static final int REFRESH_DATA_FINISH = 11;
@@ -83,6 +83,7 @@ public class SurveyFragment1 extends BaseFragment implements OnPageChangeListene
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i(TAG, TAG+"-----onCreate");
     }
 	
 	@Override
@@ -122,7 +123,7 @@ public class SurveyFragment1 extends BaseFragment implements OnPageChangeListene
 				eioList = (ArrayList<Eio>) message.getResultList("Eio");
 				if(eioList.size()==0||eioList==null){
 					currentPage--;
-				}
+				} 
 				buildAppData(eioList);
 				initView();
 				initViewPagers();
@@ -137,6 +138,8 @@ public class SurveyFragment1 extends BaseFragment implements OnPageChangeListene
 	}
 	
 	private void initView() {
+		Log.d(TAG, "SurveyFragment1-----initView");
+		
 		mAdapter = new ListAdapterMicroBlog(context, mList);
 		mListView = (SingleLayoutListView) view.findViewById(R.id.mListView1);
 		/////////////////////////////////////////////////////////////////////////////
@@ -185,6 +188,8 @@ public class SurveyFragment1 extends BaseFragment implements OnPageChangeListene
 		mListView.setDoRefreshOnUIChanged(true);
 	}
 	 private void initViewPagers() {
+		 Log.d(TAG, "SurveyFragment1-----initViewPagers");
+		 
 	        LayoutInflater inflater = LayoutInflater.from(context);
 
 	        views = new ArrayList<View>();
@@ -201,7 +206,7 @@ public class SurveyFragment1 extends BaseFragment implements OnPageChangeListene
 	        vp.setAdapter(sViewAdapter);
 	        // °ó¶¨»Øµ÷
 	        vp.setOnPageChangeListener(this);
-	    }
+	 }
 	
 	private void initDots() {
         LinearLayout ll = (LinearLayout) view.findViewById(R.id.ll);

@@ -38,12 +38,11 @@ public class UserHomepage extends BaseUi implements OnClickListener {
 	private String face;
 	private String faceUrl;
 	
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_homepage);
-		
+	
 		getWidgetId();
 		setClickEvent();
 		initView();

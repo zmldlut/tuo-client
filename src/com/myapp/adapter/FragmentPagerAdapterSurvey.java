@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class FragmentPagerAdapterSurvey extends FragmentPagerAdapter {
+public class FragmentPagerAdapterSurvey extends FragmentStatePagerAdapter  {
     private ArrayList<Fragment> fragmentsList;
 
     public FragmentPagerAdapterSurvey(FragmentManager fm) {

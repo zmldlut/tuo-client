@@ -36,6 +36,9 @@ import com.myapp.view.CenterLinearLayout.OnTouchListViewListener;
 
 @SuppressLint({ "ValidFragment", "NewApi" })
 public class HomeFragment1 extends BaseFragment implements OnClickListener{
+	
+	private static final String TAG = "HomeFragment1";
+	
 	private Context context;
 	private View view; 
 	
@@ -43,8 +46,8 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 	private OnTouchListViewListener mOnTouchLister;
 
 	private ViewPager viewPager;
-	private ArrayList<Fragment> fragmentsList;
-	private List<TextView> tvTitles;
+	private ArrayList<Fragment> fragmentsList = new ArrayList<Fragment>();
+	private List<TextView> tvTitles = new ArrayList<TextView>();
 	
 	private HorizontalScrollView horizontalScrollView;
 	private LinearLayout linearLayout;
@@ -63,6 +66,7 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 		// TODO Auto-generated constructor stub
 		super(context);
 		this.context = context;
+		Log.i(TAG, TAG+"-----HomeFragment1");
 		try {
 			mOnTouchLister = (OnTouchListViewListener)this.context;
 		} catch (ClassCastException e) {
@@ -74,7 +78,7 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 	public void onActivityCreated(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onActivityCreated(savedInstanceState);
-
+		Log.i(TAG, TAG+"-----onActivityCreated");
 		getWidget();
 		doTaskGetClassify();
 	}
@@ -82,6 +86,7 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		Log.i(TAG, TAG+"-----onCreateView");
 		// TODO Auto-generated method stub
 		view = inflater.inflate(R.layout.home_fragment1, container, false);
 		return view;
@@ -106,12 +111,6 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 		}
 	}
 	
-	public void getWidget(){
-		linearLayout = (LinearLayout) view.findViewById(R.id.ll_main);
-		viewPager = (ViewPager) view.findViewById(R.id.pager);
-		horizontalScrollView = (HorizontalScrollView) view.findViewById(R.id.horizontalScrollView);
-	}
-	
 	public void doTaskGetClassify() {
 
 		try {
@@ -121,13 +120,19 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 		}
 	}
 	
+	public void getWidget(){
+		Log.i(TAG, TAG+"-----getWidget");
+		linearLayout = (LinearLayout) view.findViewById(R.id.ll_main);
+		viewPager = (ViewPager) view.findViewById(R.id.pager);
+		horizontalScrollView = (HorizontalScrollView) view.findViewById(R.id.horizontalScrollView);
+	}
+	
 	private void initViewPager() {
 		 fragmentsList = new ArrayList<Fragment>();
 		 for (int i = 0; i < length; i++){
 			 Fragment surveyFragment = SurveyFragment1.newInstance(classifyList.get(i),context); 
 			 fragmentsList.add(surveyFragment);
 		 }
-		 
 		 viewPager.setAdapter(new FragmentPagerAdapterSurvey(fragmentManager,fragmentsList));
 		 
 		 viewPager.clearAnimation();
@@ -152,6 +157,7 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 
 			 }
 		 });
+		 viewPager.setCurrentItem(0);
 	 }
 	
 	/***
@@ -159,7 +165,8 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 	 */
 	@SuppressWarnings("deprecation")
 	public void initTitle() {
-		tvTitles = new ArrayList<TextView>();
+		
+		tvTitles.clear();
 		H_width = ((Activity)context).getWindowManager().getDefaultDisplay().getWidth() / 4;
 		
 		for (int i = 0; i < length; i++) {
@@ -168,7 +175,7 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 			textView.setTextSize(17);
 			textView.setTextColor(Color.BLACK);
 			textView.setWidth(H_width);
-			Log.e("aa", "text_width=" + textView.getWidth());
+			
 			textView.setHeight(height - 30);
 			textView.setGravity(Gravity.CENTER);
 			textView.setId(i);
@@ -186,7 +193,6 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 			if (i != length - 1) {
 				linearLayout.addView(view);
 			}
-			Log.e("aa", "linearLayout_width=" + linearLayout.getWidth());
 
 		}
 	}
