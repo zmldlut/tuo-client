@@ -29,6 +29,8 @@ public final class C {
 		public static final String fansList			= "/friends/fansList";
 		public static final String updateUserInfo 	= "/index/update";
 		public static final String feedBack 		= "/feedback/add";
+		public static final String checkIn			= "/microblog/checkin";
+		public static final String stamp			= "/microblog/stamp";
 		
 		public static final String notice			= "/notify/notice";
 	}
@@ -46,6 +48,8 @@ public final class C {
 		public static final int fansList 			= 1010;
 		public static final int updateUserInfo		= 1011;
 		public static final int feedBack			= 1012;
+		public static final int checkIn 			= 1013;
+		public static final int stamp 				= 1014;
 		
 		public static final int notice				= 1015;
 	}

@@ -176,8 +176,6 @@ public class SurveyFragment1 extends BaseFragment implements OnPageChangeListene
 					int position, long id) {
 				// 此处传回来的position和mAdapter.getItemId()获取的一致;
 				Log.e(TAG, "click position:" + position);
-				// Log.e(TAG,
-				// "__ mAdapter.getItemId() = "+mAdapter.getItemId(position));
 			}
 		});		
 		mListView.setCanLoadMore(true);

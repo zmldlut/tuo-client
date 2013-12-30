@@ -1,9 +1,16 @@
 package com.myapp.model;
 
+import java.io.Serializable;
+
 import com.myapp.base.BaseModel;
 
-public class Fans extends BaseModel {
+public class Fans extends BaseModel implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 964700345969804553L;
+	
 	// model columns
 	public final static String COL_ID = "id";
 	public final static String COL_NAME = "name";

@@ -25,6 +25,7 @@ public class BaseAuth {
 		user.setName(mc.getName());
 		user.setSign(mc.getSign());
 		user.setFace(mc.getFace());
+		user.setFaceurl(mc.getFaceurl());
 		user.setSex(mc.getSex());
 		user.setLocation(mc.getLocation());
 		user.setBirthday(mc.getBirthday());

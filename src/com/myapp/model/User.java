@@ -1,9 +1,16 @@
 package com.myapp.model;
 
+import java.io.Serializable;
+
 import com.myapp.base.BaseModel;
 
-public class User extends BaseModel {
+public class User extends BaseModel implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5413000072711067814L;
+	
 	// model columns
 	public final static String COL_ID = "id";
 	public final static String COL_SID = "sid";

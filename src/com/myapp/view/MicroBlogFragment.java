@@ -17,7 +17,6 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.myapp.R;
 import com.myapp.adapter.ListAdapterMicroBlog;
-import com.myapp.base.BaseAuth;
 import com.myapp.base.BaseFragment;
 import com.myapp.base.BaseMessage;
 import com.myapp.base.C;
@@ -32,6 +31,7 @@ public class MicroBlogFragment extends BaseFragment {
 	private Context context;
 	private View view; 
 	private int uiId;
+	private String userId;
 	
 	private static final String TAG = "MicroBlogFragment";
 	
@@ -56,18 +56,29 @@ public class MicroBlogFragment extends BaseFragment {
 		// TODO Auto-generated constructor stub
 		this.context = context;
 	}
+	
 	public MicroBlogFragment(Context context, int myXml) {
 		super(context);
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.myXml = myXml;
 	}
+	
 	public MicroBlogFragment(Context context, int myXml, int uiId) {
 		super(context);
 		// TODO Auto-generated constructor stub
 		this.context = context;
 		this.myXml = myXml;
 		this.uiId = uiId;
+	}
+	
+	public MicroBlogFragment(Context context, int myXml, int uiId, String id) {
+		super(context);
+		// TODO Auto-generated constructor stub
+		this.context = context;
+		this.myXml = myXml;
+		this.uiId = uiId;
+		this.userId = id;
 	}
 
 	@Override
@@ -116,7 +127,7 @@ public class MicroBlogFragment extends BaseFragment {
 		
 		HashMap<String, String> urlParams = new HashMap<String, String>();
 		if(uiId == this.USER_MICROBLOG){
-			urlParams.put("userId", BaseAuth.getUser().getId());
+			urlParams.put("userId", userId);
 			urlParams.put("pageId", ""+pageId);
 			try {
 				this.doTaskAsync(C.task.userBlogList, C.api.userBlogList, urlParams);

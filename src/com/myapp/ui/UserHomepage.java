@@ -1,6 +1,7 @@
 package com.myapp.ui;
 
 import java.util.Calendar;
+import java.util.HashMap;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
@@ -15,7 +16,9 @@ import android.widget.TextView;
 
 import com.myapp.R;
 import com.myapp.base.BaseAuth;
+import com.myapp.base.BaseMessage;
 import com.myapp.base.BaseUi;
+import com.myapp.base.C;
 import com.myapp.manager.MyFragmentManager;
 import com.myapp.view.MicroBlogFragment;
 
@@ -29,6 +32,12 @@ public class UserHomepage extends BaseUi implements OnClickListener {
 	private static final String SHAREDPREFERENCES_NAME = "myClick";
 	private int day_now;
 	private static final int USER_MICROBLOG = 0;
+	
+	private String id;
+	private String name;
+	private String face;
+	private String faceUrl;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -37,9 +46,9 @@ public class UserHomepage extends BaseUi implements OnClickListener {
 		
 		getWidgetId();
 		setClickEvent();
-		setCalendarEvent();
 		initView();
-		MicroBlogFragment microBlog_frag = new MicroBlogFragment(UserHomepage.this, R.layout.list_micro_blog_user, USER_MICROBLOG);
+		setCalendarEvent();
+		MicroBlogFragment microBlog_frag = new MicroBlogFragment(UserHomepage.this, R.layout.list_micro_blog_user, USER_MICROBLOG, id);
 		MyFragmentManager.microBlogFragmentChange(getSupportFragmentManager(),microBlog_frag);
 	}
 	
@@ -47,9 +56,9 @@ public class UserHomepage extends BaseUi implements OnClickListener {
 	public void setCalendarEvent() {
 		SharedPreferences preferences = getSharedPreferences(
 	            SHAREDPREFERENCES_NAME, MODE_PRIVATE);
-		day = preferences.getInt("day", -1);
+		day = preferences.getInt(id, -1);
 		Calendar c = Calendar.getInstance();
-		day_now = c.get(Calendar.DAY_OF_MONTH);
+		day_now = c.get(Calendar.DAY_OF_YEAR);
 		if(day_now >= (day + 1) || day == -1) {
 			bad.setClickable(true);
 		}else {
@@ -62,13 +71,52 @@ public class UserHomepage extends BaseUi implements OnClickListener {
 		userName = (TextView)findViewById(R.id.tv_user_home_userName);
 		
 	}
+	
 	public void setClickEvent() {
 		last_view.setOnClickListener(this);
 		bad.setOnClickListener(this);
 	}
 	
 	public void initView(){
-		userName.setText(BaseAuth.getUser().getName());
+		Bundle bundle = this.getIntent().getExtras();
+		id = bundle.getString("id");
+		name = bundle.getString("name");
+		face = bundle.getString("face");
+		faceUrl = bundle.getString("faceUrl");
+		
+		userName.setText(name);
+		
+		if(id.equals(BaseAuth.getUser().getId())){
+			bad.setVisibility(View.INVISIBLE);
+		}
+	}
+	
+	public void doTaskStamp(){	
+		
+		try {
+			HashMap<String, String> urlParams = new HashMap<String, String>();
+			urlParams.put("stamponId", id);
+			this.doTaskAsync(C.task.stamp, C.api.stamp, urlParams);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void onTaskComplete(int taskId, BaseMessage message){
+		switch (taskId) {
+		case C.task.stamp:
+			try {
+				String codeReturn = message.getCode();
+				if(codeReturn.equals("10000")){
+					toast("明天继续来哦！");
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				toast(e.getMessage());
+			}
+			break;
+		}
 	}
 	
 	@Override
@@ -81,12 +129,12 @@ public class UserHomepage extends BaseUi implements OnClickListener {
 		case R.id.b_bad:
 			SharedPreferences preferences = getSharedPreferences(
 		            SHAREDPREFERENCES_NAME, MODE_PRIVATE);
-			toast("你狠狠地踩了Ta！");
+			doTaskStamp();
 			Calendar c = Calendar.getInstance();
-			int temp = c.get(Calendar.DAY_OF_MONTH);
+			int temp = c.get(Calendar.DAY_OF_YEAR);
 			Editor editor = preferences.edit();
 		        // 存入数据
-		    editor.putInt("day", temp);
+		    editor.putInt(id, temp);
 		        // 提交修改
 		    editor.commit();
 			bad.setClickable(false);

@@ -10,15 +10,18 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.myapp.R;
 import com.myapp.adapter.ListAdapterRight;
@@ -39,6 +42,7 @@ import com.myapp.view.SettingFragment;
 @SuppressLint("NewApi")
 public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 	
+	private static final String TAG = "SurveyCenter";
 	///
 	///左侧控件
 	///
@@ -75,8 +79,10 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 	private int currentSelectIndex = 0;
 
 	public BidirSlidingLayout bidirSldingLayout;
+	
 	private boolean isexit = false;   
-	private boolean hastask = false;  
+	private boolean hastask = false;
+	
 	Timer texit = new Timer();  
 	TimerTask task = new TimerTask() {  
         public void run() {  
@@ -85,6 +91,8 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
         }  
     };  
 	
+    //0:代表tap是“拖后腿”； 1:代表tap是“朋友圈”；2:代表tap是“设置”
+    private static int currentTapMenu = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -196,6 +204,35 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 		showLeftButton.setOnClickListener(new myListener());
 		showRightButton.setOnClickListener(new myListener());
 		bidirSldingLayout.setScrollEvent(content);
+		
+		listViewRight.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// 此处传回来的position和mAdapter.getItemId()获取的一致;
+				Log.e(TAG, "click position:" + position);
+//				toast("click position:" + position);
+				switch(currentTapMenu){
+				case 0:
+					break;
+				case 1:
+					Fans friend= listFriends.get(position);
+					Intent intent = new Intent();
+					Bundle bundle = new Bundle();
+					bundle.putString("id", friend.getId());
+					bundle.putString("name", friend.getName());
+					bundle.putString("face", friend.getFace());
+					bundle.putString("faceUrl", friend.getFaceurl());
+					intent.putExtras(bundle);
+					intent.setClass(SurveyCenter.this, UserHomepage.class);
+					startActivity(intent);
+					break;
+				case 2:
+					break;
+				}
+			}
+		});
 	}
 	
 	public void setHomeFrag() {
@@ -224,6 +261,12 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 			switch (v.getId()) {
 			case R.id.img_user:
 				Intent intent = new Intent();
+				Bundle bundle = new Bundle();
+				bundle.putString("id", BaseAuth.getUser().getId());
+				bundle.putString("name", BaseAuth.getUser().getName());
+				bundle.putString("face", BaseAuth.getUser().getFace());
+				bundle.putString("faceUrl", BaseAuth.getUser().getFaceurl());
+				intent.putExtras(bundle);
 				intent.setClass(SurveyCenter.this, UserHomepage.class);
 				startActivity(intent);
 				break;
@@ -263,12 +306,15 @@ public class SurveyCenter extends BaseUi implements OnTouchListViewListener{
 				currentSelectIndex = index;
 				switch(index) {
 				case 0:
+					currentTapMenu = 0;
 					surveyCenterClick();
 					break;
 				case 1:
+					currentTapMenu = 1;
 					friendsGroupClick();
 					break;
 				case 2:
+					currentTapMenu = 2;
 					settingClick();
 					break;
 				}
