@@ -237,17 +237,18 @@ public final class R {
         public static final int main_dialog=0x7f03000f;
         public static final int main_load=0x7f030010;
         public static final int modify_information=0x7f030011;
-        public static final int one=0x7f030012;
-        public static final int pull_to_refresh_head=0x7f030013;
-        public static final int pull_to_refresh_load_more=0x7f030014;
-        public static final int register=0x7f030015;
-        public static final int setting_fragment=0x7f030016;
-        public static final int survey_center=0x7f030017;
-        public static final int survey_fragment=0x7f030018;
-        public static final int survey_fragment1=0x7f030019;
-        public static final int three=0x7f03001a;
-        public static final int two=0x7f03001b;
-        public static final int user_homepage=0x7f03001c;
+        public static final int notice=0x7f030012;
+        public static final int one=0x7f030013;
+        public static final int pull_to_refresh_head=0x7f030014;
+        public static final int pull_to_refresh_load_more=0x7f030015;
+        public static final int register=0x7f030016;
+        public static final int setting_fragment=0x7f030017;
+        public static final int survey_center=0x7f030018;
+        public static final int survey_fragment=0x7f030019;
+        public static final int survey_fragment1=0x7f03001a;
+        public static final int three=0x7f03001b;
+        public static final int two=0x7f03001c;
+        public static final int user_homepage=0x7f03001d;
     }
     public static final class menu {
         public static final int about=0x7f090000;
