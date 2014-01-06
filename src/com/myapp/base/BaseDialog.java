@@ -49,5 +49,4 @@ public class BaseDialog {
 	public void show() {
 		mDialog.show();
 	}
-
 }

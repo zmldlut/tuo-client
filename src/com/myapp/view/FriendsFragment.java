@@ -33,11 +33,14 @@ public class FriendsFragment extends BaseFragment implements OnClickListener {
 	private TextView userName;
 	
 	private int day;
+	private int year;
 	private static final String SHAREDPREFERENCES_NAME = "mySign";
 	private int day_now;
+	private int year_now;
 	private static final int FRIENDS_MICROBLOG =1;
 	
-	private static final String USERID = BaseAuth.getUser().getId();
+	private static final String USERID = "id:"+BaseAuth.getUser().getId();
+	private static final String YEAR = USERID + "YEAR";
 	
 	
 	
@@ -61,9 +64,11 @@ public class FriendsFragment extends BaseFragment implements OnClickListener {
 		SharedPreferences preferences = context.getSharedPreferences(
 	            SHAREDPREFERENCES_NAME, context.MODE_PRIVATE);
 		day = preferences.getInt(USERID, -1);
+		year = preferences.getInt(YEAR, -1);
 		Calendar c = Calendar.getInstance();
 		day_now = c.get(Calendar.DAY_OF_YEAR);
-		if(day_now >= (day + 1) || day == -1) {
+		year_now = Calendar.YEAR;
+		if(day == -1||year == -1||year_now>year||day_now >= (day + 1)) {
 			sign.setClickable(true);
 		}else {
 			sign.setClickable(false);
@@ -97,6 +102,7 @@ public class FriendsFragment extends BaseFragment implements OnClickListener {
 			Editor editor = preferences.edit();
 			// 存入数据
 			editor.putInt(USERID, temp);
+			editor.putInt(YEAR, Calendar.YEAR);
 			// 提交修改
 			editor.commit();
 			sign.setClickable(false);

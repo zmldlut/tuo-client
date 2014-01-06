@@ -29,11 +29,14 @@ public class UserHomepage extends BaseUi implements OnClickListener {
 	private TextView userName;
 	
 	private int day;
+	private int year;
 	private static final String SHAREDPREFERENCES_NAME = "myClick";
 	private int day_now;
+	private int year_now;
 	private static final int USER_MICROBLOG = 0;
 	
 	private String id;
+	private String YEAR;
 	private String name;
 	private String face;
 	private String faceUrl;
@@ -51,14 +54,16 @@ public class UserHomepage extends BaseUi implements OnClickListener {
 		MyFragmentManager.microBlogFragmentChange(getSupportFragmentManager(),microBlog_frag);
 	}
 	
-
 	public void setCalendarEvent() {
 		SharedPreferences preferences = getSharedPreferences(
 	            SHAREDPREFERENCES_NAME, MODE_PRIVATE);
 		day = preferences.getInt(id, -1);
+		year = preferences.getInt(YEAR, -1);
 		Calendar c = Calendar.getInstance();
 		day_now = c.get(Calendar.DAY_OF_YEAR);
-		if(day_now >= (day + 1) || day == -1) {
+		year_now = Calendar.YEAR;
+		
+		if(year == -1||day == -1||year_now>year||day_now >= (day + 1)) {
 			bad.setClickable(true);
 		}else {
 			bad.setClickable(false);
@@ -78,14 +83,15 @@ public class UserHomepage extends BaseUi implements OnClickListener {
 	
 	public void initView(){
 		Bundle bundle = this.getIntent().getExtras();
-		id = bundle.getString("id");
+		id = bundle.getString("id")+"_id";
+		YEAR = id+"YEAR";
 		name = bundle.getString("name");
 		face = bundle.getString("face");
 		faceUrl = bundle.getString("faceUrl");
 		
 		userName.setText(name);
 		
-		if(id.equals(BaseAuth.getUser().getId())){
+		if(bundle.getString("id").equals(BaseAuth.getUser().getId())){
 			bad.setVisibility(View.INVISIBLE);
 		}
 	}
@@ -134,6 +140,7 @@ public class UserHomepage extends BaseUi implements OnClickListener {
 			Editor editor = preferences.edit();
 		        // 存入数据
 		    editor.putInt(id, temp);
+		    editor.putInt(YEAR, Calendar.YEAR);
 		        // 提交修改
 		    editor.commit();
 			bad.setClickable(false);

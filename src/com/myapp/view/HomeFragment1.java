@@ -147,7 +147,7 @@ public class HomeFragment1 extends BaseFragment implements OnClickListener{
 			 public void onPageScrolled(int arg0, float arg1, int arg2) {
 				 if(arg0==0&&arg2==0&&(arg1>-0.0001&&arg1<=0.0001)){
 					 mOnTouchLister.onTouchListView();
-				 }else if(arg0==viewPager.getChildCount() && arg2==0 && (arg1>-0.0001 && arg1<=0.0001)){
+				 }else if(arg0==viewPager.getChildCount()-1 && arg2==0 && (arg1>-0.0001 && arg1<=0.0001)){
 					 mOnTouchLister.onTouchListView();
 				 }
 			 }
